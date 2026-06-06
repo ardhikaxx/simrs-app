@@ -23,7 +23,7 @@
 ## 2. STRUKTUR DIREKTORI PROYEK
 
 ```
-simrs/
+simrs-app/
 ├── app/
 │   ├── Console/
 │   │   └── Kernel.php                          # Cron jobs (backup, auto-reminder, SLA checker)
