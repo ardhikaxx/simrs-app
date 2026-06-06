@@ -337,8 +337,14 @@
         </a>
 
         <div class="nav-category">Ancillary & Support</div>
-        <a href="{{ route('farmasi.antrian-resep') }}" class="nav-link-custom {{ request()->routeIs('farmasi.antrian-resep') ? 'active' : '' }}">
+        <a href="{{ route('farmasi.antrian-resep') }}" class="nav-link-custom {{ request()->routeIs('farmasi.antrian-resep', 'farmasi.dispense') ? 'active' : '' }}">
             <i class="fa-solid fa-prescription-bottle-medical"></i><span>E-Prescription</span>
+        </a>
+        <a href="{{ route('farmasi.inventory.index') }}" class="nav-link-custom {{ request()->routeIs('farmasi.inventory.*') ? 'active' : '' }}">
+            <i class="fa-solid fa-boxes-stacked"></i><span>Manajemen Inventori</span>
+        </a>
+        <a href="{{ route('farmasi.procurement.index') }}" class="nav-link-custom {{ request()->routeIs('farmasi.procurement.*') ? 'active' : '' }}">
+            <i class="fa-solid fa-truck-medical"></i><span>Pengadaan Obat (PO)</span>
         </a>
         <a href="{{ route('lab.antrian') }}" class="nav-link-custom {{ request()->routeIs('lab.*') ? 'active' : '' }}">
             <i class="fa-solid fa-vials"></i><span>Laboratorium</span>
@@ -352,12 +358,32 @@
             <i class="fa-solid fa-wallet"></i><span>Billing & Kasir</span>
         </a>
         <a href="{{ route('casemix.index') }}" class="nav-link-custom {{ request()->routeIs('casemix.*') ? 'active' : '' }}">
-            <i class="fa-solid fa-file-invoice-dollar"></i><span>Casemix / JKN</span>
+            <i class="fa-solid fa-file-invoice-dollar"></i><span>Casemix / INA-CBG</span>
+        </a>
+        <a href="{{ route('bpjs.index') }}" class="nav-link-custom {{ request()->routeIs('bpjs.*') ? 'active' : '' }}">
+            <i class="fa-solid fa-shield-heart"></i><span>Integrasi VClaim BPJS</span>
         </a>
         
+        <div class="nav-category">Reporting & Analytics</div>
+        <a href="{{ route('laporan.bi.dashboard') }}" class="nav-link-custom {{ request()->routeIs('laporan.bi.dashboard') ? 'active' : '' }}">
+            <i class="fa-solid fa-chart-line"></i><span>Executive Dashboard</span>
+        </a>
+        <a href="{{ route('laporan.kunjungan') }}" class="nav-link-custom {{ request()->routeIs('laporan.kunjungan') ? 'active' : '' }}">
+            <i class="fa-solid fa-hospital-user"></i><span>Laporan Kunjungan</span>
+        </a>
+        <a href="{{ route('laporan.morbiditas') }}" class="nav-link-custom {{ request()->routeIs('laporan.morbiditas') ? 'active' : '' }}">
+            <i class="fa-solid fa-viruses"></i><span>Laporan Morbiditas</span>
+        </a>
+        <a href="{{ route('laporan.pendapatan') }}" class="nav-link-custom {{ request()->routeIs('laporan.pendapatan') ? 'active' : '' }}">
+            <i class="fa-solid fa-sack-dollar"></i><span>Laporan Pendapatan</span>
+        </a>
+
         <div class="nav-category">System Admin</div>
         <a href="{{ route('admin.users.index') }}" class="nav-link-custom {{ request()->routeIs('admin.users.*') ? 'active' : '' }}">
             <i class="fa-solid fa-user-shield"></i><span>User Management</span>
+        </a>
+        <a href="{{ route('admin.audit.index') }}" class="nav-link-custom {{ request()->routeIs('admin.audit.*') ? 'active' : '' }}">
+            <i class="fa-solid fa-clock-rotate-left"></i><span>System Audit Trail</span>
         </a>
     </div>
 
@@ -453,6 +479,7 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 @include('partials.swal')
 
@@ -468,23 +495,35 @@
     setInterval(updateClock, 1000);
     updateClock();
 
-    // Sidebar Toggle
+    // Enhanced Mobile Sidebar Toggle
     const menuToggle = document.getElementById('menuToggle');
     const sidebar = document.getElementById('sidebar');
-    if (menuToggle && sidebar) {
-        menuToggle.addEventListener('click', () => {
-            sidebar.classList.toggle('open');
-        });
+    const overlay = document.getElementById('sidebarOverlay');
+    
+    function toggleSidebar() {
+        sidebar.classList.toggle('open');
+        overlay.classList.toggle('show');
     }
 
-    // Auto-initialize Select2
+    if (menuToggle && sidebar && overlay) {
+        menuToggle.addEventListener('click', toggleSidebar);
+        overlay.addEventListener('click', toggleSidebar);
+    }
+
+    // Auto-initialize Select2 with better UI
     $(document).ready(function() {
         if ($('.select2-init').length) {
             $('.select2-init').select2({
                 theme: 'bootstrap-5',
-                width: '100%'
+                width: '100%',
+                dropdownCssClass: 'shadow-lg border-0 rounded-3 mt-1'
             });
         }
+        
+        // Add subtle animation to cards on load
+        $('.card, .card-premium').each(function(i) {
+            $(this).css({opacity: 0, transform: 'translateY(15px)'}).delay(i * 50).animate({opacity: 1, transform: 'translateY(0)'}, 400);
+        });
     });
 </script>
 
