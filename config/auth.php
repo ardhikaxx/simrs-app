@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Patient;
 use App\Models\User;
 
 return [
@@ -16,8 +17,8 @@ return [
     */
 
     'defaults' => [
-        'guard' => env('AUTH_GUARD', 'web'),
-        'passwords' => env('AUTH_PASSWORD_BROKER', 'users'),
+        'guard' => env('AUTH_GUARD', 'staff'),
+        'passwords' => env('AUTH_PASSWORD_BROKER', 'staff'),
     ],
 
     /*
@@ -42,6 +43,14 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+        'staff' => [
+            'driver' => 'session',
+            'provider' => 'staff',
+        ],
+        'patient' => [
+            'driver' => 'session',
+            'provider' => 'patients',
+        ],
     ],
 
     /*
@@ -65,6 +74,14 @@ return [
         'users' => [
             'driver' => 'eloquent',
             'model' => env('AUTH_MODEL', User::class),
+        ],
+        'staff' => [
+            'driver' => 'eloquent',
+            'model' => User::class,
+        ],
+        'patients' => [
+            'driver' => 'eloquent',
+            'model' => Patient::class,
         ],
 
         // 'users' => [
@@ -93,8 +110,8 @@ return [
     */
 
     'passwords' => [
-        'users' => [
-            'provider' => 'users',
+        'staff' => [
+            'provider' => 'staff',
             'table' => env('AUTH_PASSWORD_RESET_TOKEN_TABLE', 'password_reset_tokens'),
             'expire' => 60,
             'throttle' => 60,
