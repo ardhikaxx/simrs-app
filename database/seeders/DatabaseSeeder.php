@@ -19,12 +19,14 @@ use App\Models\InventoryMedicine;
 use App\Models\InventoryTransaction;
 use App\Models\LabOrder;
 use App\Models\LabPanel;
+use App\Models\MedicalLetter;
 use App\Models\MedicalRecord;
 use App\Models\Module;
 use App\Models\Notification;
 use App\Models\Patient;
 use App\Models\Permission;
 use App\Models\Prescription;
+use App\Models\PurchaseOrder;
 use App\Models\RadiologyOrder;
 use App\Models\Role;
 use App\Models\ServiceMaster;
@@ -55,9 +57,67 @@ class DatabaseSeeder extends Seeder
             $medicines = $this->seedMedicines($users);
             $patients = $this->seedPatients();
             $this->seedOperationalData($patients, $users, $departments, $icd10, $medicines);
+            $this->seedPurchaseOrders($users, $medicines);
+            $this->seedMedicalLetters($patients, $departments);
             $this->seedClaims();
             $this->seedSystemLogs($users, $modules);
         });
+    }
+
+    private function seedMedicalLetters(Collection $patients, Collection $departments): void
+    {
+        $encounters = Encounter::where('status_encounter', 'selesai')->limit(10)->get();
+        foreach ($encounters as $index => $encounter) {
+            MedicalLetter::create([
+                'encounter_id' => $encounter->id,
+                'no_surat' => 'SK-' . now()->format('Ymd') . '-' . str_pad((string) ($index + 1), 4, '0', STR_PAD_LEFT),
+                'jenis_surat' => $index % 2 === 0 ? 'surat_kontrol' : 'surat_sakit',
+                'tgl_surat' => now(),
+                'tgl_kembali' => $index % 2 === 0 ? now()->addDays(7) : null,
+                'lama_istirahat' => $index % 2 !== 0 ? 3 : null,
+                'catatan' => 'Diterbitkan otomatis oleh sistem demo.',
+            ]);
+        }
+    }
+
+    private function seedPurchaseOrders(Collection $users, Collection $medicines): void
+    {
+        $suppliers = ['PT. Kimia Farma', 'PT. Kalbe Farma', 'PT. Bio Farma', 'Dinas Kesehatan'];
+        $pharmacist = $users['apoteker@simrs.test'];
+
+        for ($i = 1; $i <= 5; $i++) {
+            $date = now()->subDays(10 + $i);
+            $status = $i % 2 === 0 ? 'received' : 'ordered';
+            
+            $po = PurchaseOrder::create([
+                'no_po' => 'PO-' . $date->format('Ymd') . '-' . str_pad((string) $i, 3, '0', STR_PAD_LEFT),
+                'supplier_name' => $suppliers[$i % count($suppliers)],
+                'user_id' => $pharmacist->id,
+                'status' => $status,
+                'total_amount' => 0,
+                'order_date' => $date,
+                'received_at' => $status === 'received' ? $date->copy()->addDays(2) : null,
+            ]);
+
+            $total = 0;
+            $selectedMedicines = $medicines->random(3);
+            foreach ($selectedMedicines as $medicine) {
+                $qty = rand(50, 200);
+                $price = $medicine->harga_beli;
+                $subtotal = $qty * $price;
+                $total += $subtotal;
+
+                $po->details()->create([
+                    'inventory_medicine_id' => $medicine->id,
+                    'qty_ordered' => $qty,
+                    'qty_received' => $status === 'received' ? $qty : 0,
+                    'cost_price' => $price,
+                    'subtotal' => $subtotal,
+                ]);
+            }
+
+            $po->update(['total_amount' => $total]);
+        }
     }
 
     private function seedIcd9Master(): void
@@ -705,6 +765,17 @@ class DatabaseSeeder extends Seeder
 
     private function seedMedicalRecord(Encounter $encounter, User $doctor, string $diagnosisCode, int $index): void
     {
+        $dept = $encounter->department->kode_depart;
+        $specific = null;
+        
+        if (str_contains($dept, 'POL-UM')) {
+            $specific = ['pekerjaan' => 'Karyawan Swasta', 'lama_keluhan' => 3];
+        } elseif (str_contains($dept, 'POL-OBG')) {
+            $specific = ['g' => 'G1', 'p' => 'P0', 'a' => 'A0', 'hpht' => now()->subMonths(4)->toDateString()];
+        } elseif (str_contains($dept, 'POL-ANK')) {
+            $specific = ['lingkar_kepala' => '42', 'imunisasi' => 'DPT-3'];
+        }
+
         MedicalRecord::updateOrCreate(
             ['encounter_id' => $encounter->id],
             [
@@ -716,6 +787,8 @@ class DatabaseSeeder extends Seeder
                 'diagnosis_kerja' => ICD10::where('kode', $diagnosisCode)->value('nama_diagnosis'),
                 'icd10_primer' => $diagnosisCode,
                 'icd10_sekunder' => $index % 3 === 0 ? ['I10'] : null,
+                'icd9_prosedur' => $index % 2 === 0 ? '89.03' : null,
+                'data_spesifik_poli' => $specific,
                 'rencana_terapi' => 'Terapi medikamentosa, edukasi tanda bahaya, kontrol sesuai jadwal, dan evaluasi penunjang bila diperlukan.',
                 'kondisi_saat_pulang' => $encounter->status_encounter === 'selesai' ? 'membaik' : null,
                 'signed_at' => $encounter->waktu_masuk->copy()->addMinutes(38),
