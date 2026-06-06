@@ -14,7 +14,7 @@
                 </div>
                 <h5 class="fw-800 text-white mb-1">{{ $medicine->nama_obat }}</h5>
                 <div class="small text-primary-light fw-bold font-monospace tracking-widest">{{ $medicine->kode_obat }}</div>
-                <i class="fa-solid fa-prescription-bottle-medical position-absolute top-50 start-0 translate-middle opacity-5 fs-huge"></i>
+                <i class="fa-solid fa-prescription-bottle-medical position-absolute top-50 inset-s-0 translate-middle opacity-5 fs-huge"></i>
             </div>
             <div class="p-4">
                 <div class="row g-4">
