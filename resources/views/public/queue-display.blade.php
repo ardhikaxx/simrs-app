@@ -274,7 +274,7 @@
         <!-- Center Stage: Current Call -->
         <div class="col-lg-8 h-100">
             <div class="call-card">
-                <div class="flex-grow-1 d-flex flex-column align-items-center text-center">
+                <div class="grow d-flex flex-column align-items-center text-center">
                     <div class="call-label">PANGGILAN ANTREAN SEKARANG</div>
                     <div class="call-number {{ $activeQueues->first() ? 'calling-active' : '' }}">
                         {{ $activeQueues->first()?->no_antrian ?? '---' }}
