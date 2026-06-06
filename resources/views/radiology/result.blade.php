@@ -80,7 +80,7 @@
             </div>
             <div class="card-body p-4">
                 <div class="p-3 rounded-4 bg-light border-0 italic small text-muted lh-base position-relative" style="min-height: 100px;">
-                    <i class="fa-solid fa-quote-left position-absolute top-0 start-0 m-2 opacity-10 fs-2"></i>
+                    <i class="fa-solid fa-quote-left position-absolute top-0 inset-s-0 m-2 opacity-10 fs-2"></i>
                     <span class="position-relative">{{ $radiologyOrder->catatan_klinis ?: 'Tidak ada catatan klinis tambahan dari dokter pengirim.' }}</span>
                 </div>
             </div>
