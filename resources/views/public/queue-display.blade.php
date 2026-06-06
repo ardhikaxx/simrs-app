@@ -7,215 +7,138 @@
     
     <!-- Fonts & Icons -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=JetBrains+Mono:wght@800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@700;800&display=swap" rel="stylesheet">
     
-    <!-- Frameworks -->
+    <!-- Bootstrap 5 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     
     <style>
         :root {
-            --bg-body: #0F172A; /* Deep Slate */
-            --bg-card: rgba(30, 41, 59, 0.7);
-            --primary-accent: #0D9488; /* Teal */
-            --secondary-accent: #3B82F6; /* Blue */
-            --text-call: #F59E0B; /* Amber/Gold */
-            --glass-border: rgba(255, 255, 255, 0.08);
+            --bs-primary: #3b82f6;
+            --bs-info: #06b6d4;
+            --bs-warning: #f59e0b;
         }
-
         body {
-            background-color: var(--bg-body);
-            background-image: 
-                radial-gradient(circle at 0% 0%, rgba(13, 148, 136, 0.15) 0%, transparent 40%),
-                radial-gradient(circle at 100% 100%, rgba(59, 130, 246, 0.1) 0%, transparent 40%);
-            color: white;
+            background-color: #f8f9fa;
             font-family: 'Plus Jakarta Sans', sans-serif;
             overflow: hidden;
             height: 100vh;
+            display: flex;
+            flex-direction: column;
             margin: 0;
         }
 
-        /* Header Sophistication */
-        .header-monitor {
-            height: 100px;
-            padding: 0 4rem;
-            background: rgba(15, 23, 42, 0.8);
-            backdrop-filter: blur(20px);
-            border-bottom: 1px solid var(--glass-border);
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            z-index: 100;
-        }
-
-        .brand-logo {
-            width: 54px;
-            height: 54px;
-            background: linear-gradient(135deg, var(--primary-accent), #0F766E);
-            border-radius: 14px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 0 25px rgba(13, 148, 136, 0.4);
-            font-size: 1.5rem;
-        }
-
-        .brand-title {
-            font-weight: 800;
-            font-size: 1.8rem;
-            letter-spacing: -0.04em;
-            line-height: 1;
-        }
-
-        .monitor-clock {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 2.8rem;
-            color: var(--primary-accent);
-            line-height: 1;
-            text-shadow: 0 0 20px rgba(13, 148, 136, 0.3);
-        }
-
-        /* Main Call Area */
-        .main-stage {
-            height: calc(100vh - 180px);
-            padding: 2.5rem;
-        }
-
-        .call-card {
-            background: var(--bg-card);
-            border-radius: 32px;
-            border: 1px solid var(--glass-border);
-            backdrop-filter: blur(10px);
-            box-shadow: 0 40px 100px rgba(0,0,0,0.4);
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            overflow: hidden;
-        }
-
-        .call-label {
-            font-weight: 800;
-            letter-spacing: 0.2em;
-            color: var(--primary-accent);
-            text-transform: uppercase;
-            font-size: 1rem;
-            margin-top: 3rem;
-        }
-
-        .call-number {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 11rem;
-            font-weight: 800;
-            color: var(--text-call);
-            line-height: 0.9;
-            margin: 1.5rem 0;
-            text-shadow: 0 0 50px rgba(245, 158, 11, 0.4);
-        }
-
-        .call-destination {
-            font-size: 3.5rem;
-            font-weight: 800;
-            text-transform: uppercase;
-            letter-spacing: -0.02em;
-            color: white;
-        }
-
-        .call-doctor {
-            font-size: 1.8rem;
-            color: rgba(255,255,255,0.6);
-            font-weight: 600;
-        }
-
-        /* Sidebar Lists */
-        .sidebar-title {
-            font-size: 0.85rem;
-            font-weight: 800;
-            text-transform: uppercase;
-            letter-spacing: 0.15em;
-            color: rgba(255,255,255,0.4);
-            padding-bottom: 1rem;
-            border-bottom: 1px solid var(--glass-border);
-            margin-bottom: 1.5rem;
-        }
-
-        .queue-item {
-            background: rgba(255,255,255,0.03);
-            border: 1px solid var(--glass-border);
-            border-radius: 20px;
-            padding: 1.25rem 1.5rem;
-            margin-bottom: 1rem;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            transition: all 0.3s ease;
-        }
-
-        .queue-item:hover {
-            background: rgba(255,255,255,0.06);
-            border-color: var(--primary-accent);
-        }
-
-        .item-number {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 2.2rem;
-            font-weight: 800;
-            color: var(--text-call);
-            line-height: 1;
-        }
-
-        .item-unit {
-            font-size: 1rem;
-            font-weight: 800;
-            text-transform: uppercase;
-            color: white;
-            opacity: 0.9;
-        }
-
-        .item-status {
-            font-size: 0.65rem;
-            font-weight: 800;
-            padding: 0.5rem 1rem;
-            border-radius: 10px;
-            background: var(--primary-accent);
-            color: white;
-        }
-
-        /* Information Bar */
-        .info-bar {
-            height: 80px;
-            background: var(--primary-accent);
-            position: fixed;
-            bottom: 0;
-            width: 100%;
-            display: flex;
-            align-items: center;
-            box-shadow: 0 -10px 40px rgba(0,0,0,0.3);
-            z-index: 1000;
-        }
-
-        .info-label {
-            background: #0F766E;
-            height: 100%;
-            padding: 0 2rem;
-            display: flex;
-            align-items: center;
-            font-weight: 800;
-            font-size: 1.1rem;
-            gap: 0.75rem;
-            box-shadow: 10px 0 20px rgba(0,0,0,0.1);
+        .header-brand {
+            background: #ffffff;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.03);
             z-index: 10;
         }
 
-        .ticker-wrap {
+        .clock-display {
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--bs-primary);
+            font-weight: 800;
+            letter-spacing: -1px;
+        }
+
+        .main-content {
+            flex: 1;
+            padding: 2rem;
+            overflow: hidden;
+        }
+
+        .card-active-call {
+            background: #ffffff;
+            border-radius: 24px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05);
+            border: 1px solid rgba(0,0,0,0.03);
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .active-number {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 11rem;
+            font-weight: 800;
+            line-height: 1;
+            color: #1e293b;
+            letter-spacing: -4px;
+            text-shadow: 2px 4px 10px rgba(0,0,0,0.05);
+        }
+
+        .pulse-highlight {
+            animation: pulse-border 2.5s infinite;
+        }
+
+        @keyframes pulse-border {
+            0% { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.4); }
+            70% { box-shadow: 0 0 0 30px rgba(59, 130, 246, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0); }
+        }
+
+        .queue-list-card {
+            background: #ffffff;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
+            border: 1px solid rgba(0,0,0,0.03);
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .queue-item {
+            padding: 1.25rem 1.5rem;
+            border-bottom: 1px solid rgba(0,0,0,0.04);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .queue-item:last-child {
+            border-bottom: none;
+        }
+        
+        .queue-item .number {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--bs-primary);
+            line-height: 1;
+        }
+
+        .info-ticker {
+            background: #1e293b;
+            color: #ffffff;
+            height: 70px;
+            display: flex;
+            align-items: center;
+            font-size: 1.25rem;
+            font-weight: 600;
+            z-index: 1000;
+        }
+        
+        .ticker-label {
+            background: var(--bs-primary);
+            height: 100%;
+            padding: 0 2.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            z-index: 2;
+            box-shadow: 5px 0 15px rgba(0,0,0,0.2);
+        }
+
+        .ticker-content {
             flex: 1;
             overflow: hidden;
-            padding-left: 2rem;
+            white-space: nowrap;
+            position: relative;
         }
 
         .ticker-text {
             display: inline-block;
-            white-space: nowrap;
-            font-weight: 700;
-            font-size: 1.4rem;
             animation: ticker 40s linear infinite;
         }
 
@@ -224,117 +147,103 @@
             100% { transform: translateX(-100%); }
         }
 
-        @keyframes pulse-call {
-            0% { transform: scale(1); opacity: 1; }
-            50% { transform: scale(1.05); opacity: 0.8; }
-            100% { transform: scale(1); opacity: 1; }
-        }
-
-        .calling-active {
-            animation: pulse-call 1.5s ease-in-out infinite;
-        }
-
-        .video-container {
+        .video-wrapper {
             flex: 1;
-            margin: 2rem;
-            border-radius: 20px;
+            border-radius: 16px;
             overflow: hidden;
-            background: black;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.3);
-            border: 1px solid var(--glass-border);
+            margin: 0 2rem 2rem 2rem;
+            background: #000;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
         }
     </style>
 </head>
 <body>
 
-<header class="header-monitor">
+<header class="header-brand py-3 px-4 px-xl-5 d-flex justify-content-between align-items-center">
     <div class="d-flex align-items-center gap-4">
-        <div class="brand-logo">
-            <i class="fa-solid fa-hospital-user text-white"></i>
+        <div class="bg-primary bg-opacity-10 text-primary rounded-4 d-flex align-items-center justify-content-center flex-shrink-0" style="width: 70px; height: 70px;">
+            <i class="fa-solid fa-hospital-user fs-2"></i>
         </div>
         <div>
-            <div class="brand-title">SIMRS <span style="color: var(--primary-accent)">CORE</span></div>
-            <div class="small fw-bold text-white-50 text-uppercase tracking-wider">Clinical OS Intelligence</div>
+            <h2 class="fw-bold text-dark mb-0 lh-1">SIMRS <span class="text-primary">CORE</span></h2>
+            <div class="fw-semibold text-muted text-uppercase mt-2" style="font-size: 0.9rem; letter-spacing: 1px;">Sistem Monitor Antrean Terpadu</div>
         </div>
     </div>
-    
-    <div class="text-center d-none d-xl-block">
-        <div class="h5 mb-0 fw-800 text-white-50">SISTEM MONITOR ANTREAN TERPADU</div>
-        <div class="small fw-bold text-primary opacity-75">{{ config('app.hospital_name') }}</div>
-    </div>
-
     <div class="text-end">
-        <div class="monitor-clock" id="digitalClock">00:00:00</div>
-        <div class="small fw-800 text-white-50 text-uppercase mt-1">{{ now()->translatedFormat('l, d F Y') }}</div>
+        <div class="clock-display fs-1 lh-1" id="digitalClock">00:00:00</div>
+        <div class="fw-bold text-muted text-uppercase mt-2" style="font-size: 0.9rem; letter-spacing: 1px;">{{ now()->translatedFormat('l, d F Y') }}</div>
     </div>
 </header>
 
-<main class="container-fluid main-stage">
-    <div class="row h-100 g-5">
-        <!-- Center Stage: Current Call -->
-        <div class="col-lg-8 h-100">
-            <div class="call-card">
-                <div class="grow d-flex flex-column align-items-center text-center">
-                    <div class="call-label">PANGGILAN ANTREAN SEKARANG</div>
-                    <div class="call-number {{ $activeQueues->first() ? 'calling-active' : '' }}">
+<main class="main-content">
+    <div class="row h-100 g-4">
+        <!-- Main Stage -->
+        <div class="col-lg-7 col-xl-8 h-100">
+            <div class="card-active-call {{ $activeQueues->first() ? 'pulse-highlight' : '' }}">
+                <div class="text-center pt-5 pb-4 px-4 flex-shrink-0">
+                    <div class="badge bg-danger bg-opacity-10 text-danger rounded-pill px-4 py-2 fw-bold text-uppercase mb-4" style="font-size: 1.25rem; letter-spacing: 2px;">
+                        <i class="fa-solid fa-bell me-2"></i>Panggilan Saat Ini
+                    </div>
+                    <div class="active-number text-primary mb-3">
                         {{ $activeQueues->first()?->no_antrian ?? '---' }}
                     </div>
-                    <div class="call-destination mb-1">
-                        {{ $activeQueues->first()?->department->nama_depart ?? 'SISTEM SIAP' }}
-                    </div>
-                    <div class="call-doctor">
+                    <h1 class="fw-bold text-dark display-4 mb-2 text-uppercase" style="letter-spacing: -1px;">
+                        {{ $activeQueues->first()?->department->nama_depart ?? 'Sistem Siap' }}
+                    </h1>
+                    <div class="fs-3 text-muted fw-semibold">
                         <i class="fa-solid fa-user-doctor me-2 opacity-50"></i>
-                        {{ $activeQueues->first()?->doctor?->display_name ?? 'Mohon Menunggu Antrean Berikutnya' }}
+                        {{ $activeQueues->first()?->doctor?->display_name ?? 'Menunggu Antrean...' }}
                     </div>
                 </div>
-
-                <div class="video-container">
+                <div class="video-wrapper">
                     <video width="100%" height="100%" autoplay loop muted style="object-fit: cover;">
+                        <!-- Menggunakan video placeholder publik -->
                         <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
                     </video>
                 </div>
             </div>
         </div>
 
-        <!-- Right Side: Unit Queues -->
-        <div class="col-lg-4 h-100">
-            <div class="sidebar-title d-flex justify-content-between">
-                <span>Daftar Antrean Unit</span>
-                <span>STATUS</span>
-            </div>
-            
-            <div class="pe-2" style="height: calc(100% - 40px); overflow-y: auto;">
-                @forelse($activeQueues->skip(1) as $q)
-                    <div class="queue-item">
-                        <div>
-                            <div class="item-number">{{ $q->no_antrian }}</div>
-                            <div class="item-unit">{{ $q->department->nama_depart }}</div>
+        <!-- Next Queues -->
+        <div class="col-lg-5 col-xl-4 h-100">
+            <div class="queue-list-card">
+                <div class="p-4 border-bottom border-light bg-light rounded-top-4 d-flex justify-content-between align-items-center">
+                    <h4 class="fw-bold text-dark mb-0"><i class="fa-solid fa-list-ol text-primary me-2"></i>Antrean Berikutnya</h4>
+                </div>
+                <div class="overflow-auto d-flex flex-column h-100">
+                    @forelse($activeQueues->skip(1)->take(6) as $q)
+                        <div class="queue-item">
+                            <div>
+                                <div class="number">{{ $q->no_antrian }}</div>
+                                <div class="fs-5 fw-bold text-dark mt-1">{{ $q->department->nama_depart }}</div>
+                            </div>
+                            <div class="text-end">
+                                <span class="badge bg-warning bg-opacity-10 text-warning px-3 py-2 rounded-pill fw-bold" style="font-size: 0.9rem; letter-spacing: 1px;">MENUNGGU</span>
+                            </div>
                         </div>
-                        <div class="text-end">
-                            <div class="item-status">MENUNGGU</div>
-                            <div class="small fw-bold text-white-50 mt-1" style="font-size: 0.6rem;">UNIT AKTIF</div>
+                    @empty
+                        <div class="text-center my-auto p-5">
+                            <div class="bg-light rounded-circle d-inline-flex align-items-center justify-content-center mb-4" style="width: 100px; height: 100px;">
+                                <i class="fa-solid fa-mug-hot fs-1 text-muted opacity-50"></i>
+                            </div>
+                            <h4 class="fw-bold text-dark mb-2">Belum Ada Antrean</h4>
+                            <p class="text-muted fs-5">Sistem memantau pendaftaran baru...</p>
                         </div>
-                    </div>
-                @empty
-                    <div class="text-center py-5 opacity-20">
-                        <i class="fa-solid fa-layer-group display-1 mb-4 d-block"></i>
-                        <h4 class="fw-800">BELUM ADA ANTREAN</h4>
-                        <p class="small fw-bold">Sistem memonitor pendaftaran baru...</p>
-                    </div>
-                @endforelse
+                    @endforelse
+                </div>
             </div>
         </div>
     </div>
 </main>
 
-<footer class="info-bar">
-    <div class="info-label">
-        <i class="fa-solid fa-circle-info"></i>
-        <span>INFORMASI</span>
+<footer class="info-ticker">
+    <div class="ticker-label">
+        <i class="fa-solid fa-circle-info fs-4"></i>
+        <span class="text-uppercase" style="letter-spacing: 1px;">Informasi</span>
     </div>
-    <div class="ticker-wrap">
+    <div class="ticker-content">
         <div class="ticker-text">
-            Selamat Datang di {{ config('app.hospital_name') }} • Utamakan Keselamatan Pasien • Harap Menyiapkan Kartu Identitas (KTP) dan Kartu BPJS untuk Kelancaran Administrasi • Jadwal Dokter Hari Ini: dr. Bima Santoso (Spesialis Penyakit Dalam), dr. Maya Lestari (Spesialis Anak) • Terima Kasih Atas Kepercayaan Anda Kepada Kami.
+            Selamat Datang di {{ config('app.hospital_name') }} &bull; Utamakan Keselamatan Pasien &bull; Harap Menyiapkan Kartu Identitas (KTP) dan Kartu BPJS untuk Kelancaran Administrasi &bull; Terima Kasih Atas Kepercayaan Anda Kepada Kami.
         </div>
     </div>
 </footer>
