@@ -17,7 +17,7 @@
                     <h3 class="fw-800 mb-0 text-slate">{{ $prescriptions->total() }}</h3>
                 </div>
             </div>
-            <i class="fa-solid fa-pills position-absolute top-50 end-0 translate-middle-y opacity-5 fs-1 me-4"></i>
+            <i class="fa-solid fa-pills position-absolute top-50 inset-e-0 translate-middle-y opacity-5 fs-1 me-4"></i>
         </div>
     </div>
     <div class="col-md-8 text-md-end d-flex align-items-center justify-content-md-end gap-3">
