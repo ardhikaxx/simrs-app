@@ -86,6 +86,9 @@
                             <a href="{{ route('rekam-medis.resume', $encounter) }}" class="btn btn-sm btn-simrs-outline shadow-sm px-3">
                                 <i class="fa-solid fa-file-medical me-1"></i>Resume
                             </a>
+                            <button type="button" class="btn btn-sm btn-info text-white shadow-sm px-3" onclick="panggilAntrean('{{ $encounter->no_antrian }}', '{{ $encounter->department->nama_depart }}')">
+                                <i class="fa-solid fa-volume-high me-1"></i>Panggil
+                            </button>
                             <a href="{{ route('rekam-medis.edit', $encounter) }}" class="btn btn-sm btn-simrs-primary shadow-sm px-3">
                                 <i class="fa-solid fa-stethoscope me-1"></i>Periksa Pasien
                             </a>
@@ -109,4 +112,35 @@
         </div>
     @endif
 </div>
+@section('scripts')
+<script>
+    function panggilAntrean(nomor, unit) {
+        if (!'speechSynthesis' in window) {
+            alert("Browser Anda tidak mendukung pemanggilan suara.");
+            return;
+        }
+
+        const msg = new SpeechSynthesisUtterance();
+        msg.text = `Nomor antrean ${nomor.split('').join(' ')}, silakan menuju ke ${unit}`;
+        msg.lang = 'id-ID';
+        msg.rate = 0.8;
+        msg.pitch = 1;
+        
+        // Panggil suara
+        window.speechSynthesis.speak(msg);
+
+        // Notifikasi visual kecil
+        Swal.fire({
+            title: 'Memanggil Pasien...',
+            text: `Nomor: ${nomor} - ${unit}`,
+            icon: 'info',
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true
+        });
+    }
+</script>
+@endsection
 @endsection

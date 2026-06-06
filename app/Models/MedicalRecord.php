@@ -11,6 +11,7 @@ class MedicalRecord extends Model
 
     protected $casts = [
         'icd10_sekunder' => 'array',
+        'data_spesifik_poli' => 'array',
         'signed_at' => 'datetime',
     ];
 

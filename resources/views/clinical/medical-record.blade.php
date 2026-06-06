@@ -128,6 +128,11 @@
                                 <i class="fa-solid fa-box-archive me-2"></i>Pemakaian BHP
                             </button>
                         </li>
+                        <li class="nav-item">
+                            <button type="button" class="nav-link py-3 border-0 rounded-0" data-bs-toggle="tab" data-bs-target="#tab-poli">
+                                <i class="fa-solid fa-folder-tree me-2"></i>Data Khusus Poli
+                            </button>
+                        </li>
                     </ul>
                     <div class="tab-content p-4">
                         <!-- Tab SOAP -->
@@ -303,6 +308,56 @@
                                         @endfor
                                     </tbody>
                                 </table>
+                            </div>
+                        </div>
+
+                        <!-- Tab Data Khusus Poli -->
+                        <div class="tab-pane fade" id="tab-poli">
+                            <div class="row g-4">
+                                @php($dept = $encounter->department->kode_depart)
+                                @php($poliData = $record?->data_spesifik_poli ?? [])
+                                
+                                @if(str_contains($dept, 'POL-UM'))
+                                    <div class="col-md-6">
+                                        <label class="form-label-custom">Status Pekerjaan Pasien</label>
+                                        <input name="data_spesifik_poli[pekerjaan]" class="form-control" value="{{ $poliData['pekerjaan'] ?? '' }}">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label-custom">Lama Keluhan (Hari)</label>
+                                        <input type="number" name="data_spesifik_poli[lama_keluhan]" class="form-control" value="{{ $poliData['lama_keluhan'] ?? '' }}">
+                                    </div>
+                                @elseif(str_contains($dept, 'POL-OBG'))
+                                    <div class="col-md-3">
+                                        <label class="form-label-custom">G (Gravida)</label>
+                                        <input type="text" name="data_spesifik_poli[g]" class="form-control" value="{{ $poliData['g'] ?? '' }}">
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label class="form-label-custom">P (Para)</label>
+                                        <input type="text" name="data_spesifik_poli[p]" class="form-control" value="{{ $poliData['p'] ?? '' }}">
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label class="form-label-custom">A (Abortus)</label>
+                                        <input type="text" name="data_spesifik_poli[a]" class="form-control" value="{{ $poliData['a'] ?? '' }}">
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label class="form-label-custom">HPHT</label>
+                                        <input type="date" name="data_spesifik_poli[hpht]" class="form-control" value="{{ $poliData['hpht'] ?? '' }}">
+                                    </div>
+                                @elseif(str_contains($dept, 'POL-ANK'))
+                                    <div class="col-md-6">
+                                        <label class="form-label-custom">Lingkar Kepala (cm)</label>
+                                        <input name="data_spesifik_poli[lingkar_kepala]" class="form-control" value="{{ $poliData['lingkar_kepala'] ?? '' }}">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label-custom">Imunisasi Terakhir</label>
+                                        <input name="data_spesifik_poli[imunisasi]" class="form-control" value="{{ $poliData['imunisasi'] ?? '' }}">
+                                    </div>
+                                @else
+                                    <div class="col-12 text-center py-5 opacity-50">
+                                        <i class="fa-solid fa-folder-open fs-1 mb-3"></i>
+                                        <p>Data spesifik untuk unit <b>{{ $encounter->department->nama_depart }}</b> belum dikonfigurasi.</p>
+                                    </div>
+                                @endif
                             </div>
                         </div>
                     </div>

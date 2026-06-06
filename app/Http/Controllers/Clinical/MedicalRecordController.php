@@ -53,6 +53,7 @@ class MedicalRecordController extends Controller
             'icd9_prosedur' => ['nullable', 'exists:icd9_master,kode'],
             'rencana_terapi' => ['required', 'string', 'min:5'],
             'kondisi_saat_pulang' => ['nullable', 'string'],
+            'data_spesifik_poli' => ['nullable', 'array'],
             'medicine_id' => ['nullable', 'array'],
             'medicine_id.*' => ['nullable', 'exists:inventory_medicines,id'],
             'jumlah' => ['nullable', 'array'],
@@ -76,6 +77,7 @@ class MedicalRecordController extends Controller
                 'icd9_prosedur',
                 'rencana_terapi',
                 'kondisi_saat_pulang',
+                'data_spesifik_poli',
             ])->all();
 
             $medicalRecord = $encounter->medicalRecord()->updateOrCreate(
