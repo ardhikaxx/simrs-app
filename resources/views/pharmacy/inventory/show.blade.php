@@ -1,103 +1,130 @@
 @extends('layouts.app')
 
 @section('title', 'Kartu Stok Obat')
-@section('page-title', 'Kartu Stok / Mutasi Obat')
+@section('page-title', 'Kartu Stok & Histori Mutasi')
 @section('page-subtitle', $medicine->nama_obat . ' [' . $medicine->kode_obat . ']')
 
 @section('content')
 <div class="row g-4">
     <div class="col-xl-4">
-        <div class="simrs-card mb-4 border-0 shadow-sm overflow-hidden bg-white">
-            <div class="simrs-card-body p-0">
-                <div class="bg-primary text-white p-4 text-center">
-                    <div class="brand-icon shadow-none bg-white text-primary mx-auto mb-3" style="width: 60px; height: 60px; font-size: 1.5rem;">
-                        <i class="fa-solid fa-pills"></i>
-                    </div>
-                    <h5 class="fw-800 mb-1">{{ $medicine->nama_obat }}</h5>
-                    <div class="text-mono small opacity-75">{{ $medicine->kode_obat }}</div>
+        <div class="card-premium border-0 overflow-hidden bg-white mb-4">
+            <div class="bg-slate p-4 text-center position-relative">
+                <div class="bg-white bg-opacity-10 rounded-circle d-flex align-items-center justify-content-center mx-auto mb-3 shadow-sm" style="width: 64px; height: 64px;">
+                    <i class="fa-solid fa-pills text-white fs-3"></i>
                 </div>
-                <div class="p-4">
-                    <div class="row g-3">
-                        <div class="col-6 border-end">
-                            <div class="small text-muted fw-700 text-uppercase mb-1">Stok Saat Ini</div>
-                            <div class="h4 fw-800 text-simrs-primary mb-0">{{ $medicine->stok }}</div>
-                            <div class="small text-muted">{{ strtoupper($medicine->satuan) }}</div>
-                        </div>
-                        <div class="col-6">
-                            <div class="small text-muted fw-700 text-uppercase mb-1">Stok Minimum</div>
-                            <div class="h4 fw-800 text-simrs-gray-900 mb-0">{{ $medicine->stok_minimum }}</div>
-                            <div class="small text-muted">{{ strtoupper($medicine->satuan) }}</div>
-                        </div>
-                        <div class="col-12 border-top pt-3">
-                            <div class="small text-muted fw-700 text-uppercase mb-1">Informasi Lainnya</div>
-                            <ul class="list-unstyled mb-0 small lh-lg">
-                                <li><span class="text-muted">Kategori:</span> <span class="fw-bold">{{ $medicine->kategori }}</span></li>
-                                <li><span class="text-muted">Pabrikan:</span> <span class="fw-bold">{{ $medicine->manufacturer ?: '-' }}</span></li>
-                                <li><span class="text-muted">Kedaluwarsa:</span> <span class="fw-bold {{ $medicine->expired_at?->isPast() ? 'text-danger' : '' }}">{{ $medicine->expired_at?->format('d/m/Y') ?: '-' }}</span></li>
-                            </ul>
+                <h5 class="fw-800 text-white mb-1">{{ $medicine->nama_obat }}</h5>
+                <div class="small text-primary-light fw-bold font-monospace tracking-widest">{{ $medicine->kode_obat }}</div>
+                <i class="fa-solid fa-prescription-bottle-medical position-absolute top-50 start-0 translate-middle opacity-5 fs-huge"></i>
+            </div>
+            <div class="p-4">
+                <div class="row g-4">
+                    <div class="col-6 border-end">
+                        <div class="small text-muted fw-800 text-uppercase tracking-wider mb-1" style="font-size: 0.65rem;">Stok Fisik</div>
+                        <div class="h3 fw-900 text-primary mb-0">{{ $medicine->stok }}</div>
+                        <div class="small text-muted fw-bold text-uppercase" style="font-size: 0.6rem;">{{ $medicine->satuan }}</div>
+                    </div>
+                    <div class="col-6">
+                        <div class="small text-muted fw-800 text-uppercase tracking-wider mb-1" style="font-size: 0.65rem;">Safety Stock</div>
+                        <div class="h3 fw-900 text-slate mb-0">{{ $medicine->stok_minimum }}</div>
+                        <div class="small text-muted fw-bold text-uppercase" style="font-size: 0.6rem;">{{ $medicine->satuan }}</div>
+                    </div>
+                    <div class="col-12">
+                        <div class="p-3 rounded-4 bg-light bg-opacity-50 border">
+                            <div class="d-flex justify-content-between mb-2">
+                                <span class="small text-muted fw-bold">Kategori</span>
+                                <span class="small fw-800 text-slate">{{ $medicine->kategori }}</span>
+                            </div>
+                            <div class="d-flex justify-content-between mb-2">
+                                <span class="small text-muted fw-bold">Manufaktur</span>
+                                <span class="small fw-800 text-slate">{{ $medicine->manufacturer ?: 'N/A' }}</span>
+                            </div>
+                            <div class="d-flex justify-content-between">
+                                <span class="small text-muted fw-bold">Masa Berlaku</span>
+                                <span class="small fw-800 {{ $medicine->expired_at?->isPast() ? 'text-danger' : 'text-slate' }}">
+                                    {{ $medicine->expired_at?->format('d/m/Y') ?: '-' }}
+                                </span>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <a href="{{ route('farmasi.inventory.index') }}" class="btn btn-simrs-outline w-100 fw-bold border-0 shadow-none text-muted">
-            <i class="fa-solid fa-arrow-left me-2"></i>Kembali ke Katalog
+
+        <a href="{{ route('farmasi.inventory.index') }}" class="btn btn-light border w-100 fw-800 py-3 rounded-pill transition-bounce-hover">
+            <i class="fa-solid fa-arrow-left me-2"></i>KEMBALI KE KATALOG
         </a>
     </div>
 
     <div class="col-xl-8">
-        <div class="simrs-card">
-            <div class="simrs-card-header bg-white">
-                <div class="simrs-card-title text-simrs-primary">
-                    <i class="fa-solid fa-clock-rotate-left"></i>
-                    <span>Log Mutasi Transaksi Stok</span>
+        <div class="card-premium border-0 bg-white overflow-hidden">
+            <div class="p-4 border-bottom d-flex align-items-center gap-3">
+                <div class="bg-primary bg-opacity-10 text-primary rounded-circle d-flex align-items-center justify-content-center" style="width: 42px; height: 42px;">
+                    <i class="fa-solid fa-clock-rotate-left fs-5"></i>
+                </div>
+                <div>
+                    <h5 class="fw-800 text-slate mb-0">Log Mutasi Transaksi</h5>
+                    <p class="small text-muted mb-0 fw-medium">Histori lengkap perubahan stok item ini</p>
                 </div>
             </div>
+
             <div class="table-responsive">
                 <table class="table table-hover align-middle mb-0">
-                    <thead class="bg-light">
-                        <tr>
-                            <th class="ps-4">Waktu</th>
-                            <th>Petugas</th>
-                            <th>Aksi</th>
-                            <th class="text-end">Stok Awal</th>
-                            <th class="text-center">Perubahan</th>
-                            <th class="text-end">Stok Akhir</th>
-                            <th class="pe-4">Referensi / Catatan</th>
+                    <thead>
+                        <tr class="bg-light bg-opacity-50 text-muted small fw-800 text-uppercase tracking-wider">
+                            <th class="ps-4 border-0 py-3">Waktu Transaksi</th>
+                            <th class="border-0 py-3">Petugas</th>
+                            <th class="border-0 py-3 text-center">Tipe</th>
+                            <th class="border-0 py-3 text-end">Awal</th>
+                            <th class="border-0 py-3 text-center">Qty</th>
+                            <th class="border-0 py-3 text-end">Akhir</th>
+                            <th class="pe-4 border-0 py-3">Referensi</th>
                         </tr>
                     </thead>
                     <tbody>
                     @forelse($medicine->transactions as $trx)
-                        <tr>
-                            <td class="ps-4">
-                                <div class="fw-bold small">{{ $trx->created_at->format('d/m/Y') }}</div>
-                                <div class="text-muted" style="font-size: 0.7rem;">{{ $trx->created_at->format('H:i') }} WIB</div>
+                        <tr class="transition-hover">
+                            <td class="ps-4 py-3">
+                                <div class="fw-800 text-slate mb-0">{{ $trx->created_at->format('d M Y') }}</div>
+                                <div class="small text-muted fw-bold opacity-75">{{ $trx->created_at->format('H:i') }} WIB</div>
                             </td>
-                            <td>
-                                <div class="small fw-600">{{ $trx->user?->display_name ?: 'SYSTEM' }}</div>
+                            <td class="py-3">
+                                <div class="small fw-800 text-slate">{{ $trx->user?->display_name ?: 'SYSTEM' }}</div>
+                                <div class="small text-muted fw-medium" style="font-size: 0.65rem;">Operator</div>
                             </td>
-                            <td>
+                            <td class="text-center py-3">
                                 @php
-                                    $badge = $trx->jenis_transaksi === 'masuk' ? 'status-aman' : ($trx->jenis_transaksi === 'keluar' ? 'status-kritis' : 'status-baru');
+                                    $typeCfg = match($trx->jenis_transaksi) {
+                                        'masuk' => ['bg' => 'bg-success', 'icon' => 'fa-arrow-down-long'],
+                                        'keluar' => ['bg' => 'bg-danger', 'icon' => 'fa-arrow-up-long'],
+                                        default => ['bg' => 'bg-blue', 'icon' => 'fa-rotate']
+                                    };
                                 @endphp
-                                <span class="badge-status {{ $badge }} py-1 px-3">
-                                    {{ strtoupper($trx->jenis_transaksi) }}
-                                </span>
+                                <div class="badge {{ $typeCfg['bg'] }} bg-opacity-10 text-{{ str_replace('bg-', '', $typeCfg['bg']) }} rounded-pill px-3 py-2 fw-800" style="font-size: 0.6rem;">
+                                    <i class="fa-solid {{ $typeCfg['icon'] }} me-1"></i>{{ strtoupper($trx->jenis_transaksi) }}
+                                </div>
                             </td>
-                            <td class="text-end text-mono small">{{ $trx->stok_sebelum }}</td>
-                            <td class="text-center">
-                                <div class="fw-800 {{ $trx->jenis_transaksi === 'masuk' ? 'text-success' : 'text-danger' }}">
+                            <td class="text-end py-3 text-mono fw-bold text-muted">{{ $trx->stok_sebelum }}</td>
+                            <td class="text-center py-3">
+                                <div class="fw-900 {{ $trx->jenis_transaksi === 'masuk' ? 'text-success' : 'text-danger' }}">
                                     {{ $trx->jenis_transaksi === 'masuk' ? '+' : '-' }}{{ $trx->qty }}
                                 </div>
                             </td>
-                            <td class="text-end text-mono fw-800 text-simrs-primary">{{ $trx->stok_sesudah }}</td>
-                            <td class="pe-4">
-                                <div class="small fw-600 mb-0">{{ $trx->referensi }}</div>
-                                <div class="small text-muted italic" style="font-size: 0.7rem;">{{ $trx->catatan }}</div>
+                            <td class="text-end py-3 text-mono fw-900 text-primary">{{ $trx->stok_sesudah }}</td>
+                            <td class="pe-4 py-3">
+                                <div class="small fw-800 text-slate mb-0">{{ $trx->referensi }}</div>
+                                <div class="small text-muted fw-medium italic" style="font-size: 0.65rem;">{{ $trx->catatan }}</div>
                             </td>
                         </tr>
                     @empty
-                        <tr><td colspan="7" class="text-center py-5 text-muted">Belum ada mutasi stok.</td></tr>
+                        <tr>
+                            <td colspan="7" class="text-center py-5">
+                                <div class="bg-light rounded-circle d-inline-flex align-items-center justify-content-center mb-3 shadow-sm" style="width: 80px; height: 80px;">
+                                    <i class="fa-solid fa-folder-open fs-1 text-muted opacity-25"></i>
+                                </div>
+                                <h6 class="fw-800 text-slate">Belum Ada Mutasi</h6>
+                                <p class="text-muted small">Histori mutasi stok belum tersedia.</p>
+                            </td>
+                        </tr>
                     @endforelse
                     </tbody>
                 </table>
@@ -105,4 +132,13 @@
         </div>
     </div>
 </div>
+
+<style>
+    .bg-slate { background: #0F172A; }
+    .text-primary-light { color: #2DD4BF; }
+    .fs-huge { font-size: 5rem; }
+    .transition-bounce-hover { transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+    .transition-bounce-hover:hover { transform: translateY(-3px); }
+    .transition-hover:hover { background-color: #F8FAFC !important; }
+</style>
 @endsection
