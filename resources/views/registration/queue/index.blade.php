@@ -90,14 +90,51 @@
                                 <li><a class="dropdown-item py-2 small fw-600" href="{{ route('rekam-medis.edit', $encounter) }}"><i class="fa-solid fa-stethoscope me-2 text-muted"></i>Input RME</a></li>
                                 <li><hr class="dropdown-divider opacity-5"></li>
                                 <li><a class="dropdown-item py-2 small fw-600" href="{{ route('pendaftaran.pasien.show', $encounter->patient) }}"><i class="fa-solid fa-folder-open me-2 text-muted"></i>Lihat Profil Pasien</a></li>
-                                <li><a class="dropdown-item py-2 small fw-600 text-danger" href="#"><i class="fa-solid fa-calendar-xmark me-2"></i>Batalkan Kunjungan</a></li>
-                            </ul>
-                        </div>
-                    </td>
-                </tr>
-            @empty
-                <tr>
-                    <td colspan="8" class="text-center py-5">
+                                <li>
+                                    <form action="{{ route('pendaftaran.kunjungan.cancel', $encounter) }}" method="POST" class="cancel-form">
+                                        @csrf @method('PATCH')
+                                        <button type="submit" class="dropdown-item py-2 small fw-600 text-danger">
+                                            <i class="fa-solid fa-calendar-xmark me-2"></i>Batalkan Kunjungan
+                                        </button>
+                                    </form>
+                                </li>
+                                </ul>
+                                </div>
+                                </td>
+                                </tr>
+                                @empty
+                                ...
+                                @endsection
+
+                                @section('scripts')
+                                <script>
+                                // Handle Cancel Confirmation
+                                document.querySelectorAll('.cancel-form').forEach(form => {
+                                form.addEventListener('submit', function(e) {
+                                e.preventDefault();
+                                Swal.fire({
+                                title: 'Batalkan Kunjungan?',
+                                text: "Status antrean akan diubah menjadi Batal. Tindakan ini tidak dapat dikembalikan.",
+                                icon: 'warning',
+                                showCancelButton: true,
+                                confirmButtonColor: '#C5372C',
+                                cancelButtonColor: '#64748B',
+                                confirmButtonText: 'Ya, Batalkan!',
+                                cancelButtonText: 'Tutup',
+                                customClass: {
+                                popup: 'rounded-4 border-0 shadow-lg',
+                                title: 'fw-800',
+                                }
+                                }).then((result) => {
+                                if (result.isConfirmed) {
+                                this.submit();
+                                }
+                                });
+                                });
+                                });
+                                </script>
+                                @endsection
+
                         <i class="fa-solid fa-clipboard-list fs-1 text-muted opacity-25 mb-3 d-block"></i>
                         <div class="text-muted">Tidak ada antrean pelayanan yang aktif saat ini.</div>
                     </td>

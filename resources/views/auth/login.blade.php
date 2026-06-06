@@ -6,7 +6,7 @@
 <div class="auth-shell">
     <section class="auth-panel position-relative overflow-hidden">
         <!-- Background Pattern -->
-        <div class="position-absolute top-0 start-0 w-100 h-100 opacity-10" style="background-image: radial-gradient(#14919B 1px, transparent 1px); background-size: 24px 24px;"></div>
+        <div class="position-absolute top-0 inset-s-0 w-100 h-100 opacity-10" style="background-image: radial-gradient(#14919B 1px, transparent 1px); background-size: 24px 24px;"></div>
         
         <div class="position-relative z-1 d-flex flex-column h-100">
             <div class="mb-5">

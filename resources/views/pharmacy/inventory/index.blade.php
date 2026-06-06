@@ -6,7 +6,7 @@
 
 @section('content')
 <div class="row g-4">
-    <!-- Form Tambah/Edit Obat -->
+    <!-- Form Tambah Obat -->
     <div class="col-xl-4">
         <div class="simrs-card sticky-top" style="top: 80px; z-index: 100;">
             <div class="simrs-card-header bg-white">
@@ -164,11 +164,29 @@
                                     <button class="btn btn-sm btn-simrs-outline shadow-none border-0 p-1" data-bs-toggle="dropdown">
                                         <i class="fa-solid fa-ellipsis-vertical fs-5"></i>
                                     </button>
-                                    <ul class="dropdown-menu dropdown-menu-end shadow border-0">
-                                        <li><a class="dropdown-item py-2" href="#"><i class="fa-solid fa-pen-to-square me-2 small text-muted"></i>Edit Obat</a></li>
-                                        <li><a class="dropdown-item py-2" href="#"><i class="fa-solid fa-clock-rotate-left me-2 small text-muted"></i>Kartu Stok</a></li>
-                                        <li><hr class="dropdown-divider"></li>
-                                        <li><a class="dropdown-item py-2 text-danger" href="#"><i class="fa-solid fa-trash-can me-2 small"></i>Hapus Item</a></li>
+                                    <ul class="dropdown-menu dropdown-menu-end shadow border-0 p-2">
+                                        <li>
+                                            <button class="dropdown-item py-2 rounded-2 small fw-600" 
+                                                data-bs-toggle="modal" 
+                                                data-bs-target="#modalEditObat" 
+                                                data-item='@json($medicine)'>
+                                                <i class="fa-solid fa-pen-to-square me-2 text-muted"></i>Edit Data
+                                            </button>
+                                        </li>
+                                        <li>
+                                            <a class="dropdown-item py-2 rounded-2 small fw-600" href="{{ route('farmasi.inventory.show', $medicine) }}">
+                                                <i class="fa-solid fa-clock-rotate-left me-2 text-muted"></i>Kartu Stok
+                                            </a>
+                                        </li>
+                                        <li><hr class="dropdown-divider opacity-5"></li>
+                                        <li>
+                                            <form action="{{ route('farmasi.inventory.destroy', $medicine) }}" method="POST" class="d-inline delete-form">
+                                                @csrf @method('DELETE')
+                                                <button type="submit" class="dropdown-item py-2 rounded-2 small fw-600 text-danger">
+                                                    <i class="fa-solid fa-trash-can me-2"></i>Hapus Item
+                                                </button>
+                                            </form>
+                                        </li>
                                     </ul>
                                 </div>
                             </td>
@@ -192,4 +210,106 @@
         </div>
     </div>
 </div>
+
+<!-- Modal Edit Obat -->
+<div class="modal fade" id="modalEditObat" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <form id="formEditObat" method="POST" class="modal-content border-0 shadow-lg">
+            @csrf @method('PATCH')
+            <div class="modal-header bg-primary text-white border-0">
+                <h5 class="modal-title fw-800"><i class="fa-solid fa-pen-to-square me-2"></i>Update Data Obat</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body p-4">
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <label class="form-label-custom">Kode Item</label>
+                        <input name="kode_obat" id="edit_kode" class="form-control text-mono fw-bold" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label-custom">Satuan</label>
+                        <select name="satuan" id="edit_satuan" class="form-select">
+                            <option value="tablet">Tablet</option>
+                            <option value="kapsul">Kapsul</option>
+                            <option value="sirup">Sirup / Botol</option>
+                            <option value="injeksi">Vial / Ampul</option>
+                            <option value="sachet">Sachet</option>
+                            <option value="pcs">Pcs</option>
+                        </select>
+                    </div>
+                    <div class="col-12">
+                        <label class="form-label-custom">Nama Obat</label>
+                        <input name="nama_obat" id="edit_nama" class="form-control fw-bold" required>
+                    </div>
+                    <div class="col-12">
+                        <label class="form-label-custom">Kategori</label>
+                        <input name="kategori" id="edit_kategori" class="form-control" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label-custom">Stok Minimum</label>
+                        <input type="number" name="stok_minimum" id="edit_min" class="form-control" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label-custom">Harga Jual (IDR)</label>
+                        <input type="number" name="harga_jual" id="edit_harga" class="form-control fw-800 text-simrs-primary" required>
+                    </div>
+                    <div class="col-md-12">
+                        <label class="form-label-custom">Produsen</label>
+                        <input name="manufacturer" id="edit_produsen" class="form-control">
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer bg-light border-0">
+                <button type="button" class="btn btn-simrs-outline px-4 fw-bold border-0" data-bs-dismiss="modal">Batal</button>
+                <button class="btn btn-simrs-primary px-4 fw-800">Simpan Perubahan</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section('scripts')
+<script>
+    // Handle Edit Modal Data
+    const modalEditObat = document.getElementById('modalEditObat');
+    modalEditObat.addEventListener('show.bs.modal', function (event) {
+        const button = event.relatedTarget;
+        const medicine = JSON.parse(button.getAttribute('data-item'));
+        const form = document.getElementById('formEditObat');
+        
+        form.action = `/farmasi/inventory/${medicine.id}`;
+        document.getElementById('edit_kode').value = medicine.kode_obat;
+        document.getElementById('edit_nama').value = medicine.nama_obat;
+        document.getElementById('edit_kategori').value = medicine.kategori;
+        document.getElementById('edit_satuan').value = medicine.satuan;
+        document.getElementById('edit_min').value = medicine.stok_minimum;
+        document.getElementById('edit_harga').value = medicine.harga_jual;
+        document.getElementById('edit_produsen').value = medicine.manufacturer || '';
+    });
+
+    // Handle Delete Confirmation
+    document.querySelectorAll('.delete-form').forEach(form => {
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            Swal.fire({
+                title: 'Konfirmasi Hapus',
+                text: "Apakah Anda yakin ingin menghapus item obat ini? Tindakan ini tidak dapat dibatalkan.",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#C5372C',
+                cancelButtonColor: '#64748B',
+                confirmButtonText: 'Ya, Hapus!',
+                cancelButtonText: 'Batal',
+                customClass: {
+                    popup: 'rounded-4 border-0 shadow-lg',
+                    title: 'fw-800',
+                }
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    this.submit();
+                }
+            });
+        });
+    });
+</script>
+@endsection
 @endsection

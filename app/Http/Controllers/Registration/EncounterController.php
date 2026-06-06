@@ -62,4 +62,19 @@ class EncounterController extends Controller
         return redirect()->route('pendaftaran.antrian')
             ->with('swal_success', 'Kunjungan berhasil didaftarkan.');
     }
+
+    public function cancel(Encounter $encounter): RedirectResponse
+    {
+        if ($encounter->status_encounter === 'selesai' || $encounter->status_encounter === 'batal') {
+            return back()->with('swal_error', 'Gagal membatalkan! Status kunjungan sudah selesai atau dibatalkan.');
+        }
+
+        $encounter->update([
+            'status_antrian' => 'batal',
+            'status_encounter' => 'batal',
+            'waktu_keluar' => now(),
+        ]);
+
+        return back()->with('swal_success', 'Kunjungan berhasil dibatalkan.');
+    }
 }

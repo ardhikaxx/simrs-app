@@ -82,6 +82,16 @@
 </div>
 
 <!-- Daftar Kunjungan BPJS -->
+<div class="page-header-bar mb-3 mt-4">
+    <form class="d-flex gap-2 flex-grow-1" method="GET">
+        <div class="input-group shadow-sm">
+            <span class="input-group-text bg-white border-end-0"><i class="fa-solid fa-magnifying-glass text-muted"></i></span>
+            <input type="search" name="q" value="{{ request('q') }}" class="form-control border-start-0" placeholder="Cari No. Registrasi, nama pasien, atau No. RM...">
+        </div>
+        <button class="btn btn-simrs-outline shadow-sm px-3">Filter</button>
+    </form>
+</div>
+
 <div class="simrs-card">
     <div class="simrs-card-header bg-white">
         <div class="simrs-card-title text-simrs-primary">

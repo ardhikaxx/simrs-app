@@ -66,9 +66,15 @@
                     <a href="{{ route('pendaftaran.kunjungan.create', ['patient_id' => $patient->id]) }}" class="btn btn-simrs-primary py-2 shadow-sm">
                         <i class="fa-solid fa-calendar-plus me-2"></i>Daftarkan Kunjungan
                     </a>
-                    <button class="btn btn-simrs-outline py-2 border-0 shadow-none text-muted fw-bold">
+                    <a href="{{ route('pendaftaran.pasien.edit', $patient) }}" class="btn btn-simrs-outline py-2 border-0 shadow-none text-muted fw-bold">
                         <i class="fa-solid fa-user-pen me-2"></i>Update Profil Pasien
-                    </button>
+                    </a>
+                    <form action="{{ route('pendaftaran.pasien.destroy', $patient) }}" method="POST" class="delete-form">
+                        @csrf @method('DELETE')
+                        <button type="submit" class="btn btn-link text-danger small w-100 text-decoration-none fw-bold mt-2">
+                            <i class="fa-solid fa-trash-can me-1"></i>Hapus Permanen Pasien
+                        </button>
+                    </form>
                 </div>
             </div>
         </div>
@@ -160,4 +166,32 @@
         </div>
     </div>
 </div>
+@section('scripts')
+<script>
+    // Handle Delete Confirmation
+    document.querySelectorAll('.delete-form').forEach(form => {
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            Swal.fire({
+                title: 'Hapus Data Pasien?',
+                text: "Data medis dan identitas pasien akan dihapus permanen. Tindakan ini tidak dapat dibatalkan.",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#C5372C',
+                cancelButtonColor: '#64748B',
+                confirmButtonText: 'Ya, Hapus Permanen!',
+                cancelButtonText: 'Batal',
+                customClass: {
+                    popup: 'rounded-4 border-0 shadow-lg',
+                    title: 'fw-800',
+                }
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    this.submit();
+                }
+            });
+        });
+    });
+</script>
+@endsection
 @endsection

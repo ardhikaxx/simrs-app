@@ -39,7 +39,9 @@ Route::middleware('staff')->group(function () {
     Route::prefix('admin')->name('admin.')->middleware('role:super-administrator,sys-admin')->group(function () {
         Route::get('users', [UserManagementController::class, 'index'])->name('users.index');
         Route::post('users', [UserManagementController::class, 'store'])->name('users.store');
+        Route::patch('users/{user}/update', [UserManagementController::class, 'update'])->name('users.update');
         Route::patch('users/{user}/toggle', [UserManagementController::class, 'toggle'])->name('users.toggle');
+        Route::delete('users/{user}', [UserManagementController::class, 'destroy'])->name('users.destroy');
         Route::get('audit', [AuditTrailController::class, 'index'])->name('audit.index');
     });
 
@@ -48,9 +50,13 @@ Route::middleware('staff')->group(function () {
         Route::get('pasien/create', [PatientController::class, 'create'])->name('pasien.create');
         Route::post('pasien', [PatientController::class, 'store'])->name('pasien.store');
         Route::get('pasien/{patient}', [PatientController::class, 'show'])->name('pasien.show');
+        Route::get('pasien/{patient}/edit', [PatientController::class, 'edit'])->name('pasien.edit');
+        Route::patch('pasien/{patient}', [PatientController::class, 'update'])->name('pasien.update');
+        Route::delete('pasien/{patient}', [PatientController::class, 'destroy'])->name('pasien.destroy');
         Route::get('kunjungan/create', [EncounterController::class, 'create'])->name('kunjungan.create');
         Route::post('kunjungan', [EncounterController::class, 'store'])->name('kunjungan.store');
         Route::get('antrian', [QueueController::class, 'index'])->name('antrian');
+        Route::patch('kunjungan/{encounter}/cancel', [EncounterController::class, 'cancel'])->name('kunjungan.cancel');
     });
 
     Route::prefix('keperawatan')->name('keperawatan.')->middleware('role:super-administrator,perawat,dokter-umum,dokter-spesialis')->group(function () {
@@ -70,6 +76,9 @@ Route::middleware('staff')->group(function () {
         Route::post('resep/{prescription}/dispense', [PrescriptionController::class, 'dispense'])->name('dispense');
         Route::get('inventory', [InventoryController::class, 'index'])->name('inventory.index');
         Route::post('inventory', [InventoryController::class, 'store'])->name('inventory.store');
+        Route::get('inventory/{medicine}', [InventoryController::class, 'show'])->name('inventory.show');
+        Route::patch('inventory/{medicine}', [InventoryController::class, 'update'])->name('inventory.update');
+        Route::delete('inventory/{medicine}', [InventoryController::class, 'destroy'])->name('inventory.destroy');
     });
 
     Route::prefix('lab')->name('lab.')->middleware('role:super-administrator,analis-lab,dokter-umum,dokter-spesialis,casemix')->group(function () {

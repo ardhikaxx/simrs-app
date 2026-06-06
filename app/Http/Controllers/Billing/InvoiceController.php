@@ -9,15 +9,27 @@ use App\Services\BillingService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 
+use Illuminate\Http\Request;
+
 class InvoiceController extends Controller
 {
-    public function queue(): View
+    public function queue(Request $request): View
     {
-        return view('billing.index', [
-            'invoices' => BillingInvoice::with(['encounter.patient', 'encounter.department', 'payments'])
-                ->latest('issued_at')
-                ->paginate(20),
-        ]);
+        $invoices = BillingInvoice::with(['encounter.patient', 'encounter.department', 'payments'])
+            ->when($request->filled('q'), function ($query) use ($request) {
+                $term = '%' . $request->q . '%';
+                $query->where('no_invoice', 'like', $term)
+                    ->orWhereHas('encounter.patient', function ($q) use ($term) {
+                        $q->where('nama_pasien', 'like', $term)
+                            ->orWhere('no_rkm_medis', 'like', $term);
+                    });
+            })
+            ->when($request->filled('status'), fn ($q) => $q->where('status', $request->status))
+            ->latest('issued_at')
+            ->paginate(20)
+            ->withQueryString();
+
+        return view('billing.index', compact('invoices'));
     }
 
     public function show(BillingInvoice $invoice, BillingService $billingService): View

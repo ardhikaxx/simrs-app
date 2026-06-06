@@ -71,4 +71,52 @@ class PatientController extends Controller
 
         return view('registration.patients.show', compact('patient'));
     }
+
+    public function edit(Patient $patient): View
+    {
+        return view('registration.patients.edit', compact('patient'));
+    }
+
+    public function update(Request $request, Patient $patient): RedirectResponse
+    {
+        $data = $request->validate([
+            'nik' => ['required', 'string', 'min:16', 'max:20', 'unique:patients,nik,' . $patient->id],
+            'no_bpjs' => ['nullable', 'string', 'max:20', 'unique:patients,no_bpjs,' . $patient->id],
+            'nama_pasien' => ['required', 'string', 'max:150'],
+            'jenis_kelamin' => ['required', 'in:L,P'],
+            'tgl_lahir' => ['required', 'date'],
+            'tempat_lahir' => ['nullable', 'string', 'max:80'],
+            'golongan_darah' => ['nullable', 'string', 'max:3'],
+            'agama' => ['nullable', 'string', 'max:30'],
+            'status_perkawinan' => ['nullable', 'string', 'max:30'],
+            'pekerjaan' => ['nullable', 'string', 'max:100'],
+            'pendidikan' => ['nullable', 'string', 'max:50'],
+            'alamat_lengkap' => ['required', 'string'],
+            'kelurahan' => ['nullable', 'string', 'max:100'],
+            'kecamatan' => ['nullable', 'string', 'max:100'],
+            'kota' => ['nullable', 'string', 'max:100'],
+            'provinsi' => ['nullable', 'string', 'max:100'],
+            'no_telp_pasien' => ['nullable', 'string', 'max:20'],
+            'kontak_darurat_nama' => ['nullable', 'string', 'max:150'],
+            'kontak_darurat_telp' => ['nullable', 'string', 'max:20'],
+            'alergi' => ['nullable', 'string'],
+        ]);
+
+        $patient->update($data);
+
+        return redirect()->route('pendaftaran.pasien.show', $patient)
+            ->with('swal_success', 'Data pasien berhasil diperbarui.');
+    }
+
+    public function destroy(Patient $patient): RedirectResponse
+    {
+        if ($patient->encounters()->exists()) {
+            return back()->with('swal_error', 'Gagal menghapus! Pasien memiliki riwayat kunjungan.');
+        }
+
+        $patient->delete();
+
+        return redirect()->route('pendaftaran.pasien.index')
+            ->with('swal_success', 'Data pasien berhasil dihapus.');
+    }
 }

@@ -19,12 +19,23 @@ class VClaimController extends Controller
             $participant = $service->cekPeserta($request->no_kartu, now()->toDateString());
         }
 
+        $encounters = Encounter::with(['patient', 'department', 'medicalRecord', 'sepDocument'])
+            ->where('cara_bayar', 'bpjs')
+            ->when($request->filled('q'), function ($query) use ($request) {
+                $term = '%' . $request->q . '%';
+                $query->where('no_registrasi', 'like', $term)
+                    ->orWhereHas('patient', function ($q) use ($term) {
+                        $q->where('nama_pasien', 'like', $term)
+                            ->orWhere('no_rkm_medis', 'like', $term);
+                    });
+            })
+            ->latest('waktu_masuk')
+            ->paginate(20)
+            ->withQueryString();
+
         return view('bpjs.index', [
             'participant' => $participant,
-            'encounters' => Encounter::with(['patient', 'department', 'medicalRecord', 'sepDocument'])
-                ->where('cara_bayar', 'bpjs')
-                ->latest('waktu_masuk')
-                ->paginate(20),
+            'encounters' => $encounters,
         ]);
     }
 

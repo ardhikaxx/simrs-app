@@ -22,14 +22,19 @@ class InventoryController extends Controller
         ]);
     }
 
-    public function store(Request $request): RedirectResponse
+    public function show(InventoryMedicine $medicine): View
+    {
+        $medicine->load(['transactions.user']);
+        return view('pharmacy.inventory.show', compact('medicine'));
+    }
+
+    public function update(Request $request, InventoryMedicine $medicine): RedirectResponse
     {
         $data = $request->validate([
-            'kode_obat' => ['required', 'string', 'max:30', 'unique:inventory_medicines,kode_obat'],
+            'kode_obat' => ['required', 'string', 'max:30', 'unique:inventory_medicines,kode_obat,' . $medicine->id],
             'nama_obat' => ['required', 'string', 'max:150'],
             'kategori' => ['required', 'string', 'max:80'],
             'satuan' => ['required', 'string', 'max:30'],
-            'stok' => ['required', 'integer', 'min:0'],
             'stok_minimum' => ['required', 'integer', 'min:0'],
             'harga_beli' => ['required', 'numeric', 'min:0'],
             'harga_jual' => ['required', 'numeric', 'min:0'],
@@ -37,18 +42,19 @@ class InventoryController extends Controller
             'manufacturer' => ['nullable', 'string', 'max:120'],
         ]);
 
-        $medicine = InventoryMedicine::create($data + ['is_active' => true]);
-        InventoryTransaction::create([
-            'inventory_medicine_id' => $medicine->id,
-            'user_id' => auth('staff')->id(),
-            'jenis_transaksi' => 'masuk',
-            'qty' => $medicine->stok,
-            'stok_sebelum' => 0,
-            'stok_sesudah' => $medicine->stok,
-            'referensi' => 'STOK-AWAL',
-            'catatan' => 'Input obat baru.',
-        ]);
+        $medicine->update($data);
 
-        return back()->with('swal_success', 'Data obat berhasil ditambahkan.');
+        return back()->with('swal_success', 'Data obat berhasil diperbarui.');
+    }
+
+    public function destroy(InventoryMedicine $medicine): RedirectResponse
+    {
+        if ($medicine->stok > 0) {
+            return back()->with('swal_error', 'Gagal menghapus! Stok obat masih tersedia.');
+        }
+
+        $medicine->delete();
+
+        return back()->with('swal_success', 'Data obat berhasil dihapus.');
     }
 }
