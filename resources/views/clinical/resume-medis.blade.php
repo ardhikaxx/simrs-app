@@ -71,26 +71,26 @@
                         <div class="col-md-6">
                             <div class="mb-4">
                                 <label class="small fw-bold text-muted text-uppercase tracking-wider mb-2" style="font-size: 0.7rem;">Keluhan Utama (Subjective)</label>
-                                <div class="p-3 bg-light rounded-3 border border-light-subtle text-dark fw-medium lh-base">{{ $encounter->medicalRecord->keluhan_utama ?: '-' }}</div>
+                                <div class="p-3 bg-light rounded-3 border border-light-subtle text-dark fw-medium lh-base">{{ $encounter->medicalRecord?->keluhan_utama ?: '-' }}</div>
                             </div>
                             <div class="mb-3">
                                 <label class="small fw-bold text-muted text-uppercase tracking-wider mb-2" style="font-size: 0.7rem;">Diagnosis Kerja (Assessment)</label>
-                                <div class="p-3 bg-primary bg-opacity-10 text-primary border border-primary border-opacity-25 rounded-3 fw-bold lh-base">{{ $encounter->medicalRecord->diagnosis_kerja ?: '-' }}</div>
+                                <div class="p-3 bg-primary bg-opacity-10 text-primary border border-primary border-opacity-25 rounded-3 fw-bold lh-base">{{ $encounter->medicalRecord?->diagnosis_kerja ?: '-' }}</div>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="mb-4">
                                 <label class="small fw-bold text-muted text-uppercase tracking-wider mb-2" style="font-size: 0.7rem;">Pemeriksaan Fisik (Objective)</label>
-                                <div class="p-3 bg-light rounded-3 border border-light-subtle text-dark fw-medium lh-base" style="min-height: 100px;">{{ $encounter->medicalRecord->pemeriksaan_fisik ?: '-' }}</div>
+                                <div class="p-3 bg-light rounded-3 border border-light-subtle text-dark fw-medium lh-base" style="min-height: 100px;">{{ $encounter->medicalRecord?->pemeriksaan_fisik ?: '-' }}</div>
                             </div>
                             <div class="row g-3">
                                 <div class="col-6">
                                     <label class="small fw-bold text-muted text-uppercase tracking-wider mb-2" style="font-size: 0.7rem;">ICD-10 Primer</label>
-                                    <div class="p-3 bg-white border border-light-subtle rounded-3 text-center fw-bolder fs-5 text-dark shadow-sm">{{ $encounter->medicalRecord->icd10_primer ?: '???' }}</div>
+                                    <div class="p-3 bg-white border border-light-subtle rounded-3 text-center fw-bolder fs-5 text-dark shadow-sm">{{ $encounter->medicalRecord?->icd10_primer ?: '???' }}</div>
                                 </div>
                                 <div class="col-6">
                                     <label class="small fw-bold text-muted text-uppercase tracking-wider mb-2" style="font-size: 0.7rem;">ICD-9 Prosedur</label>
-                                    <div class="p-3 bg-white border border-light-subtle rounded-3 text-center fw-bolder fs-5 text-secondary shadow-sm">{{ $encounter->medicalRecord->icd9_prosedur ?: '-' }}</div>
+                                    <div class="p-3 bg-white border border-light-subtle rounded-3 text-center fw-bolder fs-5 text-secondary shadow-sm">{{ $encounter->medicalRecord?->icd9_prosedur ?: '-' }}</div>
                                 </div>
                             </div>
                         </div>
