@@ -82,9 +82,14 @@
                         </span>
                     </td>
                     <td class="pe-4 text-end">
-                        <a href="{{ route('rekam-medis.edit', $encounter) }}" class="btn btn-sm btn-simrs-primary shadow-sm px-3">
-                            <i class="fa-solid fa-stethoscope me-1"></i>Periksa Pasien
-                        </a>
+                        <div class="d-flex justify-content-end gap-2">
+                            <a href="{{ route('rekam-medis.resume', $encounter) }}" class="btn btn-sm btn-simrs-outline shadow-sm px-3">
+                                <i class="fa-solid fa-file-medical me-1"></i>Resume
+                            </a>
+                            <a href="{{ route('rekam-medis.edit', $encounter) }}" class="btn btn-sm btn-simrs-primary shadow-sm px-3">
+                                <i class="fa-solid fa-stethoscope me-1"></i>Periksa Pasien
+                            </a>
+                        </div>
                     </td>
                 </tr>
             @empty

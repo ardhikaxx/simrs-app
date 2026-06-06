@@ -26,6 +26,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', fn () => auth('staff')->check() ? redirect()->route('dashboard') : redirect()->route('login'));
 
+Route::get('display-antrean', [\App\Http\Controllers\Public\QueueDisplayController::class, 'index'])->name('public.queue.display');
+
 Route::middleware('guest:staff')->group(function () {
     Route::get('login', [StaffLoginController::class, 'showLoginForm'])->name('login');
     Route::post('login', [StaffLoginController::class, 'login'])->name('login.store');
@@ -69,6 +71,7 @@ Route::middleware('staff')->group(function () {
     Route::prefix('rekam-medis')->name('rekam-medis.')->middleware('role:super-administrator,dokter-umum,dokter-spesialis,perawat,casemix')->group(function () {
         Route::get('antrian', [MedicalRecordController::class, 'queue'])->name('antrian');
         Route::get('{encounter}/edit', [MedicalRecordController::class, 'edit'])->name('edit');
+        Route::get('{encounter}/resume', [\App\Http\Controllers\Clinical\DischargeController::class, 'resume'])->name('resume');
         Route::post('{encounter}', [MedicalRecordController::class, 'update'])->name('update');
     });
 
