@@ -5,121 +5,120 @@
 @section('page-subtitle', 'Monitoring real-time alur pasien dari registrasi hingga loket pembayaran')
 
 @section('content')
-<div class="row g-4 mb-5">
-    <div class="col-md-3">
-        <div class="card-premium border-0 h-100 p-4 transition-bounce-hover position-relative overflow-hidden bg-white">
-            <div class="d-flex align-items-center gap-4">
-                <div class="kpi-icon bg-teal-soft text-primary">
-                    <i class="fa-solid fa-users-viewfinder"></i>
+<div class="row g-4 mb-4">
+    <div class="col-md-4 col-xl-3">
+        <div class="card border-0 shadow-sm rounded-4 h-100 transition-hover">
+            <div class="card-body p-4 d-flex align-items-center gap-4">
+                <div class="bg-primary bg-opacity-10 text-primary rounded-3 d-flex align-items-center justify-content-center flex-shrink-0" style="width: 56px; height: 56px;">
+                    <i class="fa-solid fa-users-viewfinder fs-4"></i>
                 </div>
                 <div>
-                    <div class="text-muted fw-800 small text-uppercase tracking-wider mb-1" style="font-size: 0.65rem;">Kunjungan Aktif</div>
-                    <h3 class="fw-800 mb-0 text-slate">{{ $encounters->total() }}</h3>
+                    <div class="text-muted fw-semibold small text-uppercase mb-1" style="letter-spacing: 0.5px;">Kunjungan Aktif</div>
+                    <h3 class="fw-bold text-dark mb-0">{{ $encounters->total() }}</h3>
                 </div>
             </div>
-            <i class="fa-solid fa-hospital-user position-absolute top-50 end-0 translate-middle-y opacity-5 fs-1 me-4"></i>
         </div>
     </div>
-    <div class="col-md-9 text-md-end d-flex align-items-center justify-content-md-end gap-3">
-        <a href="{{ route('pendaftaran.pasien.index') }}" class="btn-premium btn-light border bg-white px-4">
-            <i class="fa-solid fa-address-book opacity-50"></i>MASTER PASIEN
+    <div class="col-md-8 col-xl-9 d-flex align-items-center justify-content-md-end gap-2 flex-wrap">
+        <a href="{{ route('pendaftaran.pasien.index') }}" class="btn btn-light border bg-white px-4 py-2 fw-medium shadow-sm rounded-3 text-muted hover-bg-gray transition-hover">
+            <i class="fa-solid fa-address-book me-2"></i>Master Pasien
         </a>
-        <a href="{{ route('pendaftaran.kunjungan.create') }}" class="btn-premium btn-primary px-4">
-            <i class="fa-solid fa-calendar-plus"></i>REGISTRASI KUNJUNGAN
+        <a href="{{ route('pendaftaran.kunjungan.create') }}" class="btn btn-primary px-4 py-2 fw-medium shadow-sm rounded-3 transition-hover">
+            <i class="fa-solid fa-calendar-plus me-2"></i>Registrasi Kunjungan
         </a>
     </div>
 </div>
 
-<div class="card-premium border-0 bg-white overflow-hidden">
-    <div class="p-4 border-bottom d-flex justify-content-between align-items-center bg-white">
+<div class="card border-0 shadow-sm rounded-4 overflow-hidden">
+    <div class="p-4 border-bottom border-light bg-white d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3">
         <div class="d-flex align-items-center gap-3">
-            <div class="bg-primary bg-opacity-10 text-primary rounded-circle d-flex align-items-center justify-content-center" style="width: 42px; height: 42px;">
+            <div class="bg-primary bg-opacity-10 text-primary rounded-circle d-flex align-items-center justify-content-center flex-shrink-0" style="width: 44px; height: 44px;">
                 <i class="fa-solid fa-list-ol fs-5"></i>
             </div>
             <div>
-                <h5 class="fw-800 text-slate mb-0">Daftar Antrean Pasien Berjalan</h5>
+                <h6 class="fw-bold text-dark mb-0">Daftar Antrean Pasien Berjalan</h6>
                 <p class="small text-muted mb-0 fw-medium">Real-time status pelayanan per unit kerja</p>
             </div>
         </div>
         <form class="d-flex gap-2" method="GET">
-            <div class="header-search bg-light border-0" style="max-width: 300px;">
-                <i class="fa-solid fa-magnifying-glass opacity-40"></i>
-                <input type="search" name="q" value="{{ request('q') }}" placeholder="Cari Pasien / No. Reg...">
+            <div class="input-group input-group-sm bg-light rounded-3" style="max-width: 300px;">
+                <span class="input-group-text bg-transparent border-0"><i class="fa-solid fa-magnifying-glass text-muted"></i></span>
+                <input type="search" name="q" value="{{ request('q') }}" class="form-control bg-transparent border-0 shadow-none focus-ring-0" placeholder="Cari Pasien / No. Reg...">
             </div>
-            <button class="btn btn-primary px-3 fw-800 rounded-3">
+            <button class="btn btn-sm btn-primary px-3 fw-medium rounded-3 shadow-sm">
                 <i class="fa-solid fa-filter"></i>
             </button>
         </form>
     </div>
     
-    <div class="table-responsive">
-        <table class="table table-hover align-middle mb-0">
-            <thead>
-                <tr class="bg-light bg-opacity-50 text-muted small fw-800 text-uppercase tracking-wider">
-                    <th class="ps-4 border-0 py-3">No. Antrean / Reg</th>
-                    <th class="border-0 py-3">Informasi Pasien</th>
-                    <th class="border-0 py-3">Unit Pelayanan</th>
-                    <th class="border-0 py-3">Dokter DPJP</th>
-                    <th class="border-0 py-3">Waktu & Penjamin</th>
-                    <th class="border-0 py-3 text-center">Status Alur</th>
-                    <th class="pe-4 border-0 py-3 text-end">Aksi Cepat</th>
+    <div class="table-responsive bg-white">
+        <table class="table table-hover table-borderless align-middle mb-0 custom-table">
+            <thead class="bg-light">
+                <tr class="text-muted small fw-semibold text-uppercase" style="letter-spacing: 0.5px;">
+                    <th class="ps-4 py-3 rounded-start">No. Antrean / Reg</th>
+                    <th class="py-3">Informasi Pasien</th>
+                    <th class="py-3">Unit Pelayanan</th>
+                    <th class="py-3">Dokter DPJP</th>
+                    <th class="py-3">Waktu & Penjamin</th>
+                    <th class="py-3 text-center">Status Alur</th>
+                    <th class="pe-4 py-3 text-end rounded-end">Aksi Cepat</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody class="border-top border-light">
             @forelse($encounters as $encounter)
                 <tr class="transition-hover">
                     <td class="ps-4 py-3">
-                        <div class="text-mono fw-800 text-primary h5 mb-1">{{ $encounter->no_antrian }}</div>
-                        <div class="small text-muted fw-bold font-monospace opacity-75">{{ $encounter->no_registrasi }}</div>
+                        <div class="fw-bold text-primary mb-1 h6">{{ $encounter->no_antrian }}</div>
+                        <div class="small text-muted fw-semibold font-monospace">{{ $encounter->no_registrasi }}</div>
                     </td>
                     <td class="py-3">
-                        <div class="fw-800 text-slate mb-1">{{ $encounter->patient->nama_pasien }}</div>
-                        <div class="small text-muted fw-bold font-monospace">RM: {{ $encounter->patient->no_rkm_medis }}</div>
+                        <div class="fw-semibold text-dark mb-1">{{ $encounter->patient->nama_pasien }}</div>
+                        <div class="small text-muted font-monospace">RM: {{ $encounter->patient->no_rkm_medis }}</div>
                     </td>
                     <td class="py-3">
-                        <div class="fw-bold text-slate mb-1">{{ $encounter->department->nama_depart }}</div>
-                        <div class="badge bg-light text-slate border small fw-800" style="font-size: 0.6rem;">{{ str_replace('_', ' ', strtoupper($encounter->jenis_kunjungan)) }}</div>
+                        <div class="fw-medium text-dark mb-1">{{ $encounter->department->nama_depart }}</div>
+                        <div class="badge bg-light text-secondary border fw-medium px-2 py-1" style="font-size: 0.65rem;">{{ str_replace('_', ' ', strtoupper($encounter->jenis_kunjungan)) }}</div>
                     </td>
                     <td class="py-3">
-                        <div class="fw-bold text-slate small mb-1">{{ $encounter->doctor?->display_name ?? 'BELUM DITENTUKAN' }}</div>
-                        <div class="small text-muted fw-medium" style="font-size: 0.7rem;">Verified Practitioner</div>
+                        <div class="fw-medium text-dark small mb-1">{{ $encounter->doctor?->display_name ?? 'BELUM DITENTUKAN' }}</div>
+                        <div class="small text-muted" style="font-size: 0.7rem;">Verified Practitioner</div>
                     </td>
                     <td class="py-3">
-                        <div class="fw-bold text-slate small mb-1">{{ $encounter->waktu_masuk?->format('H:i') }} WIB</div>
-                        <div class="badge bg-blue bg-opacity-10 text-blue rounded px-2 py-1 fw-800" style="font-size: 0.6rem;">
+                        <div class="fw-semibold text-dark small mb-1">{{ $encounter->waktu_masuk?->format('H:i') }} WIB</div>
+                        <div class="badge bg-info bg-opacity-10 text-info border border-info border-opacity-10 px-2 py-1 fw-semibold" style="font-size: 0.65rem;">
                             {{ strtoupper($encounter->cara_bayar) }}
                         </div>
                     </td>
                     <td class="text-center py-3">
                         @php
                             $statusCfg = match($encounter->status_antrian) {
-                                'terdaftar' => ['bg' => 'bg-slate', 'text' => 'REGISTERED'],
-                                'asesmen_perawat' => ['bg' => 'bg-amber', 'text' => 'NURSING'],
-                                'pemeriksaan_dokter' => ['bg' => 'bg-teal', 'text' => 'CLINICAL'],
-                                'menunggu_kasir', 'menunggu_farmasi', 'menunggu_lab', 'menunggu_rad' => ['bg' => 'bg-blue', 'text' => 'WAITING'],
-                                'selesai' => ['bg' => 'bg-success', 'text' => 'DONE'],
-                                'batal' => ['bg' => 'bg-danger', 'text' => 'CANCELLED'],
-                                default => ['bg' => 'bg-dark', 'text' => strtoupper($encounter->status_antrian)]
+                                'terdaftar' => ['bg' => 'secondary', 'text' => 'REGISTERED'],
+                                'asesmen_perawat' => ['bg' => 'warning', 'text' => 'NURSING'],
+                                'pemeriksaan_dokter' => ['bg' => 'info', 'text' => 'CLINICAL'],
+                                'menunggu_kasir', 'menunggu_farmasi', 'menunggu_lab', 'menunggu_rad' => ['bg' => 'primary', 'text' => 'WAITING'],
+                                'selesai' => ['bg' => 'success', 'text' => 'DONE'],
+                                'batal' => ['bg' => 'danger', 'text' => 'CANCELLED'],
+                                default => ['bg' => 'dark', 'text' => strtoupper($encounter->status_antrian)]
                             };
                         @endphp
-                        <div class="badge {{ $statusCfg['bg'] }} bg-opacity-10 text-{{ str_replace('bg-', '', $statusCfg['bg']) }} rounded-pill px-3 py-2 fw-800" style="font-size: 0.65rem; letter-spacing: 0.5px;">
+                        <div class="badge bg-{{ $statusCfg['bg'] }} bg-opacity-10 text-{{ $statusCfg['bg'] }} rounded-pill px-3 py-1 fw-semibold d-inline-block" style="font-size: 0.7rem; letter-spacing: 0.5px;">
                             {{ $statusCfg['text'] }}
                         </div>
                     </td>
                     <td class="pe-4 py-3 text-end">
                         <div class="dropdown">
-                            <button class="btn btn-light btn-sm rounded-circle border-0 shadow-none p-0" style="width: 32px; height: 32px;" data-bs-toggle="dropdown">
-                                <i class="fa-solid fa-ellipsis-vertical"></i>
+                            <button class="btn btn-light btn-sm rounded-circle border-0 shadow-none d-flex align-items-center justify-content-center mx-auto me-md-0 ms-md-auto" style="width: 32px; height: 32px;" data-bs-toggle="dropdown">
+                                <i class="fa-solid fa-ellipsis-vertical text-muted"></i>
                             </button>
-                            <ul class="dropdown-menu dropdown-menu-end shadow-lg border-0 rounded-4 p-2">
-                                <li><a class="dropdown-item py-2 rounded-3 small fw-bold" href="{{ route('keperawatan.antrian') }}"><i class="fa-solid fa-user-nurse me-2 opacity-50"></i>Input Asesmen</a></li>
-                                <li><a class="dropdown-item py-2 rounded-3 small fw-bold" href="{{ route('rekam-medis.antrian') }}"><i class="fa-solid fa-stethoscope me-2 opacity-50"></i>Input RME</a></li>
-                                <li><hr class="dropdown-divider opacity-5"></li>
-                                <li><a class="dropdown-item py-2 rounded-3 small fw-bold" href="{{ route('pendaftaran.pasien.show', $encounter->patient) }}"><i class="fa-solid fa-folder-open me-2 opacity-50"></i>Profil Pasien</a></li>
+                            <ul class="dropdown-menu dropdown-menu-end shadow-sm border-0 rounded-4 p-2">
+                                <li><a class="dropdown-item py-2 rounded-3 small fw-medium" href="{{ route('keperawatan.antrian') }}"><i class="fa-solid fa-user-nurse me-2 opacity-50"></i>Input Asesmen</a></li>
+                                <li><a class="dropdown-item py-2 rounded-3 small fw-medium" href="{{ route('rekam-medis.antrian') }}"><i class="fa-solid fa-stethoscope me-2 opacity-50"></i>Input RME</a></li>
+                                <li><hr class="dropdown-divider opacity-10"></li>
+                                <li><a class="dropdown-item py-2 rounded-3 small fw-medium" href="{{ route('pendaftaran.pasien.show', $encounter->patient) }}"><i class="fa-solid fa-folder-open me-2 opacity-50"></i>Profil Pasien</a></li>
                                 <li>
                                     <form action="{{ route('pendaftaran.kunjungan.cancel', $encounter) }}" method="POST" class="cancel-form">
                                         @csrf @method('PATCH')
-                                        <button type="submit" class="dropdown-item py-2 rounded-3 small fw-800 text-danger">
+                                        <button type="submit" class="dropdown-item py-2 rounded-3 small fw-semibold text-danger">
                                             <i class="fa-solid fa-calendar-xmark me-2"></i>Batalkan Kunjungan
                                         </button>
                                     </form>
@@ -133,10 +132,10 @@
                     <td colspan="7" class="text-center py-5 text-muted">
                         <div class="py-4">
                             <div class="bg-light rounded-circle d-inline-flex align-items-center justify-content-center mb-3 shadow-sm" style="width: 80px; height: 80px;">
-                                <i class="fa-solid fa-clipboard-list fs-1 opacity-25"></i>
+                                <i class="fa-solid fa-clipboard-list fs-2 text-muted opacity-50"></i>
                             </div>
-                            <h6 class="fw-800 text-slate">Antrean Kosong</h6>
-                            <p class="small fw-medium">Tidak ada pelayanan pasien yang sedang berjalan.</p>
+                            <h6 class="fw-bold text-dark mb-1">Antrean Kosong</h6>
+                            <p class="small fw-medium mb-0">Tidak ada pelayanan pasien yang sedang berjalan.</p>
                         </div>
                     </td>
                 </tr>
@@ -146,23 +145,19 @@
     </div>
     
     @if($encounters->hasPages())
-        <div class="p-4 border-top bg-white">
+        <div class="p-4 border-top border-light bg-white rounded-bottom-4">
             {{ $encounters->links('pagination::bootstrap-5') }}
         </div>
     @endif
 </div>
 
 <style>
-    .kpi-icon { width: 56px; height: 56px; border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; }
-    .bg-teal-soft { background: #F0FDFA; }
-    .text-slate { color: #1E293B; }
-    .text-blue { color: #3B82F6; }
-    .text-amber { color: #F59E0B; }
-    .transition-bounce-hover { transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-    .transition-bounce-hover:hover { transform: scale(1.05); }
-    .transition-hover:hover { background-color: #F8FAFC !important; }
-    .header-search { background: #F1F5F9; border-radius: 12px; padding: 0.6rem 1rem; display: flex; align-items: center; gap: 0.75rem; }
-    .header-search input { border: none; background: transparent; outline: none; width: 100%; font-size: 0.9rem; font-weight: 600; }
+    .focus-ring-0:focus { box-shadow: none; border-color: #dee2e6; }
+    .hover-bg-gray:hover { background-color: #f8f9fa; }
+    .transition-hover { transition: all 0.2s ease; }
+    .transition-hover:hover { background-color: #f8f9fa !important; transform: translateY(-3px); }
+    .card.transition-hover:hover { transform: translateY(-3px); box-shadow: 0 10px 25px -5px rgba(0,0,0,0.05) !important; background-color: #fff !important; }
+    table .transition-hover:hover { transform: none; }
 </style>
 @endsection
 
@@ -176,11 +171,11 @@
                 text: "Status antrean akan diubah menjadi Batal. Tindakan ini tidak dapat dikembalikan.",
                 icon: 'warning',
                 showCancelButton: true,
-                confirmButtonColor: '#EF4444',
-                cancelButtonColor: '#64748B',
+                confirmButtonColor: '#ef4444',
+                cancelButtonColor: '#64748b',
                 confirmButtonText: 'YA, BATALKAN',
                 cancelButtonText: 'TUTUP',
-                customClass: { popup: 'rounded-4 border-0 shadow-lg', title: 'fw-800' }
+                customClass: { popup: 'rounded-4 border-0 shadow-sm', title: 'fw-bold' }
             }).then((result) => {
                 if (result.isConfirmed) { this.submit(); }
             });
