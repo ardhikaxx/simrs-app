@@ -5,15 +5,65 @@
 @section('page-subtitle', 'Kelola akun, hak akses, dan departemen staff rumah sakit')
 
 @section('content')
+<!-- Top Stats Row -->
+<div class="row g-4 mb-4">
+    <div class="col-md-4">
+        <div class="simrs-card bg-white border-0 shadow-sm h-100 overflow-hidden position-relative">
+            <div class="position-absolute top-0 end-0 p-3 opacity-10">
+                <i class="fa-solid fa-users fs-1"></i>
+            </div>
+            <div class="simrs-card-body d-flex align-items-center gap-3">
+                <div class="brand-icon shadow-none bg-primary-subtle text-primary" style="width: 48px; height: 48px;">
+                    <i class="fa-solid fa-user-doctor"></i>
+                </div>
+                <div>
+                    <div class="small fw-700 text-muted text-uppercase tracking-wider">Total Staff Aktif</div>
+                    <div class="h3 fw-800 text-simrs-gray-900 mb-0">{{ $users->total() }} <span class="fs-6 fw-normal text-muted">Akun</span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="simrs-card bg-white border-0 shadow-sm h-100 overflow-hidden position-relative">
+            <div class="position-absolute top-0 end-0 p-3 opacity-10">
+                <i class="fa-solid fa-building-user fs-1"></i>
+            </div>
+            <div class="simrs-card-body d-flex align-items-center gap-3">
+                <div class="brand-icon shadow-none bg-info-subtle text-info" style="width: 48px; height: 48px;">
+                    <i class="fa-solid fa-sitemap"></i>
+                </div>
+                <div>
+                    <div class="small fw-700 text-muted text-uppercase tracking-wider">Departemen</div>
+                    <div class="h3 fw-800 text-simrs-gray-900 mb-0">{{ count($departments) }} <span class="fs-6 fw-normal text-muted">Unit Terdaftar</span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="simrs-card bg-white border-0 shadow-sm h-100 overflow-hidden position-relative">
+            <div class="position-absolute top-0 end-0 p-3 opacity-10">
+                <i class="fa-solid fa-shield-halved fs-1"></i>
+            </div>
+            <div class="simrs-card-body d-flex align-items-center gap-3">
+                <div class="brand-icon shadow-none bg-warning-subtle text-warning" style="width: 48px; height: 48px;">
+                    <i class="fa-solid fa-user-shield"></i>
+                </div>
+                <div>
+                    <div class="small fw-700 text-muted text-uppercase tracking-wider">Role Sistem</div>
+                    <div class="h3 fw-800 text-simrs-gray-900 mb-0">{{ count($roles) }} <span class="fs-6 fw-normal text-muted">Tingkat Akses</span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="row g-4">
     <!-- Form Tambah User -->
     <div class="col-xl-4">
-        <div class="simrs-card sticky-top" style="top: 80px; z-index: 100;">
-            <div class="simrs-card-header bg-light">
-                <div class="simrs-card-title">
-                    <div class="brand-icon shadow-none bg-primary-subtle text-primary" style="width: 32px; height: 32px; font-size: 0.8rem;">
-                        <i class="fa-solid fa-user-plus"></i>
-                    </div>
+        <div class="simrs-card sticky-top border-0 shadow-sm" style="top: 80px; z-index: 100;">
+            <div class="simrs-card-header bg-white border-bottom py-3">
+                <div class="simrs-card-title text-simrs-primary">
+                    <i class="fa-solid fa-user-plus"></i>
                     <span>Registrasi Staff Baru</span>
                 </div>
             </div>
@@ -22,34 +72,33 @@
                     @csrf
                     <div class="row g-3">
                         <div class="col-md-6">
-                            <label class="form-label-custom">Nomor Induk (NIP)</label>
-                            <input name="nip" class="form-control" placeholder="Contoh: 1980..." required>
+                            <label class="form-label-custom small">Nomor Induk (NIP)</label>
+                            <input name="nip" class="form-control text-mono fw-bold bg-light" placeholder="1980..." required>
                         </div>
                         <div class="col-md-6">
-                            <label class="form-label-custom">No. Telepon</label>
-                            <input name="no_telepon" class="form-control" placeholder="0812...">
+                            <label class="form-label-custom small">No. Telepon</label>
+                            <input name="no_telepon" class="form-control bg-light" placeholder="0812...">
                         </div>
                         <div class="col-12">
-                            <label class="form-label-custom">Nama Lengkap & Gelar</label>
-                            <input name="nama_lengkap" class="form-control" placeholder="Masukkan nama lengkap" required>
+                            <label class="form-label-custom small">Nama Lengkap & Gelar</label>
+                            <input name="nama_lengkap" class="form-control fw-600 bg-light" placeholder="Nama lengkap" required>
                         </div>
                         <div class="col-12">
-                            <label class="form-label-custom">Alamat Email Kerja</label>
-                            <div class="input-group">
+                            <label class="form-label-custom small">Email Kerja</label>
+                            <div class="input-group shadow-none">
                                 <span class="input-group-text bg-light border-end-0"><i class="fa-solid fa-envelope text-muted small"></i></span>
-                                <input type="email" name="email" class="form-control border-start-0" placeholder="staff@rs-sehat.com" required>
+                                <input type="email" name="email" class="form-control border-start-0 bg-light" placeholder="staff@rs-sehat.com" required>
                             </div>
                         </div>
                         <div class="col-12">
-                            <label class="form-label-custom">Password Awal</label>
-                            <div class="input-group">
+                            <label class="form-label-custom small">Password Awal</label>
+                            <div class="input-group shadow-none">
                                 <span class="input-group-text bg-light border-end-0"><i class="fa-solid fa-key text-muted small"></i></span>
-                                <input type="password" name="password" class="form-control border-start-0" value="password" required>
+                                <input type="password" name="password" class="form-control border-start-0 bg-light" value="password" required>
                             </div>
-                            <div class="form-text text-mono small">Default: password</div>
                         </div>
-                        <div class="col-12">
-                            <label class="form-label-custom">Departemen / Unit Kerja</label>
+                        <div class="col-12 border-top pt-2 mt-3">
+                            <label class="form-label-custom small">Departemen / Unit Kerja</label>
                             <select name="department_id" class="form-select select2-init" required>
                                 <option value="">Pilih Departemen</option>
                                 @foreach($departments as $department)
@@ -58,8 +107,8 @@
                             </select>
                         </div>
                         <div class="col-12">
-                            <label class="form-label-custom">Peran Utama (Role)</label>
-                            <select name="role_id" class="form-select" required>
+                            <label class="form-label-custom small">Peran Utama (Role)</label>
+                            <select name="role_id" class="form-select fw-bold shadow-none" required>
                                 <option value="">Pilih Role Akses</option>
                                 @foreach($roles as $role)
                                     <option value="{{ $role->id }}">{{ $role->nama_peran }}</option>
@@ -67,8 +116,8 @@
                             </select>
                         </div>
                     </div>
-                    <button class="btn btn-simrs-primary w-100 mt-4 py-2 fw-bold shadow-sm">
-                        <i class="fa-solid fa-floppy-disk me-2"></i>Daftarkan Staff
+                    <button class="btn btn-simrs-primary w-100 mt-4 py-3 fw-800 shadow-sm border-0">
+                        <i class="fa-solid fa-plus-circle me-2"></i>Daftarkan Staff
                     </button>
                 </form>
             </div>
@@ -77,122 +126,85 @@
 
     <!-- Tabel Daftar User -->
     <div class="col-xl-8">
-        <div class="page-header-bar mb-3">
-            <form class="d-flex gap-2 flex-grow-1" method="GET">
-                <div class="input-group shadow-sm">
-                    <span class="input-group-text bg-white border-end-0"><i class="fa-solid fa-magnifying-glass text-muted"></i></span>
-                    <input type="search" name="q" value="{{ request('q') }}" class="form-control border-start-0" placeholder="Cari staff berdasarkan nama, NIP, atau email...">
+        <div class="page-header-bar mb-3 p-3 bg-white border rounded-3 shadow-sm d-flex align-items-center justify-content-between">
+            <h5 class="fw-800 text-simrs-gray-900 mb-0 d-none d-md-block"><i class="fa-solid fa-users me-2 text-simrs-primary"></i>Direktori Staff</h5>
+            <form class="d-flex gap-2 flex-grow-1 flex-md-grow-0" style="min-width: 300px;" method="GET">
+                <div class="input-group shadow-none">
+                    <span class="input-group-text bg-light border-end-0"><i class="fa-solid fa-magnifying-glass text-muted"></i></span>
+                    <input type="search" name="q" value="{{ request('q') }}" class="form-control border-start-0 bg-light" placeholder="Cari NIP atau nama...">
+                    <button class="btn btn-dark px-3 fw-bold border-0">Cari</button>
                 </div>
-                <button class="btn btn-simrs-outline shadow-sm px-3">Filter</button>
             </form>
         </div>
 
-        <div class="simrs-card">
-            <div class="simrs-card-header bg-white">
-                <div class="simrs-card-title">
-                    <i class="fa-solid fa-users text-simrs-primary"></i>
-                    <span>Direktori Staff SIMRS</span>
-                </div>
-                <div class="small text-muted fw-normal">Total: {{ $users->total() }} Akun</div>
-            </div>
+        <div class="simrs-card border-0 shadow-sm">
             <div class="table-responsive">
                 <table class="table table-hover align-middle mb-0">
-                    <thead>
-                        <tr>
-                            <th class="ps-4">Identitas Staff</th>
-                            <th>Unit Kerja</th>
-                            <th>Akses</th>
-                            <th>Login Terakhir</th>
-                            <th>Status</th>
+                    <thead class="bg-light">
+                        <tr class="small text-muted text-uppercase fw-bold">
+                            <th class="ps-4">Profil Staff</th>
+                            <th>Unit & Akses</th>
+                            <th>Aktivitas Terakhir</th>
+                            <th class="text-center">Status</th>
                             <th class="pe-4 text-end">Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
                     @forelse($users as $user)
                         <tr>
-                            <td class="ps-4">
+                            <td class="ps-4 py-3">
                                 <div class="d-flex align-items-center gap-3">
-                                    <div class="user-avatar-sm shadow-sm" style="background: var(--simrs-primary-pale); color: var(--simrs-primary); border: 1px solid var(--simrs-primary-light);">
+                                    <div class="user-avatar-sm shadow-sm" style="background: var(--simrs-primary-pale); color: var(--simrs-primary); width: 42px; height: 42px; font-size: 1.1rem; border: 1px solid var(--simrs-primary-light);">
                                         {{ strtoupper(substr($user->display_name, 0, 1)) }}
                                     </div>
                                     <div>
-                                        <div class="fw-bold text-simrs-gray-900">{{ $user->display_name }}</div>
-                                        <div class="text-mono small text-muted">{{ $user->nip ?: 'NIP -' }}</div>
+                                        <div class="fw-800 text-simrs-gray-900">{{ $user->display_name }}</div>
+                                        <div class="text-mono small text-muted"><i class="fa-solid fa-id-badge me-1 opacity-50"></i>{{ $user->nip ?: 'NIP -' }}</div>
                                     </div>
                                 </div>
                             </td>
                             <td>
-                                <div class="badge-status status-baru shadow-none" style="font-weight: 600;">
-                                    {{ $user->department?->nama_depart ?: 'Internal' }}
-                                </div>
-                            </td>
-                            <td>
-                                <div class="small fw-600 text-simrs-secondary">
-                                    <i class="fa-solid fa-shield-halved me-1 opacity-50"></i>
-                                    {{ $user->roles->pluck('nama_peran')->first() ?: 'Guest' }}
-                                </div>
-                            </td>
-                            <td>
-                                <div class="small text-muted">
-                                    @if($user->last_login_at)
-                                        {{ $user->last_login_at->format('d/m/Y') }}
-                                        <div class="text-mono" style="font-size: 0.75rem;">{{ $user->last_login_at->format('H:i') }} WIB</div>
-                                    @else
-                                        <span class="opacity-50">- Belum login -</span>
-                                    @endif
-                                </div>
-                            </td>
-                            <td>
-                                <span class="badge-status {{ $user->is_active ? 'status-aman' : 'status-kritis' }}">
-                                    <i class="fa-solid fa-circle {{ $user->is_active ? 'text-success' : 'text-danger' }} me-1 small"></i>
-                                    {{ $user->is_active ? 'Aktif' : 'Nonaktif' }}
+                                <div class="small fw-700 text-simrs-gray-800 mb-1">{{ $user->department?->nama_depart ?: 'Internal' }}</div>
+                                <span class="badge bg-secondary-subtle text-secondary border border-secondary-subtle px-2 py-0" style="font-size: 0.65rem;">
+                                    <i class="fa-solid fa-shield-halved me-1 opacity-50"></i>{{ $user->roles->pluck('nama_peran')->first() ?: 'Guest' }}
                                 </span>
                             </td>
-                            <td class="pe-4 text-end">
-                                <div class="dropdown">
-                                    <button class="btn btn-sm btn-simrs-outline shadow-none border-0 p-1" data-bs-toggle="dropdown">
-                                        <i class="fa-solid fa-ellipsis-vertical fs-5"></i>
-                                    </button>
-                                    <ul class="dropdown-menu dropdown-menu-end shadow border-0 p-2">
-                                        <li>
-                                            <button class="dropdown-item py-2 rounded-2 small fw-600" 
-                                                data-bs-toggle="modal" 
-                                                data-bs-target="#modalEditUser" 
-                                                data-user='@json($user->load(['roles', 'department']))'>
-                                                <i class="fa-solid fa-user-pen me-2 small text-muted"></i>Edit Profil
-                                            </button>
-                                        </li>
-                                        <li><a class="dropdown-item py-2 rounded-2 small fw-600" href="#"><i class="fa-solid fa-key me-2 small text-muted"></i>Reset Password</a></li>
-                                        <li><hr class="dropdown-divider opacity-5"></li>
-                                        <li>
-                                            <form action="{{ route('admin.users.toggle', $user) }}" method="POST">
-                                                @csrf @method('PATCH')
-                                                <button class="dropdown-item py-2 rounded-2 small fw-600 {{ $user->is_active ? 'text-warning' : 'text-success' }}">
-                                                    @if($user->is_active)
-                                                        <i class="fa-solid fa-user-lock me-2 small"></i>Nonaktifkan Akun
-                                                    @else
-                                                        <i class="fa-solid fa-user-check me-2 small"></i>Aktifkan Akun
-                                                    @endif
-                                                </button>
-                                            </form>
-                                        </li>
-                                        <li>
-                                            <form action="{{ route('admin.users.destroy', $user) }}" method="POST" class="delete-form">
-                                                @csrf @method('DELETE')
-                                                <button type="submit" class="dropdown-item py-2 rounded-2 small fw-600 text-danger">
-                                                    <i class="fa-solid fa-trash-can me-2 small"></i>Hapus Permanen
-                                                </button>
-                                            </form>
-                                        </li>
-                                    </ul>
+                            <td>
+                                @if($user->last_login_at)
+                                    <div class="small fw-600 text-simrs-gray-800">{{ $user->last_login_at->format('d/m/Y') }}</div>
+                                    <div class="text-mono small text-muted">{{ $user->last_login_at->format('H:i') }} WIB</div>
+                                @else
+                                    <span class="badge bg-light text-muted border px-2 py-1 small italic">Belum pernah login</span>
+                                @endif
+                            </td>
+                            <td class="text-center">
+                                <div class="form-check form-switch d-inline-block">
+                                    <input class="form-check-input status-toggle" type="checkbox" role="switch" @checked($user->is_active) data-id="{{ $user->id }}">
                                 </div>
+                            </td>
+                            <td class="pe-4 text-end">
+                                <button class="btn btn-sm btn-light border shadow-sm px-3 fw-600 text-simrs-primary" 
+                                    data-bs-toggle="modal" 
+                                    data-bs-target="#modalEditUser" 
+                                    data-user='@json($user->load(['roles', 'department']))'>
+                                    Edit
+                                </button>
+                                <form action="{{ route('admin.users.destroy', $user) }}" method="POST" class="delete-form d-inline-block ms-1">
+                                    @csrf @method('DELETE')
+                                    <button type="submit" class="btn btn-sm btn-danger-subtle text-danger border border-danger-subtle shadow-sm px-2">
+                                        <i class="fa-solid fa-trash-can"></i>
+                                    </button>
+                                </form>
                             </td>
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="6" class="text-center py-5">
-                                <i class="fa-solid fa-user-slash fs-1 text-muted opacity-25 mb-3"></i>
-                                <div class="text-muted">Staff tidak ditemukan dengan kriteria pencarian tersebut.</div>
+                            <td colspan="5" class="text-center py-5">
+                                <div class="brand-icon shadow-none bg-light text-muted mx-auto mb-3" style="width: 64px; height: 64px; font-size: 2rem;">
+                                    <i class="fa-solid fa-user-slash"></i>
+                                </div>
+                                <h5 class="fw-800 text-simrs-gray-900 mb-1">Data Tidak Ditemukan</h5>
+                                <div class="text-muted small">Coba gunakan kata kunci pencarian yang lain.</div>
                             </td>
                         </tr>
                     @endforelse
@@ -207,6 +219,7 @@
         </div>
     </div>
 </div>
+
 @endsection
 
 <!-- Modal Edit User -->
