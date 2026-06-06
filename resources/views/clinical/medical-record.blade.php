@@ -20,7 +20,7 @@
                         <div class="small opacity-75 font-monospace mb-2">{{ $encounter->patient->no_rkm_medis }}</div>
                         <span class="badge bg-white text-primary px-3 py-1 shadow-sm mt-1" style="font-size: 0.7rem; letter-spacing: 0.5px;">{{ strtoupper($encounter->cara_bayar) }}</span>
                     </div>
-                    <div class="flex-grow-1 p-4 bg-white d-flex flex-column justify-content-center">
+                    <div class="grow p-4 bg-white d-flex flex-column justify-content-center">
                         <div class="row g-3 mb-3 pb-3 border-bottom border-light-subtle">
                             <div class="col-6 col-md-3">
                                 <div class="small text-muted fw-bold text-uppercase tracking-wider mb-1" style="font-size: 0.65rem;">Usia / JK</div>
@@ -74,7 +74,7 @@
 
     <!-- Alert & Safety -->
     <div class="col-lg-4 d-flex flex-column gap-3">
-        <div class="card border-0 shadow-sm rounded-4 flex-grow-1 bg-white">
+        <div class="card border-0 shadow-sm rounded-4 grow bg-white">
             <div class="card-header bg-white border-0 pb-0 pt-3 px-4">
                 <div class="d-flex align-items-center gap-2 text-danger">
                     <i class="fa-solid fa-triangle-exclamation"></i>
@@ -186,7 +186,7 @@
                                 </div>
                                 <div class="col-md-6 d-flex flex-column">
                                     <label class="form-label text-muted fw-bold small text-uppercase tracking-wider mb-2">P (Plan) - Rencana Terapi & Tindakan</label>
-                                    <textarea name="rencana_terapi" class="form-control flex-grow-1 mb-3 shadow-none border-light-subtle bg-light" placeholder="Rencana pengobatan, tindakan, edukasi, dll..." required>{{ old('rencana_terapi', $record?->rencana_terapi) }}</textarea>
+                                    <textarea name="rencana_terapi" class="form-control grow mb-3 shadow-none border-light-subtle bg-light" placeholder="Rencana pengobatan, tindakan, edukasi, dll..." required>{{ old('rencana_terapi', $record?->rencana_terapi) }}</textarea>
 
                                     <div class="p-3 bg-primary bg-opacity-10 border border-primary border-opacity-25 rounded-3">
                                         <label class="form-label text-primary fw-bold small text-uppercase tracking-wider mb-2">Kondisi Saat Selesai</label>
@@ -437,13 +437,13 @@
                         </button>
                         <div class="timeline-clinical small">
                             <div class="border-start border-2 border-primary ps-3 pb-3 position-relative ms-1">
-                                <i class="fa-solid fa-circle text-primary position-absolute start-0 translate-middle-x bg-white" style="font-size: 0.7rem; top: 5px;"></i>
+                                <i class="fa-solid fa-circle text-primary position-absolute inset-s-0 translate-middle-x bg-white" style="font-size: 0.7rem; top: 5px;"></i>
                                 <div class="fw-bold text-dark mb-1">Hari Ini, {{ now()->format('H:i') }}</div>
                                 <div class="text-muted fw-medium">Input CPPT Medis sedang berlangsung</div>
                             </div>
                             @forelse($encounter->prescriptions as $rx)
                                 <div class="border-start border-2 border-success ps-3 pb-3 position-relative ms-1">
-                                    <i class="fa-solid fa-circle text-success position-absolute start-0 translate-middle-x bg-white" style="font-size: 0.7rem; top: 5px;"></i>
+                                    <i class="fa-solid fa-circle text-success position-absolute inset-s-0 translate-middle-x bg-white" style="font-size: 0.7rem; top: 5px;"></i>
                                     <div class="fw-bold text-dark mb-1">Resep Terbit <span class="font-monospace text-primary">({{ $rx->no_resep }})</span></div>
                                     <div class="text-muted fw-medium">{{ $rx->details->count() }} item obat diresepkan</div>
                                 </div>
