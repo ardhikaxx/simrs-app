@@ -5,94 +5,141 @@
 @section('page-subtitle', 'Triase, tanda vital, dan asesmen awal pasien oleh perawat')
 
 @section('content')
-<div class="page-header-bar mb-3">
-    <form class="d-flex gap-2 flex-grow-1" method="GET">
-        <div class="input-group shadow-sm">
-            <span class="input-group-text bg-white border-end-0"><i class="fa-solid fa-magnifying-glass text-muted"></i></span>
-            <input type="search" name="q" value="{{ request('q') }}" class="form-control border-start-0" placeholder="Cari No. Antrian, nama pasien, atau No. RM...">
-        </div>
-        <select name="unit" class="form-select shadow-sm" style="max-width: 200px;">
-            <option value="">Semua Unit</option>
-            <option value="IGD">IGD</option>
-            <option value="POL">Poliklinik</option>
-        </select>
-        <button class="btn btn-simrs-outline shadow-sm px-3">Filter</button>
-    </form>
+<!-- Filter & Action Bar -->
+<div class="card border-0 shadow-sm rounded-4 mb-4 bg-white">
+    <div class="card-body p-3">
+        <form class="row g-3 align-items-center" method="GET">
+            <div class="col-md-5">
+                <div class="input-group input-group-lg shadow-none">
+                    <span class="input-group-text bg-light border-end-0 text-muted px-4 rounded-start-pill"><i class="fa-solid fa-magnifying-glass"></i></span>
+                    <input type="search" name="q" value="{{ request('q') }}" class="form-control bg-light border-start-0 ps-0 shadow-none fs-6" placeholder="Cari No. Antrian, nama pasien, atau No. RM...">
+                </div>
+            </div>
+            <div class="col-md-4">
+                <select name="unit" class="form-select form-select-lg bg-light shadow-none fs-6 rounded-pill border-light-subtle">
+                    <option value="">Semua Unit</option>
+                    <option value="IGD">IGD</option>
+                    <option value="POL">Poliklinik</option>
+                </select>
+            </div>
+            <div class="col-md-3 d-flex gap-2">
+                <button type="submit" class="btn btn-dark btn-lg fw-bold shadow-sm rounded-pill px-4 fs-6 w-100">
+                    <i class="fa-solid fa-filter me-2"></i>Filter Data
+                </button>
+            </div>
+        </form>
+    </div>
 </div>
 
-<div class="simrs-card">
-    <div class="simrs-card-header bg-white">
-        <div class="simrs-card-title text-simrs-primary">
-            <i class="fa-solid fa-user-nurse"></i>
-            <span>Daftar Tunggu Pemeriksaan Perawat</span>
+<div class="card border-0 shadow-sm rounded-4">
+    <div class="card-header bg-white border-bottom p-4 d-flex justify-content-between align-items-center">
+        <div class="d-flex align-items-center gap-3">
+            <div class="bg-primary bg-opacity-10 text-primary rounded-circle d-flex align-items-center justify-content-center" style="width: 42px; height: 42px;">
+                <i class="fa-solid fa-user-nurse fs-5"></i>
+            </div>
+            <div>
+                <h5 class="fw-bold mb-0 text-dark">Daftar Tunggu Pemeriksaan Perawat</h5>
+                <p class="text-muted small mb-0">Total {{ $encounters->total() }} pasien menunggu</p>
+            </div>
         </div>
     </div>
+    
     <div class="table-responsive">
-        <table class="table table-hover align-middle mb-0">
-            <thead class="bg-light">
-                <tr>
-                    <th class="ps-4">No. Antrian</th>
-                    <th>Informasi Pasien</th>
-                    <th>Unit Pelayanan</th>
-                    <th>Dokter DPJP</th>
-                    <th class="text-center">Tanda Vital</th>
-                    <th>Status Antrean</th>
-                    <th class="pe-4 text-end">Aksi</th>
+        <table class="table table-hover align-middle mb-0" style="font-size: 0.95rem;">
+            <thead class="bg-light bg-opacity-75">
+                <tr class="text-muted fw-bold text-uppercase" style="letter-spacing: 0.5px; font-size: 0.75rem;">
+                    <th class="border-0 px-4 py-3">No. Antrian</th>
+                    <th class="border-0 py-3">Informasi Pasien</th>
+                    <th class="border-0 py-3">Unit Pelayanan</th>
+                    <th class="border-0 py-3">Dokter DPJP</th>
+                    <th class="border-0 py-3 text-center">Tanda Vital</th>
+                    <th class="border-0 py-3 text-center">Status Antrean</th>
+                    <th class="border-0 px-4 py-3 text-end">Aksi Medis</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody class="border-top-0">
             @forelse($encounters as $encounter)
                 <tr>
-                    <td class="ps-4">
-                        <div class="text-mono fw-800 text-simrs-primary h5 mb-0">{{ $encounter->no_antrian }}</div>
-                        <div class="small text-muted" style="font-size: 0.7rem;">{{ $encounter->waktu_masuk?->format('H:i') }} WIB</div>
+                    <td class="px-4 py-3">
+                        <div class="text-primary font-monospace fw-bold bg-primary bg-opacity-10 px-2 py-1 rounded border border-primary border-opacity-25 d-inline-block mb-1 fs-5">{{ $encounter->no_antrian }}</div>
+                        <div class="small text-muted fw-medium" style="font-size: 0.7rem;"><i class="fa-regular fa-clock me-1 opacity-50"></i>{{ $encounter->waktu_masuk?->format('H:i') }} WIB</div>
                     </td>
                     <td>
-                        <div class="fw-bold text-simrs-gray-900">{{ $encounter->patient->nama_pasien }}</div>
-                        <div class="small text-muted text-mono" style="font-size: 0.75rem;">RM: {{ $encounter->patient->no_rkm_medis }}</div>
+                        <div class="fw-bold text-dark mb-1">{{ $encounter->patient->nama_pasien }}</div>
+                        <div class="small text-muted font-monospace"><i class="fa-solid fa-id-badge me-1 opacity-50"></i>RM: {{ $encounter->patient->no_rkm_medis }}</div>
                     </td>
                     <td>
-                        <div class="small fw-600 text-simrs-gray-800">{{ $encounter->department->nama_depart }}</div>
+                        <div class="fw-semibold text-dark">{{ $encounter->department->nama_depart }}</div>
                     </td>
                     <td>
-                        <div class="small fw-600 text-simrs-secondary">{{ $encounter->doctor?->display_name ?? '-' }}</div>
+                        <div class="d-flex align-items-center gap-2">
+                            <i class="fa-solid fa-user-doctor text-muted opacity-50"></i>
+                            <span class="fw-medium">{{ $encounter->doctor?->display_name ?? 'Belum Ditentukan' }}</span>
+                        </div>
                     </td>
                     <td class="text-center">
                         @if($encounter->nursingAssessment)
-                            <div class="small fw-800 text-simrs-primary mb-1">{{ $encounter->nursingAssessment->tekanan_darah_sistolik }}/{{ $encounter->nursingAssessment->tekanan_darah_diastolik }}</div>
-                            <span class="badge-status status-{{ $encounter->nursingAssessment->triase }} px-2 py-0" style="font-size: 0.65rem;">
+                            <div class="fw-bold text-primary font-monospace mb-1">{{ $encounter->nursingAssessment->tekanan_darah_sistolik }}/{{ $encounter->nursingAssessment->tekanan_darah_diastolik }}</div>
+                            @php
+                                $triaseBg = match($encounter->nursingAssessment->triase) {
+                                    'merah' => 'bg-danger text-white',
+                                    'kuning' => 'bg-warning text-dark',
+                                    'hijau' => 'bg-success text-white',
+                                    'hitam' => 'bg-dark text-white',
+                                    default => 'bg-secondary text-white'
+                                };
+                            @endphp
+                            <span class="badge {{ $triaseBg }} px-2 py-1 rounded-pill" style="font-size: 0.65rem; letter-spacing: 0.5px;">
                                 TRIASE {{ strtoupper($encounter->nursingAssessment->triase) }}
                             </span>
                         @else
-                            <span class="text-muted opacity-50 small italic">Belum Asesmen</span>
+                            <span class="text-muted opacity-50 fst-italic small">Belum Asesmen</span>
                         @endif
                     </td>
-                    <td>
-                        <span class="badge-status status-{{ str_replace('_','-',$encounter->status_antrian) }} shadow-none">
-                            {{ str_replace('_',' ',ucfirst($encounter->status_antrian)) }}
+                    <td class="text-center">
+                        @php
+                            $badgeStatusClass = match($encounter->status_antrian) {
+                                'menunggu' => 'bg-warning text-dark',
+                                'asesmen_perawat' => 'bg-info text-white',
+                                'pemeriksaan_dokter' => 'bg-primary text-white',
+                                'diperiksa', 'selesai' => 'bg-success text-white',
+                                default => 'bg-secondary text-white'
+                            };
+                        @endphp
+                        <span class="badge {{ $badgeStatusClass }} rounded-pill px-3 py-2 fw-bold shadow-sm" style="font-size: 0.7rem; letter-spacing: 0.5px;">
+                            {{ str_replace('_',' ',strtoupper($encounter->status_antrian)) }}
                         </span>
                     </td>
-                    <td class="pe-4 text-end">
-                        <a href="{{ route('keperawatan.asesmen.edit', $encounter) }}" class="btn btn-sm btn-simrs-primary shadow-sm px-3">
-                            <i class="fa-solid fa-clipboard-check me-1"></i>Asesmen
+                    <td class="px-4 py-3 text-end">
+                        <a href="{{ route('keperawatan.asesmen.edit', $encounter) }}" class="btn btn-sm btn-primary bg-gradient shadow-sm rounded-3 px-3 py-2 fw-semibold transition-hover">
+                            <i class="fa-solid fa-clipboard-check me-1"></i> Asesmen
                         </a>
                     </td>
                 </tr>
             @empty
                 <tr>
                     <td colspan="7" class="text-center py-5">
-                        <i class="fa-solid fa-notes-medical fs-1 text-muted opacity-25 mb-3 d-block"></i>
-                        <div class="text-muted">Tidak ada pasien dalam daftar tunggu keperawatan saat ini.</div>
+                        <div class="d-inline-flex align-items-center justify-content-center bg-light rounded-circle mb-3" style="width: 80px; height: 80px;">
+                            <i class="fa-solid fa-notes-medical fs-1 text-muted opacity-50"></i>
+                        </div>
+                        <h5 class="fw-bold text-dark mb-1">Antrean Kosong</h5>
+                        <p class="text-muted small">Tidak ada pasien dalam daftar tunggu keperawatan saat ini.</p>
                     </td>
                 </tr>
             @endforelse
             </tbody>
         </table>
     </div>
+    
     @if($encounters->hasPages())
-        <div class="p-3 border-top bg-light">
+        <div class="card-footer bg-white border-top p-4 d-flex justify-content-center">
             {{ $encounters->links('pagination::bootstrap-5') }}
         </div>
     @endif
 </div>
+
+<style>
+    .transition-hover { transition: all 0.2s ease-in-out; }
+    .transition-hover:hover { transform: translateY(-2px); box-shadow: 0 4px 10px rgba(0,0,0,0.15) !important; }
+</style>
 @endsection
