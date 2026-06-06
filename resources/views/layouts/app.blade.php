@@ -18,20 +18,20 @@
     <style>
         :root {
             --simrs-primary: #0B6477;
-            --simrs-primary-dark: #094E5C;
+            --simrs-primary-dark: #074755;
             --simrs-primary-light: #14919B;
-            --simrs-primary-pale: #E6F4F7;
+            --simrs-primary-pale: #F0F9FA;
             --simrs-secondary: #2C3E7A;
             --simrs-secondary-pale: #EEF0F8;
             --simrs-accent: #E07B1F;
-            --simrs-success: #1A8754;
-            --simrs-success-pale: #E8F5EE;
-            --simrs-danger: #C5372C;
-            --simrs-danger-pale: #FDECEA;
-            --simrs-warning: #C78A12;
-            --simrs-warning-pale: #FEF7E6;
-            --simrs-info: #1678B4;
-            --simrs-info-pale: #E6F2FB;
+            --simrs-success: #10B981;
+            --simrs-success-pale: #ECFDF5;
+            --simrs-danger: #EF4444;
+            --simrs-danger-pale: #FEF2F2;
+            --simrs-warning: #F59E0B;
+            --simrs-warning-pale: #FFFBEB;
+            --simrs-info: #3B82F6;
+            --simrs-info-pale: #EFF6FF;
             --simrs-gray-50: #F8FAFC;
             --simrs-gray-100: #F1F5F9;
             --simrs-gray-200: #E2E8F0;
@@ -43,23 +43,27 @@
             --simrs-gray-800: #1E293B;
             --simrs-gray-900: #0F172A;
             
-            --sidebar-bg: #0b1f2e;
-            --sidebar-hover: #132D41;
-            --sidebar-active: #0B6477;
-            --sidebar-text: #94A3B8;
-            --sidebar-width: 260px;
-            --topbar-height: 70px;
-            --shadow-card: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-            --transition-smooth: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            --sidebar-bg: #ffffff;
+            --sidebar-hover: #F8FAFC;
+            --sidebar-active: #E6F4F7;
+            --sidebar-text: #475569;
+            --sidebar-width: 280px;
+            --topbar-height: 76px;
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         body {
             font-family: 'Plus Jakarta Sans', sans-serif;
             font-size: 0.9rem;
             color: var(--simrs-gray-700);
-            background: var(--simrs-gray-100);
+            background: #F4F7F9;
             line-height: 1.6;
             overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
         }
 
         /* Sidebar Styling */
@@ -73,78 +77,128 @@
             flex-direction: column;
             z-index: 1040;
             transition: var(--transition-smooth);
-            box-shadow: 10px 0 30px rgba(0,0,0,0.1);
+            border-right: 1px solid var(--simrs-gray-200);
+            box-shadow: 4px 0 24px rgba(0,0,0,0.02);
         }
 
         .sidebar-brand {
             display: flex;
             align-items: center;
-            gap: 0.85rem;
-            padding: 1.5rem 1.25rem;
-            color: white;
+            gap: 1rem;
+            padding: 1.75rem 1.5rem;
             text-decoration: none;
-            border-bottom: 1px solid rgba(255,255,255,0.05);
+            position: relative;
+        }
+        
+        .sidebar-brand::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 1.5rem;
+            right: 1.5rem;
+            height: 1px;
+            background: linear-gradient(90deg, var(--simrs-gray-200), transparent);
         }
 
         .brand-icon {
-            width: 42px;
-            height: 42px;
-            border-radius: 10px;
+            width: 46px;
+            height: 46px;
+            border-radius: 12px;
             background: linear-gradient(135deg, var(--simrs-primary-light), var(--simrs-primary));
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.2rem;
-            box-shadow: 0 4px 12px rgba(11, 100, 119, 0.3);
+            font-size: 1.3rem;
+            color: white;
+            box-shadow: 0 8px 16px rgba(11, 100, 119, 0.25);
+            border: 2px solid white;
         }
 
-        .brand-name { font-weight: 800; font-size: 1.2rem; letter-spacing: -0.02em; }
-        .brand-sub { font-size: 0.72rem; color: var(--simrs-primary-light); font-weight: 700; text-transform: uppercase; }
+        .brand-name { font-weight: 800; font-size: 1.25rem; letter-spacing: -0.03em; color: var(--simrs-gray-900); }
+        .brand-sub { font-size: 0.75rem; color: var(--simrs-primary); font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; }
 
         .sidebar-menu {
             flex: 1;
             overflow-y: auto;
-            padding: 1rem 0;
+            padding: 1.5rem 0;
             scrollbar-width: thin;
-            scrollbar-color: var(--sidebar-hover) transparent;
+            scrollbar-color: var(--simrs-gray-300) transparent;
         }
 
         .menu-section-label {
             font-size: 0.65rem;
             font-weight: 800;
-            letter-spacing: 0.12em;
+            letter-spacing: 0.15em;
             text-transform: uppercase;
-            color: #475569;
-            padding: 1.25rem 1.5rem 0.5rem;
+            color: var(--simrs-gray-500);
+            padding: 1.5rem 1.75rem 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .menu-section-label::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: var(--simrs-gray-200);
         }
 
         .menu-item {
             display: flex;
             align-items: center;
-            gap: 0.85rem;
+            gap: 1rem;
             color: var(--sidebar-text);
             text-decoration: none;
             font-weight: 600;
-            font-size: 0.88rem;
-            padding: 0.75rem 1.25rem;
-            margin: 0.15rem 0.75rem;
+            font-size: 0.9rem;
+            padding: 0.8rem 1.5rem;
+            margin: 0.2rem 1rem;
             border-radius: 10px;
             transition: var(--transition-smooth);
+            position: relative;
         }
 
-        .menu-item i { width: 20px; text-align: center; font-size: 1rem; opacity: 0.7; }
-        .menu-item:hover { background: var(--sidebar-hover); color: white; }
+        .menu-item i { 
+            width: 24px; 
+            text-align: center; 
+            font-size: 1.1rem; 
+            color: var(--simrs-gray-400); 
+            transition: var(--transition-smooth);
+        }
+        
+        .menu-item:hover { 
+            background: var(--sidebar-hover); 
+            color: var(--simrs-gray-900); 
+            transform: translateX(4px);
+        }
+        
+        .menu-item:hover i { color: var(--simrs-primary); }
+        
         .menu-item.active { 
             background: var(--sidebar-active); 
-            color: white; 
-            box-shadow: 0 4px 15px rgba(11, 100, 119, 0.4);
+            color: var(--simrs-primary-dark); 
+            font-weight: 700;
         }
-        .menu-item.active i { opacity: 1; }
+        
+        .menu-item.active i { color: var(--simrs-primary); }
+        
+        .menu-item.active::before {
+            content: '';
+            position: absolute;
+            left: -1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            height: 60%;
+            width: 4px;
+            background: var(--simrs-primary);
+            border-radius: 0 4px 4px 0;
+        }
 
         .sidebar-footer {
-            padding: 1.25rem;
-            background: rgba(0,0,0,0.2);
-            border-top: 1px solid rgba(255,255,255,0.05);
+            padding: 1.5rem;
+            background: white;
+            border-top: 1px solid var(--simrs-gray-200);
         }
 
         /* Main Wrapper */
@@ -160,22 +214,29 @@
             position: sticky;
             top: 0;
             height: var(--topbar-height);
-            background: rgba(255,255,255,0.95);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid var(--simrs-gray-200);
+            background: rgba(255,255,255,0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(226, 232, 240, 0.8);
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 0 1.5rem;
+            padding: 0 2rem;
             z-index: 1030;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.03);
         }
 
-        .page-title { font-size: 1.35rem; font-weight: 800; color: var(--simrs-gray-900); letter-spacing: -0.02em; }
+        .page-title { 
+            font-size: 1.4rem; 
+            font-weight: 800; 
+            color: var(--simrs-gray-900); 
+            letter-spacing: -0.02em; 
+            margin-bottom: 0.1rem;
+        }
         
         .simrs-content {
             flex: 1;
-            padding: 2rem;
+            padding: 2.5rem;
             max-width: 1600px;
             width: 100%;
             margin: 0 auto;
@@ -184,16 +245,20 @@
         /* Component Enhancements */
         .simrs-card {
             background: white;
-            border: 1px solid var(--simrs-gray-200);
-            border-radius: 12px;
-            box-shadow: var(--shadow-card);
+            border: 1px solid rgba(226, 232, 240, 0.8);
+            border-radius: 16px;
+            box-shadow: var(--shadow-sm);
             margin-bottom: 1.5rem;
             overflow: hidden;
             transition: var(--transition-smooth);
         }
+        
+        .simrs-card:hover {
+            box-shadow: var(--shadow-md);
+        }
 
         .simrs-card-header {
-            padding: 1.25rem 1.5rem;
+            padding: 1.5rem;
             background: white;
             border-bottom: 1px solid var(--simrs-gray-100);
             display: flex;
@@ -201,25 +266,49 @@
             justify-content: space-between;
         }
 
-        .simrs-card-title { font-weight: 800; font-size: 1rem; color: var(--simrs-gray-800); display: flex; align-items: center; gap: 0.75rem; }
+        .simrs-card-title { 
+            font-weight: 800; 
+            font-size: 1.1rem; 
+            color: var(--simrs-gray-800); 
+            display: flex; 
+            align-items: center; 
+            gap: 0.75rem; 
+        }
+        
         .simrs-card-title i { color: var(--simrs-primary); }
 
         .btn-simrs-primary {
-            background: var(--simrs-primary);
+            background: linear-gradient(to right, var(--simrs-primary), var(--simrs-primary-light));
             border: none;
             color: white;
             border-radius: 10px;
             font-weight: 700;
-            padding: 0.6rem 1.25rem;
+            padding: 0.6rem 1.5rem;
             transition: var(--transition-smooth);
-            box-shadow: 0 4px 12px rgba(11, 100, 119, 0.2);
+            box-shadow: 0 4px 12px rgba(11, 100, 119, 0.25);
         }
 
-        .btn-simrs-primary:hover {
-            background: var(--simrs-primary-dark);
-            transform: translateY(-1px);
-            box-shadow: 0 6px 15px rgba(11, 100, 119, 0.3);
+        .btn-simrs-primary:hover, .btn-simrs-primary:focus {
+            background: linear-gradient(to right, var(--simrs-primary-dark), var(--simrs-primary));
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(11, 100, 119, 0.35);
             color: white;
+        }
+        
+        .btn-simrs-outline {
+            background: white;
+            border: 1px solid var(--simrs-gray-300);
+            color: var(--simrs-gray-700);
+            border-radius: 10px;
+            font-weight: 600;
+            padding: 0.6rem 1.5rem;
+            transition: var(--transition-smooth);
+        }
+        
+        .btn-simrs-outline:hover {
+            background: var(--simrs-gray-50);
+            border-color: var(--simrs-primary);
+            color: var(--simrs-primary);
         }
 
         .badge-status {
@@ -227,25 +316,56 @@
             font-weight: 800;
             text-transform: uppercase;
             letter-spacing: 0.05em;
-            padding: 0.35rem 0.85rem;
-            border-radius: 8px;
+            padding: 0.4rem 1rem;
+            border-radius: 6px;
+        }
+        
+        .form-control, .form-select {
+            border-radius: 10px;
+            border-color: var(--simrs-gray-300);
+            padding: 0.6rem 1rem;
+            font-size: 0.9rem;
+            transition: var(--transition-smooth);
+        }
+        
+        .form-control:focus, .form-select:focus {
+            border-color: var(--simrs-primary-light);
+            box-shadow: 0 0 0 4px var(--simrs-primary-pale);
+        }
+        
+        .form-label-custom {
+            font-weight: 700;
+            color: var(--simrs-gray-700);
+            margin-bottom: 0.5rem;
+            font-size: 0.85rem;
         }
 
         /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
         @keyframes slideInUp {
-            from { transform: translateY(15px); opacity: 0; }
+            from { transform: translateY(20px); opacity: 0; }
             to { transform: translateY(0); opacity: 1; }
         }
 
-        .simrs-content { animation: slideInUp 0.4s ease-out; }
+        .simrs-content { animation: slideInUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
 
         @media(max-width: 991.98px) {
             .simrs-sidebar { transform: translateX(-100%); }
             .simrs-sidebar.show { transform: translateX(0); }
             .main-wrapper { margin-left: 0; }
-            .simrs-content { padding: 1.25rem; }
-            .page-title { font-size: 1.15rem; }
+            .simrs-content { padding: 1.5rem; }
+            .page-title { font-size: 1.25rem; }
         }
+        
+        /* Premium Scrollbar */
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: var(--simrs-gray-300); border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--simrs-gray-400); }
     </style>
     @yield('styles')
 </head>
@@ -270,9 +390,15 @@
             <i class="fa-solid fa-grid-2-vertical"></i><span>Dashboard</span>
         </a>
 
-        <div class="menu-section-label">Front Office</div>
-        <a href="{{ route('pendaftaran.pasien.index') }}" class="menu-item {{ request()->routeIs('pendaftaran.*') ? 'active' : '' }}">
-            <i class="fa-solid fa-hospital-user"></i><span>Pendaftaran</span>
+        <div class="menu-section-label">Front Office & Inap</div>
+        <a href="{{ route('pendaftaran.pasien.index') }}" class="menu-item {{ request()->routeIs('pendaftaran.pasien.*') ? 'active' : '' }}">
+            <i class="fa-solid fa-hospital-user"></i><span>Master Pasien</span>
+        </a>
+        <a href="{{ route('pendaftaran.antrian') }}" class="menu-item {{ request()->routeIs('pendaftaran.antrian') ? 'active' : '' }}">
+            <i class="fa-solid fa-list-ol"></i><span>Antrean Unit</span>
+        </a>
+        <a href="{{ route('pendaftaran.beds.index') }}" class="menu-item {{ request()->routeIs('pendaftaran.beds.*') ? 'active' : '' }}">
+            <i class="fa-solid fa-bed-pulse"></i><span>Bed Management</span>
         </a>
 
         <div class="menu-section-label">Clinical Service</div>
@@ -284,8 +410,14 @@
         </a>
 
         <div class="menu-section-label">Ancillary Service</div>
-        <a href="{{ route('farmasi.antrian-resep') }}" class="menu-item {{ request()->routeIs('farmasi.*') ? 'active' : '' }}">
-            <i class="fa-solid fa-pills"></i><span>Instalasi Farmasi</span>
+        <a href="{{ route('farmasi.antrian-resep') }}" class="menu-item {{ request()->routeIs('farmasi.antrian-resep') ? 'active' : '' }}">
+            <i class="fa-solid fa-receipt"></i><span>Resep Farmasi</span>
+        </a>
+        <a href="{{ route('farmasi.inventory.index') }}" class="menu-item {{ request()->routeIs('farmasi.inventory.*') ? 'active' : '' }}">
+            <i class="fa-solid fa-pills"></i><span>Stok & Katalog</span>
+        </a>
+        <a href="{{ route('farmasi.procurement.index') }}" class="menu-item {{ request()->routeIs('farmasi.procurement.*') ? 'active' : '' }}">
+            <i class="fa-solid fa-truck-ramp-box"></i><span>Pengadaan (PO)</span>
         </a>
         <a href="{{ route('lab.antrian') }}" class="menu-item {{ request()->routeIs('lab.*') ? 'active' : '' }}">
             <i class="fa-solid fa-flask-vial"></i><span>Laboratorium</span>
@@ -295,6 +427,9 @@
         </a>
 
         <div class="menu-section-label">Finance & JKN</div>
+        <a href="{{ route('public.queue.display') }}" target="_blank" class="menu-item">
+            <i class="fa-solid fa-tv"></i><span>Layar Antrean TV</span>
+        </a>
         <a href="{{ route('keuangan.antrian-kasir') }}" class="menu-item {{ request()->routeIs('keuangan.*') ? 'active' : '' }}">
             <i class="fa-solid fa-cash-register"></i><span>Kasir & Billing</span>
         </a>
@@ -305,7 +440,13 @@
             <i class="fa-solid fa-id-card-clip"></i><span>BPJS Bridging</span>
         </a>
 
-        <div class="menu-section-label">Security & Management</div>
+        <div class="menu-section-label">Laporan & Analitik</div>
+        <a href="{{ route('laporan.bi.dashboard') }}" class="menu-item {{ request()->routeIs('laporan.bi.*') ? 'active' : '' }}">
+            <i class="fa-solid fa-chart-line"></i><span>Analitik Eksekutif</span>
+        </a>
+        <a href="{{ route('laporan.kunjungan') }}" class="menu-item {{ request()->routeIs('laporan.kunjungan') ? 'active' : '' }}">
+            <i class="fa-solid fa-file-invoice"></i><span>Lap. Kunjungan</span>
+        </a>
         <a href="{{ route('admin.users.index') }}" class="menu-item {{ request()->routeIs('admin.users.*') ? 'active' : '' }}">
             <i class="fa-solid fa-users-gear"></i><span>User Management</span>
         </a>
