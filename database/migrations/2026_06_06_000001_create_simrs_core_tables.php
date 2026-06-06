@@ -98,7 +98,7 @@ return new class extends Migration
             $table->unsignedSmallInteger('quota')->default(20);
             $table->boolean('is_active')->default(true);
             $table->timestamps();
-            $table->unique(['doctor_id', 'department_id', 'day_of_week', 'start_time']);
+            $table->unique(['doctor_id', 'department_id', 'day_of_week', 'start_time'], 'doc_sch_unique');
         });
 
         Schema::create('patients', function (Blueprint $table) {

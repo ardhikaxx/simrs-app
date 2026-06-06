@@ -675,7 +675,7 @@ class DatabaseSeeder extends Seeder
         );
 
         $prescription->details()->delete();
-        $selected = $medicines->values()->slice($index % 10, 2);
+        $selected = $medicines->values()->slice($index % 10, 2)->values();
         foreach ($selected as $offset => $medicine) {
             $qty = [6, 10, 12, 15][$offset + ($index % 2)];
             $prescription->details()->create([
