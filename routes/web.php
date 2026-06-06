@@ -83,6 +83,11 @@ Route::middleware('staff')->group(function () {
         Route::get('inventory/{medicine}', [InventoryController::class, 'show'])->name('inventory.show');
         Route::patch('inventory/{medicine}', [InventoryController::class, 'update'])->name('inventory.update');
         Route::delete('inventory/{medicine}', [InventoryController::class, 'destroy'])->name('inventory.destroy');
+        
+        Route::get('procurement', [ProcurementController::class, 'index'])->name('procurement.index');
+        Route::get('procurement/create', [ProcurementController::class, 'create'])->name('procurement.create');
+        Route::post('procurement', [ProcurementController::class, 'store'])->name('procurement.store');
+        Route::post('procurement/{po}/receive', [ProcurementController::class, 'receive'])->name('procurement.receive');
     });
 
     Route::prefix('lab')->name('lab.')->middleware('role:super-administrator,analis-lab,dokter-umum,dokter-spesialis,casemix')->group(function () {
@@ -117,6 +122,7 @@ Route::middleware('staff')->group(function () {
     });
 
     Route::prefix('laporan')->name('laporan.')->middleware('role:super-administrator,kasir,casemix,dokter-umum,dokter-spesialis')->group(function () {
+        Route::get('bi-dashboard', [BIAnalyticsController::class, 'dashboard'])->name('bi.dashboard');
         Route::get('kunjungan', [ClinicalReportController::class, 'visits'])->name('kunjungan');
         Route::get('morbiditas', [ClinicalReportController::class, 'morbidity'])->name('morbiditas');
         Route::get('pendapatan', [FinancialReportController::class, 'revenue'])->name('pendapatan');
