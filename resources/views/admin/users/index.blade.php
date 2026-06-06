@@ -9,7 +9,7 @@
 <div class="row g-4 mb-5">
     <div class="col-md-4">
         <div class="card border-0 shadow-sm rounded-4 overflow-hidden h-100 position-relative bg-white" style="transition: transform 0.3s ease;">
-            <div class="position-absolute top-0 end-0 p-3 opacity-10">
+            <div class="position-absolute top-0 inset-e-0 p-3 opacity-10">
                 <i class="fa-solid fa-users-rays" style="font-size: 5rem;"></i>
             </div>
             <div class="card-body p-4 d-flex align-items-center gap-4">
@@ -29,7 +29,7 @@
     
     <div class="col-md-4">
         <div class="card border-0 shadow-sm rounded-4 overflow-hidden h-100 position-relative bg-white">
-            <div class="position-absolute top-0 end-0 p-3 opacity-10">
+            <div class="position-absolute top-0 inset-e-0 p-3 opacity-10">
                 <i class="fa-solid fa-network-wired" style="font-size: 5rem;"></i>
             </div>
             <div class="card-body p-4 d-flex align-items-center gap-4">
@@ -49,7 +49,7 @@
     
     <div class="col-md-4">
         <div class="card border-0 shadow-sm rounded-4 overflow-hidden h-100 position-relative bg-white">
-            <div class="position-absolute top-0 end-0 p-3 opacity-10">
+            <div class="position-absolute top-0 inset-e-0 p-3 opacity-10">
                 <i class="fa-solid fa-shield-virus" style="font-size: 5rem;"></i>
             </div>
             <div class="card-body p-4 d-flex align-items-center gap-4">
