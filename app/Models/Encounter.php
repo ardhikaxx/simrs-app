@@ -32,6 +32,11 @@ class Encounter extends Model
         return $this->belongsTo(User::class, 'doctor_id');
     }
 
+    public function bed(): BelongsTo
+    {
+        return $this->belongsTo(Bed::class);
+    }
+
     public function nursingAssessment(): HasOne
     {
         return $this->hasOne(NursingAssessment::class);

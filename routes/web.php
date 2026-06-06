@@ -56,6 +56,7 @@ Route::middleware('staff')->group(function () {
         Route::get('kunjungan/create', [EncounterController::class, 'create'])->name('kunjungan.create');
         Route::post('kunjungan', [EncounterController::class, 'store'])->name('kunjungan.store');
         Route::get('antrian', [QueueController::class, 'index'])->name('antrian');
+        Route::get('beds', [\App\Http\Controllers\Registration\BedManagementController::class, 'index'])->name('beds.index');
         Route::patch('kunjungan/{encounter}/cancel', [EncounterController::class, 'cancel'])->name('kunjungan.cancel');
     });
 

@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\AuditLog;
+use App\Models\Bed;
 use App\Models\BillingInvoice;
 use App\Models\BPJSSepDocument;
 use App\Models\Department;
@@ -13,6 +14,7 @@ use App\Models\ICD10;
 use App\Models\ICD9;
 use App\Models\INACBGClaim;
 use App\Models\INACBGTariff;
+use App\Models\InventoryBhp;
 use App\Models\InventoryMedicine;
 use App\Models\InventoryTransaction;
 use App\Models\LabOrder;
@@ -48,6 +50,7 @@ class DatabaseSeeder extends Seeder
             $this->assignDepartmentHeads($departments, $users);
             $this->seedClinicalReferences($users, $departments);
             $this->seedIcd9Master();
+            $this->seedBedAndBhp($departments);
             $icd10 = $this->seedIcd10AndTariffs();
             $medicines = $this->seedMedicines($users);
             $patients = $this->seedPatients();
@@ -76,6 +79,42 @@ class DatabaseSeeder extends Seeder
             ICD9::updateOrCreate(
                 ['kode' => $row[0]],
                 ['nama_prosedur' => $row[1]]
+            );
+        }
+    }
+
+    private function seedBedAndBhp(Collection $departments): void
+    {
+        // Seed Beds
+        $inpatientDepts = $departments->filter(fn ($d) => $d->jenis === 'rawat_inap');
+        foreach ($inpatientDepts as $dept) {
+            for ($i = 1; $i <= 5; $i++) {
+                Bed::updateOrCreate(
+                    ['department_id' => $dept->id, 'bed_number' => 'B' . $i],
+                    [
+                        'room_name' => 'Kamar ' . ceil($i / 2),
+                        'class' => $i <= 2 ? 'VIP' : 'Kelas I',
+                        'status' => $i === 1 ? 'occupied' : 'available',
+                        'price_per_day' => $i <= 2 ? 750000 : 450000,
+                    ]
+                );
+            }
+        }
+
+        // Seed BHPs
+        $bhps = [
+            ['Abocath 20G', 'pcs', 100, 25000],
+            ['Infuse Set Dewasa', 'pcs', 100, 15000],
+            ['Cairan RL 500ml', 'botol', 200, 12000],
+            ['Spuit 3cc', 'pcs', 500, 3500],
+            ['Kasa Steril 16x16', 'box', 50, 8500],
+            ['Handscone Non-Steril', 'psg', 1000, 2000],
+        ];
+
+        foreach ($bhps as $bhp) {
+            InventoryBhp::updateOrCreate(
+                ['nama_bhp' => $bhp[0]],
+                ['satuan' => $bhp[1], 'stok' => $bhp[2], 'harga_jual' => $bhp[3], 'is_active' => true]
             );
         }
     }

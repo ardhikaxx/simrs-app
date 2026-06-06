@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Encounter;
 use App\Models\ICD10;
 use App\Models\ICD9;
+use App\Models\InventoryBhp;
 use App\Models\InventoryMedicine;
 use App\Services\BillingService;
 use App\Support\SimrsNumber;
@@ -35,6 +36,7 @@ class MedicalRecordController extends Controller
             'icd10' => ICD10::where('is_active', true)->orderBy('kode')->get(),
             'icd9' => ICD9::orderBy('kode')->get(),
             'medicines' => InventoryMedicine::where('is_active', true)->orderBy('nama_obat')->get(),
+            'bhps' => InventoryBhp::where('is_active', true)->orderBy('nama_bhp')->get(),
         ]);
     }
 
@@ -57,6 +59,9 @@ class MedicalRecordController extends Controller
             'aturan_pakai' => ['nullable', 'array'],
             'lab_items' => ['nullable', 'array'],
             'radiology_items' => ['nullable', 'array'],
+            'bhp_id' => ['nullable', 'array'],
+            'bhp_id.*' => ['nullable', 'exists:inventory_bhps,id'],
+            'bhp_jumlah' => ['nullable', 'array'],
         ]);
 
         DB::transaction(function () use ($data, $encounter) {
@@ -73,10 +78,26 @@ class MedicalRecordController extends Controller
                 'kondisi_saat_pulang',
             ])->all();
 
-            $encounter->medicalRecord()->updateOrCreate(
+            $medicalRecord = $encounter->medicalRecord()->updateOrCreate(
                 ['encounter_id' => $encounter->id],
                 $recordData + ['doctor_id' => auth('staff')->id(), 'signed_at' => now()]
             );
+
+            // Sync BHPs
+            $medicalRecord->bhps()->detach();
+            $bhpIds = array_filter($data['bhp_id'] ?? []);
+            foreach ($bhpIds as $index => $bhpId) {
+                $bhp = \App\Models\InventoryBhp::find($bhpId);
+                if ($bhp) {
+                    $qty = (float) ($data['bhp_jumlah'][$index] ?? 1);
+                    $medicalRecord->bhps()->attach($bhpId, [
+                        'jumlah' => $qty,
+                        'harga_satuan' => $bhp->harga_jual,
+                        'subtotal' => $qty * $bhp->harga_jual,
+                    ]);
+                    $bhp->decrement('stok', $qty);
+                }
+            }
 
             $medicineIds = array_filter($data['medicine_id'] ?? []);
             if ($medicineIds) {

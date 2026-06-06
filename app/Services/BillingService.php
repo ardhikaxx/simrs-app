@@ -54,6 +54,12 @@ class BillingService
                 }
             }
 
+            if ($encounter->medicalRecord) {
+                foreach ($encounter->medicalRecord->bhps as $bhp) {
+                    $items[] = ['BHP', $bhp->nama_bhp, $bhp->pivot->jumlah, $bhp->pivot->harga_satuan];
+                }
+            }
+
             if ($encounter->jenis_kunjungan === 'rawat_inap') {
                 $days = max(1, (int) $encounter->waktu_masuk->diffInDays($encounter->waktu_keluar ?: now()) + 1);
                 $items[] = ['Rawat Inap', 'Akomodasi kamar ' . ($encounter->kelas_rawat ?: 'Kelas II'), $days, 450000];

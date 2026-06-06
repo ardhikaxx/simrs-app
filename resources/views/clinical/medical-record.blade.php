@@ -123,6 +123,11 @@
                                 <i class="fa-solid fa-microscope me-2"></i>Order Penunjang
                             </button>
                         </li>
+                        <li class="nav-item">
+                            <button type="button" class="nav-link py-3 border-0 rounded-0" data-bs-toggle="tab" data-bs-target="#tab-bhp">
+                                <i class="fa-solid fa-box-archive me-2"></i>Pemakaian BHP
+                            </button>
+                        </li>
                     </ul>
                     <div class="tab-content p-4">
                         <!-- Tab SOAP -->
@@ -262,6 +267,42 @@
                                         </div>
                                     </div>
                                 </div>
+                            </div>
+                        </div>
+
+                        <!-- Tab Pemakaian BHP -->
+                        <div class="tab-pane fade" id="tab-bhp">
+                            <div class="alert alert-info border-0 shadow-sm small py-2 mb-4">
+                                <i class="fa-solid fa-circle-info me-2"></i>Catat penggunaan Barang Habis Pakai (BHP) medis selama tindakan. Stok akan berkurang dan tagihan akan terinput otomatis.
+                            </div>
+                            <div class="table-responsive">
+                                <table class="table table-sm table-borderless align-middle">
+                                    <thead>
+                                        <tr class="small text-muted text-uppercase fw-bold">
+                                            <th style="width: 70%;">Nama Alat/BHP Medis</th>
+                                            <th style="width: 30%;">Jumlah (Qty)</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="bhpRows">
+                                        @for($i = 0; $i < 3; $i++)
+                                            <tr>
+                                                <td class="pb-3">
+                                                    <select name="bhp_id[]" class="form-select select2-init">
+                                                        <option value="">Pilih BHP...</option>
+                                                        @foreach($bhps as $bhp)
+                                                            <option value="{{ $bhp->id }}">{{ $bhp->nama_bhp }} (Stok: {{ $bhp->stok }} {{ $bhp->satuan }}) - Rp {{ number_format($bhp->harga_jual) }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </td>
+                                                <td class="pb-3">
+                                                    <div class="input-group">
+                                                        <input type="number" name="bhp_jumlah[]" class="form-control text-center fw-bold" value="1">
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        @endfor
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>

@@ -23,4 +23,11 @@ class MedicalRecord extends Model
     {
         return $this->belongsTo(User::class, 'doctor_id');
     }
+
+    public function bhps()
+    {
+        return $this->belongsToMany(InventoryBhp::class, 'medical_record_bhp')
+            ->withPivot(['jumlah', 'harga_satuan', 'subtotal'])
+            ->withTimestamps();
+    }
 }
