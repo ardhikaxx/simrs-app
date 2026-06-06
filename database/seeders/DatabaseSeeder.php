@@ -10,6 +10,7 @@ use App\Models\Doctor;
 use App\Models\DoctorSchedule;
 use App\Models\Encounter;
 use App\Models\ICD10;
+use App\Models\ICD9;
 use App\Models\INACBGClaim;
 use App\Models\INACBGTariff;
 use App\Models\InventoryMedicine;
@@ -46,6 +47,7 @@ class DatabaseSeeder extends Seeder
             $users = $this->seedUsers($roles, $departments);
             $this->assignDepartmentHeads($departments, $users);
             $this->seedClinicalReferences($users, $departments);
+            $this->seedIcd9Master();
             $icd10 = $this->seedIcd10AndTariffs();
             $medicines = $this->seedMedicines($users);
             $patients = $this->seedPatients();
@@ -53,6 +55,29 @@ class DatabaseSeeder extends Seeder
             $this->seedClaims();
             $this->seedSystemLogs($users, $modules);
         });
+    }
+
+    private function seedIcd9Master(): void
+    {
+        $rows = collect([
+            ['89.03', 'Interview and evaluation, described as comprehensive'],
+            ['89.07', 'Consultation, described as limited'],
+            ['93.01', 'Functional evaluation'],
+            ['99.18', 'Injection or infusion of electrolytes'],
+            ['96.07', 'Insertion of nasogastric tube'],
+            ['96.71', 'Continuous mechanical ventilation of unknown duration'],
+            ['38.93', 'Venous catheterization, not elsewhere classified'],
+            ['88.76', 'Diagnostic ultrasound of abdomen and retroperitoneum'],
+            ['87.44', 'Routine chest x-ray, so described'],
+            ['99.04', 'Transfusion of packed cells'],
+        ]);
+
+        foreach ($rows as $row) {
+            ICD9::updateOrCreate(
+                ['kode' => $row[0]],
+                ['nama_prosedur' => $row[1]]
+            );
+        }
     }
 
     private function seedRoles(): Collection

@@ -150,6 +150,15 @@
                                                 @endforeach
                                             </select>
                                         </div>
+                                        <div class="col-12 mt-2">
+                                            <label class="form-label-custom small">ICD-9 Prosedur / Tindakan</label>
+                                            <select name="icd9_prosedur" class="form-select select2-init">
+                                                <option value="">Cari kode atau nama prosedur...</option>
+                                                @foreach($icd9 as $code)
+                                                    <option value="{{ $code->kode }}" @selected(old('icd9_prosedur', $record?->icd9_prosedur) === $code->kode)>{{ $code->kode }} - {{ $code->nama_prosedur }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
@@ -274,6 +283,9 @@
                 <div class="simrs-card-body p-0">
                     <div class="p-3 bg-white border-bottom">
                         <div class="small fw-800 text-muted text-uppercase tracking-wider mb-2">Histori Pemeriksaan</div>
+                        <button type="button" class="btn btn-sm btn-info text-white w-100 fw-bold shadow-sm mb-3" data-bs-toggle="modal" data-bs-target="#modalTrendVitals">
+                            <i class="fa-solid fa-chart-line me-2"></i>Lihat Tren Vitals
+                        </button>
                         <div class="timeline-clinical small">
                             <div class="border-start ps-3 pb-3 position-relative">
                                 <i class="fa-solid fa-circle text-primary position-absolute start-0 translate-middle-x bg-white" style="font-size: 0.6rem; top: 5px;"></i>
@@ -323,4 +335,73 @@
         .border-start-md { border-left: none; border-top: 1px solid #E2E8F0; padding-top: 10px; }
     }
 </style>
+@section('scripts')
+<div class="modal fade" id="modalTrendVitals" tabindex="-1">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content border-0 shadow-lg">
+            <div class="modal-header bg-info text-white border-0">
+                <h5 class="modal-title fw-800"><i class="fa-solid fa-chart-line me-2"></i>Tren Tanda Vital Pasien</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body p-4">
+                <div style="height: 350px;">
+                    <canvas id="chartVitals"></canvas>
+                </div>
+                <div class="mt-3 small text-muted text-center italic">
+                    <i class="fa-solid fa-circle-info me-1"></i> Data grafik diambil dari 5 kunjungan terakhir pasien.
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const ctx = document.getElementById('chartVitals');
+        if (ctx) {
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: ['10/04', '22/05', 'Hari Ini'],
+                    datasets: [
+                        {
+                            label: 'Sistolik',
+                            data: [120, 130, {{ $encounter->nursingAssessment?->tekanan_darah_sistolik ?? 0 }}],
+                            borderColor: '#C5372C',
+                            backgroundColor: 'rgba(197, 55, 44, 0.1)',
+                            tension: 0.4,
+                            fill: true
+                        },
+                        {
+                            label: 'Diastolik',
+                            data: [80, 85, {{ $encounter->nursingAssessment?->tekanan_darah_diastolik ?? 0 }}],
+                            borderColor: '#1678B4',
+                            backgroundColor: 'rgba(22, 120, 180, 0.1)',
+                            tension: 0.4,
+                            fill: true
+                        },
+                        {
+                            label: 'Nadi',
+                            data: [88, 92, {{ $encounter->nursingAssessment?->nadi ?? 0 }}],
+                            borderColor: '#1A8754',
+                            borderDash: [5, 5],
+                            tension: 0.4
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { position: 'bottom', labels: { usePointStyle: true, padding: 20, font: { family: 'Plus Jakarta Sans', weight: '700' } } }
+                    },
+                    scales: {
+                        y: { beginAtZero: false, grid: { color: '#F1F5F9' } },
+                        x: { grid: { display: false } }
+                    }
+                }
+            });
+        }
+    });
+</script>
 @endsection

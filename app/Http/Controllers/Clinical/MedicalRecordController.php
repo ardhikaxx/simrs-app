@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Clinical;
 use App\Http\Controllers\Controller;
 use App\Models\Encounter;
 use App\Models\ICD10;
+use App\Models\ICD9;
 use App\Models\InventoryMedicine;
 use App\Services\BillingService;
 use App\Support\SimrsNumber;
@@ -32,6 +33,7 @@ class MedicalRecordController extends Controller
         return view('clinical.medical-record', [
             'encounter' => $encounter,
             'icd10' => ICD10::where('is_active', true)->orderBy('kode')->get(),
+            'icd9' => ICD9::orderBy('kode')->get(),
             'medicines' => InventoryMedicine::where('is_active', true)->orderBy('nama_obat')->get(),
         ]);
     }
@@ -46,6 +48,7 @@ class MedicalRecordController extends Controller
             'diagnosis_kerja' => ['required', 'string', 'min:3'],
             'icd10_primer' => ['required', 'exists:icd10,kode'],
             'icd10_sekunder' => ['nullable', 'array'],
+            'icd9_prosedur' => ['nullable', 'exists:icd9_master,kode'],
             'rencana_terapi' => ['required', 'string', 'min:5'],
             'kondisi_saat_pulang' => ['nullable', 'string'],
             'medicine_id' => ['nullable', 'array'],
@@ -65,6 +68,7 @@ class MedicalRecordController extends Controller
                 'diagnosis_kerja',
                 'icd10_primer',
                 'icd10_sekunder',
+                'icd9_prosedur',
                 'rencana_terapi',
                 'kondisi_saat_pulang',
             ])->all();
