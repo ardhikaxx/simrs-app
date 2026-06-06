@@ -45,16 +45,13 @@
                             <div class="col-6 col-md-3 border-start-md">
                                 <div class="small text-muted fw-bold text-uppercase tracking-wider mb-1" style="font-size: 0.65rem;">Triase</div>
                                 @if($encounter->nursingAssessment)
-                                    @php
-                                        $triaseBg = match($encounter->nursingAssessment->triase) {
-                                            'merah' => 'bg-danger text-white',
-                                            'kuning' => 'bg-warning text-dark',
-                                            'hijau' => 'bg-success text-white',
-                                            'hitam' => 'bg-dark text-white',
-                                            default => 'bg-secondary text-white'
-                                        };
-                                    @endphp
-                                    <span class="badge {{ $triaseBg }} px-2 py-1 rounded-pill" style="font-size: 0.65rem; letter-spacing: 0.5px;">
+                                    <span class="badge {{ match($encounter->nursingAssessment->triase) {
+                                        'merah' => 'bg-danger text-white',
+                                        'kuning' => 'bg-warning text-dark',
+                                        'hijau' => 'bg-success text-white',
+                                        'hitam' => 'bg-dark text-white',
+                                        default => 'bg-secondary text-white'
+                                    } }} px-2 py-1 rounded-pill" style="font-size: 0.65rem; letter-spacing: 0.5px;">
                                         {{ strtoupper($encounter->nursingAssessment->triase) }}
                                     </span>
                                 @else
@@ -493,6 +490,7 @@
         .border-start-md { border-left: none; border-top: 1px solid var(--simrs-gray-200); padding-top: 10px; }
     }
 </style>
+@endsection
 
 @section('scripts')
 <div class="modal fade" id="modalTrendVitals" tabindex="-1">
