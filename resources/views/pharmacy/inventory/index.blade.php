@@ -87,7 +87,7 @@
     <!-- Tabel Daftar Obat -->
     <div class="col-xl-8">
         <div class="page-header-bar mb-3">
-            <form class="d-flex gap-2 flex-grow-1" method="GET">
+            <form class="d-flex gap-2 grow" method="GET">
                 <div class="input-group shadow-sm">
                     <span class="input-group-text bg-white border-end-0"><i class="fa-solid fa-magnifying-glass text-muted"></i></span>
                     <input type="search" name="q" value="{{ request('q') }}" class="form-control border-start-0" placeholder="Cari obat berdasarkan nama, kode, atau kategori...">
