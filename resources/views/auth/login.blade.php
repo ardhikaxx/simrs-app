@@ -98,6 +98,7 @@
 </div>
 
 <style>
+    .auth-shell { grid-template-columns: 1fr 1fr !important; }
     .fw-800 { font-weight: 800; }
     .fw-700 { font-weight: 700; }
     .fw-600 { font-weight: 600; }
@@ -108,6 +109,8 @@
     .text-simrs-primary { color: #0B6477; }
     .border-white-10 { border-color: rgba(255,255,255,0.1) !important; }
     .tracking-wider { letter-spacing: 0.05em; }
+    
+    .auth-panel { padding: 4rem !important; }
     
     .input-group-simrs {
         position: relative;
@@ -170,6 +173,10 @@
 
     .auth-card-container {
         animation: fadeInRight 0.6s ease-out;
+    }
+
+    @media(max-width:991.98px){
+        .auth-shell { grid-template-columns: 1fr !important; }
     }
 </style>
 @endsection
