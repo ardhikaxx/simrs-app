@@ -1,182 +1,185 @@
 @extends('layouts.auth')
 
-@section('title', 'Login Staff')
+@section('title', 'Staff Authentication')
 
 @section('content')
 <div class="auth-shell">
-    <section class="auth-panel position-relative overflow-hidden">
-        <!-- Background Pattern -->
-        <div class="position-absolute top-0 inset-s-0 w-100 h-100 opacity-10" style="background-image: radial-gradient(#14919B 1px, transparent 1px); background-size: 24px 24px;"></div>
-        
-        <div class="position-relative z-1 d-flex flex-column h-100">
-            <div class="mb-5">
-                <div class="brand-mark mb-4">
-                    <i class="fa-solid fa-microscope text-white"></i>
-                </div>
-                <h1 class="display-5 fw-800 text-white mb-3">SIMRS <span class="text-simrs-primary-light">Core</span></h1>
-                <div class="h5 fw-600 text-white-50 mb-4">Clinical Precision Interface v1.0</div>
-                <p class="lead text-white-50 mb-0" style="max-width:480px; line-height: 1.6;">
-                    Solusi manajemen rumah sakit terpadu yang dirancang untuk efisiensi operasional medis, integrasi satu sehat, dan pelayanan pasien yang unggul.
-                </p>
+    <div class="auth-panel">
+        <div class="position-absolute top-0 start-0 p-5">
+            <div class="brand-logo-container border border-white border-opacity-10">
+                <i class="fa-solid fa-house-chimney-medical"></i>
             </div>
+        </div>
 
-            <div class="mt-auto">
-                <div class="d-flex gap-4 mb-4">
-                    <div class="text-center">
-                        <div class="h4 fw-800 text-white mb-0">100%</div>
-                        <div class="small text-white-50 text-uppercase tracking-wider">Terintegrasi</div>
-                    </div>
-                    <div class="text-center border-start border-white-10 ps-4">
-                        <div class="h4 fw-800 text-white mb-0">AES-256</div>
-                        <div class="small text-white-50 text-uppercase tracking-wider">Enkripsi Data</div>
-                    </div>
+        <div class="position-relative">
+            <h1 class="display-4 fw-800 text-white mb-4">The Standard for<br><span class="text-primary-light">Healthcare Efficiency</span></h1>
+            <p class="text-white-50 fs-5 mb-5 fw-medium" style="max-width: 500px; line-height: 1.6;">
+                SIMRS Core provides clinical precision through integrated management, data security, and seamless hospital operations.
+            </p>
+
+            <div class="d-flex gap-5">
+                <div>
+                    <div class="h3 fw-800 mb-1 text-white">v1.2</div>
+                    <div class="small text-uppercase fw-bold text-white-50 tracking-wider">Clinical OS</div>
                 </div>
-                <div class="small text-white-50 d-flex align-items-center gap-2">
-                    <i class="fa-solid fa-shield-halved text-simrs-primary-light"></i>
-                    <span class="text-mono">{{ config('app.hospital_name') }} Security Protocol Active</span>
+                <div class="vr opacity-25"></div>
+                <div>
+                    <div class="h3 fw-800 mb-1 text-white">256-bit</div>
+                    <div class="small text-uppercase fw-bold text-white-50 tracking-wider">Encryption</div>
                 </div>
             </div>
         </div>
-    </section>
 
-    <section class="d-flex align-items-center justify-content-center p-4 bg-white">
-        <div class="auth-card-container w-100" style="max-width: 400px;">
+        <div class="position-absolute bottom-0 start-0 p-5">
+            <div class="small text-white-50 fw-medium">
+                <i class="fa-solid fa-shield-halved me-2 text-primary-light"></i>
+                Authorized Access Protocol Active
+            </div>
+        </div>
+    </div>
+
+    <div class="auth-form-side">
+        <div class="w-100" style="max-width: 380px;">
             <div class="text-center mb-5 d-lg-none">
-                <div class="brand-mark mx-auto mb-3">
-                    <i class="fa-solid fa-microscope text-white"></i>
+                <div class="brand-logo-container mx-auto">
+                    <i class="fa-solid fa-house-chimney-medical"></i>
                 </div>
-                <h2 class="fw-800 h3 mb-1 text-simrs-gray-900">SIMRS Core</h2>
+                <h2 class="fw-800 text-gray-900 mb-1">SIMRS Core</h2>
+                <p class="text-muted small">Hospital Information System</p>
             </div>
 
-            <form action="{{ route('login.store') }}" method="POST" class="auth-form">
+            <div class="mb-5">
+                <h2 class="fw-800 text-gray-900 mb-2">Login Staff</h2>
+                <p class="text-muted fw-medium">Silakan masuk menggunakan kredensial Anda untuk memulai sesi kerja.</p>
+            </div>
+
+            <form action="{{ route('login.store') }}" method="POST" class="needs-validation">
                 @csrf
                 <div class="mb-4">
-                    <h2 class="h4 fw-800 text-simrs-gray-900 mb-2">Selamat Datang</h2>
-                    <p class="text-muted small">Silakan masuk ke akun Anda untuk memulai sesi kerja.</p>
-                </div>
-
-                <div class="mb-3">
-                    <label class="form-label-custom">Alamat Email</label>
-                    <div class="input-group-simrs">
+                    <label class="form-label fw-800 text-gray-700 small text-uppercase tracking-wider mb-2">Alamat Email</label>
+                    <div class="input-group-premium">
                         <i class="fa-solid fa-envelope icon"></i>
-                        <input type="email" name="email" value="{{ old('email', 'superadmin@simrs.test') }}" class="form-control" placeholder="nama@rs-sehat.com" required autofocus>
+                        <input type="email" name="email" value="{{ old('email', 'superadmin@simrs.test') }}" class="form-control-premium" placeholder="name@hospital.com" required autofocus>
                     </div>
                 </div>
 
-                <div class="mb-3">
-                    <label class="form-label-custom">Kata Sandi</label>
-                    <div class="input-group-simrs">
+                <div class="mb-4">
+                    <div class="d-flex justify-content-between align-items-end mb-2">
+                        <label class="form-label fw-800 text-gray-700 small text-uppercase tracking-wider mb-0">Kata Sandi</label>
+                        <a href="#" class="small text-primary fw-700 text-decoration-none">Lupa Password?</a>
+                    </div>
+                    <div class="input-group-premium">
                         <i class="fa-solid fa-lock icon"></i>
-                        <input type="password" name="password" class="form-control" value="password" placeholder="Masukkan kata sandi" required>
+                        <input type="password" name="password" value="password" class="form-control-premium" placeholder="Masukkan kata sandi" required>
                     </div>
                 </div>
 
-                <div class="d-flex align-items-center justify-content-between mb-4">
-                    <div class="form-check custom-check">
+                <div class="mb-4">
+                    <div class="form-check custom-check-premium">
                         <input type="checkbox" name="remember" class="form-check-input" id="rememberMe">
-                        <label class="form-check-label small text-simrs-gray-600" for="rememberMe">Ingat saya</label>
+                        <label class="form-check-label small fw-bold text-gray-600" for="rememberMe">Tetap masuk selama 30 hari</label>
                     </div>
-                    <a href="#" class="small text-simrs-primary fw-700 text-decoration-none">Lupa password?</a>
                 </div>
 
-                <button class="btn btn-simrs-primary-lg w-100 mb-4">
-                    <span>Masuk ke Sistem</span>
+                <button type="submit" class="btn btn-login-premium w-100 mb-4">
+                    <span>Masuk ke Dashboard</span>
                     <i class="fa-solid fa-arrow-right-to-bracket ms-2"></i>
                 </button>
 
-                <div class="p-3 rounded-3 bg-light border text-center">
-                    <div class="small text-muted mb-1">Butuh bantuan akses?</div>
-                    <div class="small fw-700 text-simrs-gray-800">Hubungi Unit IT (Ext. 410)</div>
+                <div class="p-3 rounded-4 bg-light text-center border-0">
+                    <p class="small text-muted mb-0 fw-bold">Punya kendala akses? <span class="text-dark">Hubungi IT Support</span></p>
                 </div>
             </form>
 
-            <div class="mt-5 text-center">
-                <p class="small text-muted">© {{ now()->year }} {{ config('app.hospital_name') }}. All rights reserved.</p>
-            </div>
+            <footer class="mt-5 pt-4 text-center">
+                <p class="small text-muted fw-medium">&copy; {{ now()->year }} {{ config('app.hospital_name') }} &bull; HealthIT v1.2</p>
+            </footer>
         </div>
-    </section>
+    </div>
 </div>
 
 <style>
-    .auth-shell { grid-template-columns: 1fr 1fr !important; }
     .fw-800 { font-weight: 800; }
-    .fw-700 { font-weight: 700; }
-    .fw-600 { font-weight: 600; }
-    .text-simrs-primary-light { color: #14919B; }
-    .text-simrs-gray-900 { color: #0F172A; }
-    .text-simrs-gray-800 { color: #1E293B; }
-    .text-simrs-gray-600 { color: #475569; }
-    .text-simrs-primary { color: #0B6477; }
-    .border-white-10 { border-color: rgba(255,255,255,0.1) !important; }
-    .tracking-wider { letter-spacing: 0.05em; }
-    
-    .auth-panel { padding: 4rem !important; }
-    
-    .input-group-simrs {
+    .tracking-wider { letter-spacing: 0.1em; }
+    .text-primary-light { color: var(--simrs-primary-light); }
+    .text-gray-900 { color: var(--simrs-gray-900); }
+    .text-gray-700 { color: #475569; }
+
+    .input-group-premium {
         position: relative;
         display: flex;
         align-items: center;
     }
-    
-    .input-group-simrs .icon {
+
+    .input-group-premium .icon {
         position: absolute;
-        left: 1rem;
+        left: 1.25rem;
         color: #94A3B8;
+        font-size: 0.95rem;
         z-index: 10;
-        font-size: 0.9rem;
     }
-    
-    .input-group-simrs .form-control {
-        padding-left: 2.75rem;
-        height: 50px;
-        background-color: #F8FAFC;
+
+    .form-control-premium {
+        width: 100%;
+        height: 54px;
+        padding: 0 1.25rem 0 3.25rem;
+        background: #F1F5F9;
+        border: 2px solid transparent;
+        border-radius: 14px;
+        font-weight: 600;
+        font-size: 0.95rem;
+        color: var(--simrs-gray-900);
+        transition: all 0.3s ease;
     }
-    
-    .btn-simrs-primary-lg {
-        background: #0B6477;
+
+    .form-control-premium:focus {
+        background: white;
+        border-color: var(--simrs-primary);
+        box-shadow: 0 10px 20px -5px rgba(13, 148, 136, 0.1);
+        outline: none;
+    }
+
+    .btn-login-premium {
+        height: 54px;
+        background: linear-gradient(135deg, var(--simrs-primary), var(--simrs-primary-dark));
         color: white;
         border: none;
-        height: 50px;
-        border-radius: 10px;
-        font-weight: 700;
-        transition: all 0.3s ease;
+        border-radius: 14px;
+        font-weight: 800;
+        font-size: 1rem;
         display: flex;
         align-items: center;
         justify-content: center;
-        box-shadow: 0 4px 12px rgba(11, 100, 119, 0.2);
+        transition: all 0.3s ease;
+        box-shadow: 0 10px 25px -5px rgba(13, 148, 136, 0.4);
     }
-    
-    .btn-simrs-primary-lg:hover {
-        background: #094E5C;
-        transform: translateY(-1px);
-        box-shadow: 0 6px 15px rgba(11, 100, 119, 0.3);
+
+    .btn-login-premium:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 15px 30px -5px rgba(13, 148, 136, 0.5);
         color: white;
     }
-    
-    .custom-check .form-check-input:checked {
-        background-color: #0B6477;
-        border-color: #0B6477;
-    }
-    
-    .auth-form .form-label-custom {
-        font-size: 0.82rem;
-        font-weight: 700;
-        color: #475569;
-        margin-bottom: 0.5rem;
-        display: block;
+
+    .custom-check-premium .form-check-input {
+        width: 1.15rem;
+        height: 1.15rem;
+        margin-top: 0.15rem;
+        border-radius: 6px;
+        border: 2px solid #CBD5E1;
     }
 
-    @keyframes fadeInRight {
-        from { opacity: 0; transform: translateX(20px); }
-        to { opacity: 1; transform: translateX(0); }
+    .custom-check-premium .form-check-input:checked {
+        background-color: var(--simrs-primary);
+        border-color: var(--simrs-primary);
     }
 
-    .auth-card-container {
-        animation: fadeInRight 0.6s ease-out;
+    @keyframes slideUpFade {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
     }
 
-    @media(max-width:991.98px){
-        .auth-shell { grid-template-columns: 1fr !important; }
+    .auth-form-side > div {
+        animation: slideUpFade 0.6s ease-out forwards;
     }
 </style>
 @endsection
