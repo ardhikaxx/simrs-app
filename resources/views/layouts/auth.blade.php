@@ -15,18 +15,18 @@
     
     <style>
         :root {
-            --simrs-primary: #0D9488;
-            --simrs-primary-dark: #0F766E;
-            --simrs-primary-light: #2DD4BF;
-            --simrs-gray-50: #F8FAFC;
-            --simrs-gray-200: #E2E8F0;
+            --simrs-primary: #0891b2;
+            --simrs-primary-dark: #0e7490;
+            --simrs-primary-light: #22d3ee;
+            --simrs-gray-50: #f8fafc;
+            --simrs-gray-200: #e2e8f0;
             --simrs-gray-700: #334155;
-            --simrs-gray-900: #0F172A;
+            --simrs-gray-900: #0f172a;
         }
 
         body {
             font-family: 'Plus Jakarta Sans', sans-serif;
-            background: #F8FAFC;
+            background: #f1f5f9;
             color: var(--simrs-gray-700);
             min-height: 100vh;
             margin: 0;
@@ -40,7 +40,7 @@
 
         .auth-panel {
             flex: 1;
-            background: #0F172A;
+            background: linear-gradient(145deg, #0f172a, #1e293b);
             color: white;
             padding: 5rem;
             display: flex;
@@ -53,42 +53,58 @@
         .auth-panel::before {
             content: '';
             position: absolute;
-            top: -10%;
+            top: -20%;
             right: -10%;
-            width: 400px;
-            height: 400px;
-            background: radial-gradient(circle, rgba(13, 148, 136, 0.15) 0%, transparent 70%);
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(34, 211, 238, 0.15) 0%, transparent 70%);
             border-radius: 50%;
+            animation: pulse-glow 8s infinite alternate;
+        }
+        
+        @keyframes pulse-glow {
+            0% { transform: scale(1); opacity: 0.8; }
+            100% { transform: scale(1.1); opacity: 1; }
         }
 
         .auth-form-side {
             width: 500px;
-            background: white;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
             display: flex;
             align-items: center;
             justify-content: center;
             padding: 3rem;
-            box-shadow: -10px 0 50px rgba(0,0,0,0.05);
+            box-shadow: -20px 0 50px rgba(0,0,0,0.1);
             z-index: 10;
         }
 
         .brand-logo-container {
-            width: 56px;
-            height: 56px;
+            width: 64px;
+            height: 64px;
             background: linear-gradient(135deg, var(--simrs-primary-light), var(--simrs-primary));
-            border-radius: 14px;
+            border-radius: 16px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.5rem;
+            font-size: 1.75rem;
             color: white;
-            box-shadow: 0 10px 25px rgba(13, 148, 136, 0.3);
+            box-shadow: 0 10px 25px rgba(8, 145, 178, 0.4);
             margin-bottom: 2rem;
+            transition: all 0.3s ease;
+        }
+        
+        .brand-logo-container:hover {
+            transform: scale(1.05) rotate(-5deg);
         }
 
         @media (max-width: 991px) {
             .auth-panel { display: none; }
-            .auth-form-side { width: 100%; padding: 2rem; }
+            .auth-form-side { 
+                width: 100%; 
+                padding: 2rem; 
+                background: white; 
+            }
         }
     </style>
     @yield('styles')
