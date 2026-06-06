@@ -13,45 +13,45 @@
             <div class="card-body p-0">
                 <div class="d-flex flex-column flex-md-row h-100">
                     <div class="bg-primary bg-gradient text-white p-4 d-flex flex-column justify-content-center align-items-center text-center" style="min-width: 200px;">
-                        <div class="d-flex align-items-center justify-content-center bg-white text-primary rounded-circle shadow-sm mb-3 fw-bolder" style="width: 70px; height: 70px; font-size: 1.75rem;">
+                        <div class="d-flex align-items-center justify-content-center bg-white bg-opacity-25 text-white border border-white border-opacity-25 rounded-circle shadow-sm mb-3 fw-bold" style="width: 70px; height: 70px; font-size: 1.75rem;">
                             {{ strtoupper(substr($encounter->patient->nama_pasien, 0, 1)) }}
                         </div>
                         <h5 class="fw-bold mb-1 text-white">{{ $encounter->patient->nama_pasien }}</h5>
-                        <div class="small opacity-75 font-monospace mb-2">{{ $encounter->patient->no_rkm_medis }}</div>
+                        <div class="small text-white-50 font-monospace mb-2 fw-semibold">{{ $encounter->patient->no_rkm_medis }}</div>
                         <span class="badge bg-white text-primary px-3 py-1 shadow-sm mt-1" style="font-size: 0.7rem; letter-spacing: 0.5px;">{{ strtoupper($encounter->cara_bayar) }}</span>
                     </div>
-                    <div class="grow p-4 bg-white d-flex flex-column justify-content-center">
-                        <div class="row g-3 mb-3 pb-3 border-bottom border-light-subtle">
+                    <div class="flex-grow-1 p-4 bg-white d-flex flex-column justify-content-center">
+                        <div class="row g-3 mb-3 pb-3 border-bottom border-light">
                             <div class="col-6 col-md-3">
-                                <div class="small text-muted fw-bold text-uppercase tracking-wider mb-1" style="font-size: 0.65rem;">Usia / JK</div>
-                                <div class="fw-bolder text-dark">{{ $encounter->patient->age }} Th / {{ $encounter->patient->jenis_kelamin }}</div>
+                                <div class="small text-muted fw-semibold text-uppercase mb-1" style="font-size: 0.65rem; letter-spacing: 0.5px;">Usia / JK</div>
+                                <div class="fw-bold text-dark">{{ $encounter->patient->age }} Th / {{ $encounter->patient->jenis_kelamin }}</div>
                             </div>
-                            <div class="col-6 col-md-3 border-start-md">
-                                <div class="small text-muted fw-bold text-uppercase tracking-wider mb-1" style="font-size: 0.65rem;">Tensi / Nadi</div>
+                            <div class="col-6 col-md-3 border-start-md border-light">
+                                <div class="small text-muted fw-semibold text-uppercase mb-1" style="font-size: 0.65rem; letter-spacing: 0.5px;">Tensi / Nadi</div>
                                 @if($encounter->nursingAssessment)
-                                    <div class="fw-bolder text-primary font-monospace">{{ $encounter->nursingAssessment->tekanan_darah_sistolik }}/{{ $encounter->nursingAssessment->tekanan_darah_diastolik }} <small class="fw-medium text-muted">({{ $encounter->nursingAssessment->nadi }})</small></div>
+                                    <div class="fw-bold text-primary font-monospace">{{ $encounter->nursingAssessment->tekanan_darah_sistolik }}/{{ $encounter->nursingAssessment->tekanan_darah_diastolik }} <small class="fw-medium text-muted">({{ $encounter->nursingAssessment->nadi }})</small></div>
                                 @else
                                     <div class="text-muted small fst-italic">Belum diukur</div>
                                 @endif
                             </div>
-                            <div class="col-6 col-md-3 border-start-md">
-                                <div class="small text-muted fw-bold text-uppercase tracking-wider mb-1" style="font-size: 0.65rem;">Suhu / SpO2</div>
+                            <div class="col-6 col-md-3 border-start-md border-light">
+                                <div class="small text-muted fw-semibold text-uppercase mb-1" style="font-size: 0.65rem; letter-spacing: 0.5px;">Suhu / SpO2</div>
                                 @if($encounter->nursingAssessment)
-                                    <div class="fw-bolder text-warning font-monospace">{{ $encounter->nursingAssessment->suhu_tubuh }}°C <small class="fw-medium text-muted">({{ $encounter->nursingAssessment->saturasi_oksigen }}%)</small></div>
+                                    <div class="fw-bold text-warning font-monospace">{{ $encounter->nursingAssessment->suhu_tubuh }}°C <small class="fw-medium text-muted">({{ $encounter->nursingAssessment->saturasi_oksigen }}%)</small></div>
                                 @else
                                     <div class="text-muted small fst-italic">Belum diukur</div>
                                 @endif
                             </div>
-                            <div class="col-6 col-md-3 border-start-md">
-                                <div class="small text-muted fw-bold text-uppercase tracking-wider mb-1" style="font-size: 0.65rem;">Triase</div>
+                            <div class="col-6 col-md-3 border-start-md border-light">
+                                <div class="small text-muted fw-semibold text-uppercase mb-1" style="font-size: 0.65rem; letter-spacing: 0.5px;">Triase</div>
                                 @if($encounter->nursingAssessment)
                                     <span class="badge {{ match($encounter->nursingAssessment->triase) {
-                                        'merah' => 'bg-danger text-white',
-                                        'kuning' => 'bg-warning text-dark',
-                                        'hijau' => 'bg-success text-white',
-                                        'hitam' => 'bg-dark text-white',
-                                        default => 'bg-secondary text-white'
-                                    } }} px-2 py-1 rounded-pill" style="font-size: 0.65rem; letter-spacing: 0.5px;">
+                                        'merah' => 'bg-danger text-danger bg-opacity-10 border border-danger border-opacity-25',
+                                        'kuning' => 'bg-warning text-dark bg-opacity-10 border border-warning border-opacity-25',
+                                        'hijau' => 'bg-success text-success bg-opacity-10 border border-success border-opacity-25',
+                                        'hitam' => 'bg-dark text-dark bg-opacity-10 border border-dark border-opacity-25',
+                                        default => 'bg-secondary text-secondary bg-opacity-10'
+                                    } }} px-3 py-1 rounded-pill" style="font-size: 0.65rem; letter-spacing: 0.5px;">
                                         {{ strtoupper($encounter->nursingAssessment->triase) }}
                                     </span>
                                 @else
@@ -60,7 +60,7 @@
                             </div>
                         </div>
                         <div>
-                            <div class="small text-muted fw-bold text-uppercase tracking-wider mb-1" style="font-size: 0.65rem;">Keluhan Utama (Asesmen Perawat)</div>
+                            <div class="small text-muted fw-semibold text-uppercase mb-1" style="font-size: 0.65rem; letter-spacing: 0.5px;">Keluhan Utama (Asesmen Perawat)</div>
                             <p class="mb-0 text-dark fw-medium lh-sm">{{ $encounter->keluhan_awal ?: 'Tidak ada keluhan spesifik saat pendaftaran.' }}</p>
                         </div>
                     </div>
@@ -71,26 +71,26 @@
 
     <!-- Alert & Safety -->
     <div class="col-lg-4 d-flex flex-column gap-3">
-        <div class="card border-0 shadow-sm rounded-4 grow bg-white">
-            <div class="card-header bg-white border-0 pb-0 pt-3 px-4">
+        <div class="card border-0 shadow-sm rounded-4 flex-grow-1 bg-white">
+            <div class="card-header bg-white border-0 pb-0 pt-4 px-4">
                 <div class="d-flex align-items-center gap-2 text-danger">
                     <i class="fa-solid fa-triangle-exclamation"></i>
-                    <span class="fw-bold small text-uppercase tracking-wider" style="font-size: 0.7rem;">Patient Safety Alert</span>
+                    <span class="fw-bold small text-uppercase" style="font-size: 0.75rem; letter-spacing: 0.5px;">Patient Safety Alert</span>
                 </div>
             </div>
-            <div class="card-body p-4 pt-2">
+            <div class="card-body p-4 pt-3">
                 @if($encounter->patient->alergi)
-                    <div class="p-3 rounded-3 bg-danger bg-opacity-10 border border-danger border-opacity-25 mb-3">
-                        <div class="fw-bolder text-danger mb-1" style="font-size: 0.75rem; letter-spacing: 0.5px;">RIWAYAT ALERGI:</div>
-                        <div class="fw-bold text-danger">{{ $encounter->patient->alergi }}</div>
+                    <div class="p-3 rounded-4 bg-danger bg-opacity-10 border border-danger border-opacity-10 mb-3">
+                        <div class="fw-bold text-danger mb-1 text-uppercase" style="font-size: 0.7rem; letter-spacing: 0.5px;">Riwayat Alergi:</div>
+                        <div class="fw-bold text-danger small lh-sm">{{ $encounter->patient->alergi }}</div>
                     </div>
                 @else
-                    <div class="p-3 rounded-3 bg-success bg-opacity-10 border border-success border-opacity-25 mb-3 text-center">
-                        <div class="fw-bold text-success small mb-0"><i class="fa-solid fa-shield-check me-1"></i> TIDAK ADA RIWAYAT ALERGI</div>
+                    <div class="p-3 rounded-4 bg-success bg-opacity-10 border border-success border-opacity-10 mb-3 text-center">
+                        <div class="fw-bold text-success small mb-0"><i class="fa-solid fa-shield-check me-2"></i>TIDAK ADA RIWAYAT ALERGI</div>
                     </div>
                 @endif
-                <div class="p-3 rounded-3 bg-light border border-light-subtle">
-                    <div class="small fw-bold text-muted text-uppercase tracking-wider mb-2" style="font-size: 0.65rem;">Riwayat Penyakit Terakhir</div>
+                <div class="p-3 rounded-4 bg-light border border-light">
+                    <div class="small fw-semibold text-muted text-uppercase mb-2" style="font-size: 0.65rem; letter-spacing: 0.5px;">Riwayat Penyakit Terakhir</div>
                     <ul class="list-unstyled mb-0 small">
                         <li class="mb-1 d-flex gap-2 align-items-start"><i class="fa-solid fa-clock-rotate-left mt-1 text-primary opacity-50"></i><span class="fw-medium text-dark">22/05/2026: Gastritis Akut (POL-PD)</span></li>
                         <li class="d-flex gap-2 align-items-start"><i class="fa-solid fa-clock-rotate-left mt-1 text-primary opacity-50"></i><span class="fw-medium text-dark">10/04/2026: ISPA (IGD)</span></li>
@@ -106,10 +106,10 @@
     <div class="row g-4">
         <div class="col-xl-9">
             <div class="card border-0 shadow-sm rounded-4 overflow-hidden bg-white">
-                <div class="card-header bg-white border-bottom p-0">
+                <div class="card-header bg-white border-bottom border-light p-0">
                     <div class="d-flex align-items-center gap-3 p-4 pb-3">
-                        <div class="bg-primary bg-opacity-10 text-primary rounded-circle d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;">
-                            <i class="fa-solid fa-signature fs-6"></i>
+                        <div class="bg-primary bg-opacity-10 text-primary rounded-circle d-flex align-items-center justify-content-center flex-shrink-0" style="width: 44px; height: 44px;">
+                            <i class="fa-solid fa-signature fs-5"></i>
                         </div>
                         <h5 class="fw-bold mb-0 text-dark">Integrasi Catatan Perkembangan (CPPT)</h5>
                     </div>
@@ -148,22 +148,22 @@
                         <div class="tab-pane fade show active" id="tab-soap" role="tabpanel">
                             <div class="row g-4">
                                 <div class="col-md-6">
-                                    <label class="form-label text-muted fw-bold small text-uppercase tracking-wider mb-2">S (Subjective) - Keluhan & Riwayat</label>
-                                    <textarea name="keluhan_utama" class="form-control mb-3 shadow-none border-light-subtle bg-light" rows="3" placeholder="Keluhan utama saat ini..." required>{{ old('keluhan_utama', $record?->keluhan_utama ?? $encounter->keluhan_awal) }}</textarea>
-                                    <textarea name="riwayat_penyakit_sekarang" class="form-control shadow-none border-light-subtle bg-light" rows="3" placeholder="Riwayat penyakit sekarang (RPS)...">{{ old('riwayat_penyakit_sekarang', $record?->riwayat_penyakit_sekarang) }}</textarea>
+                                    <label class="form-label text-muted fw-semibold small text-uppercase mb-2" style="letter-spacing: 0.5px;">S (Subjective) - Keluhan & Riwayat</label>
+                                    <textarea name="keluhan_utama" class="form-control mb-3 bg-light border-light shadow-none focus-ring-0 rounded-3 p-3" rows="3" placeholder="Keluhan utama saat ini..." required>{{ old('keluhan_utama', $record?->keluhan_utama ?? $encounter->keluhan_awal) }}</textarea>
+                                    <textarea name="riwayat_penyakit_sekarang" class="form-control bg-light border-light shadow-none focus-ring-0 rounded-3 p-3" rows="3" placeholder="Riwayat penyakit sekarang (RPS)...">{{ old('riwayat_penyakit_sekarang', $record?->riwayat_penyakit_sekarang) }}</textarea>
                                 </div>
                                 <div class="col-md-6">
-                                    <label class="form-label text-muted fw-bold small text-uppercase tracking-wider mb-2">O (Objective) - Pemeriksaan Fisik</label>
-                                    <textarea name="pemeriksaan_fisik" class="form-control h-100 shadow-none border-light-subtle bg-light" placeholder="Hasil pemeriksaan fisik, tanda vital tambahan, dll...">{{ old('pemeriksaan_fisik', $record?->pemeriksaan_fisik) }}</textarea>
+                                    <label class="form-label text-muted fw-semibold small text-uppercase mb-2" style="letter-spacing: 0.5px;">O (Objective) - Pemeriksaan Fisik</label>
+                                    <textarea name="pemeriksaan_fisik" class="form-control h-100 bg-light border-light shadow-none focus-ring-0 rounded-3 p-3" placeholder="Hasil pemeriksaan fisik, tanda vital tambahan, dll...">{{ old('pemeriksaan_fisik', $record?->pemeriksaan_fisik) }}</textarea>
                                 </div>
-                                <div class="col-12"><hr class="border-secondary opacity-10 my-1"></div>
+                                <div class="col-12"><hr class="border-light my-2"></div>
                                 <div class="col-md-6">
-                                    <label class="form-label text-muted fw-bold small text-uppercase tracking-wider mb-2">A (Assessment) - Diagnosis</label>
-                                    <textarea name="diagnosis_kerja" class="form-control mb-3 shadow-none border-light-subtle bg-light fw-semibold" rows="2" placeholder="Diagnosis kerja / Kesimpulan klinis..." required>{{ old('diagnosis_kerja', $record?->diagnosis_kerja) }}</textarea>
+                                    <label class="form-label text-muted fw-semibold small text-uppercase mb-2" style="letter-spacing: 0.5px;">A (Assessment) - Diagnosis</label>
+                                    <textarea name="diagnosis_kerja" class="form-control mb-3 bg-light border-light shadow-none focus-ring-0 rounded-3 p-3 fw-medium" rows="2" placeholder="Diagnosis kerja / Kesimpulan klinis..." required>{{ old('diagnosis_kerja', $record?->diagnosis_kerja) }}</textarea>
                                     <div class="row g-3">
                                         <div class="col-12">
                                             <label class="form-label text-muted fw-semibold small mb-1">ICD-10 Primer (Wajib)</label>
-                                            <select name="icd10_primer" class="form-select select2-init" required>
+                                            <select name="icd10_primer" class="form-select select2-init bg-light border-light shadow-none focus-ring-0" required>
                                                 <option value="">Cari kode atau nama diagnosis...</option>
                                                 @foreach($icd10 as $code)
                                                     <option value="{{ $code->kode }}" @selected(old('icd10_primer', $record?->icd10_primer) === $code->kode)>{{ $code->kode }} - {{ $code->nama_diagnosis }}</option>
@@ -172,7 +172,7 @@
                                         </div>
                                         <div class="col-12">
                                             <label class="form-label text-muted fw-semibold small mb-1">ICD-9 Prosedur / Tindakan</label>
-                                            <select name="icd9_prosedur" class="form-select select2-init">
+                                            <select name="icd9_prosedur" class="form-select select2-init bg-light border-light shadow-none focus-ring-0">
                                                 <option value="">Cari kode atau nama prosedur...</option>
                                                 @foreach($icd9 as $code)
                                                     <option value="{{ $code->kode }}" @selected(old('icd9_prosedur', $record?->icd9_prosedur) === $code->kode)>{{ $code->kode }} - {{ $code->nama_prosedur }}</option>
@@ -182,12 +182,12 @@
                                     </div>
                                 </div>
                                 <div class="col-md-6 d-flex flex-column">
-                                    <label class="form-label text-muted fw-bold small text-uppercase tracking-wider mb-2">P (Plan) - Rencana Terapi & Tindakan</label>
-                                    <textarea name="rencana_terapi" class="form-control grow mb-3 shadow-none border-light-subtle bg-light" placeholder="Rencana pengobatan, tindakan, edukasi, dll..." required>{{ old('rencana_terapi', $record?->rencana_terapi) }}</textarea>
+                                    <label class="form-label text-muted fw-semibold small text-uppercase mb-2" style="letter-spacing: 0.5px;">P (Plan) - Rencana Terapi & Tindakan</label>
+                                    <textarea name="rencana_terapi" class="form-control flex-grow-1 mb-3 bg-light border-light shadow-none focus-ring-0 rounded-3 p-3" placeholder="Rencana pengobatan, tindakan, edukasi, dll..." required>{{ old('rencana_terapi', $record?->rencana_terapi) }}</textarea>
 
-                                    <div class="p-3 bg-primary bg-opacity-10 border border-primary border-opacity-25 rounded-3">
-                                        <label class="form-label text-primary fw-bold small text-uppercase tracking-wider mb-2">Kondisi Saat Selesai</label>
-                                        <select name="kondisi_saat_pulang" class="form-select shadow-none border-primary border-opacity-25 fw-semibold text-primary">
+                                    <div class="p-3 bg-primary bg-opacity-10 border border-primary border-opacity-10 rounded-4">
+                                        <label class="form-label text-primary fw-bold small text-uppercase mb-2" style="letter-spacing: 0.5px;">Kondisi Saat Selesai</label>
+                                        <select name="kondisi_saat_pulang" class="form-select bg-white border-0 shadow-sm focus-ring-0 fw-bold text-primary rounded-3 py-2">
                                             <option value="">Belum selesai pemeriksaan</option>
                                             @foreach(['membaik','sembuh','dirujuk','meninggal'] as $condition)
                                                 <option value="{{ $condition }}" @selected(old('kondisi_saat_pulang', $record?->kondisi_saat_pulang) === $condition)>{{ strtoupper($condition) }}</option>
@@ -200,35 +200,35 @@
 
                         <!-- Tab E-Prescription -->
                         <div class="tab-pane fade" id="tab-rx" role="tabpanel">
-                            <div class="alert alert-info bg-info bg-opacity-10 border-info border-opacity-25 d-flex align-items-center gap-3 p-3 mb-4 rounded-3">
-                                <i class="fa-solid fa-circle-info text-info fs-4"></i>
-                                <div class="small text-info fw-medium">Pilih obat dari inventori farmasi untuk pembuatan resep elektronik (e-Prescribing). Stok akan dicek oleh farmasi.</div>
+                            <div class="alert alert-info bg-info bg-opacity-10 border-0 d-flex align-items-center gap-3 p-3 mb-4 rounded-4">
+                                <i class="fa-solid fa-circle-info text-info fs-4 flex-shrink-0"></i>
+                                <div class="small text-dark fw-medium lh-sm">Pilih obat dari inventori farmasi untuk pembuatan resep elektronik (e-Prescribing). Stok akan dicek oleh unit farmasi.</div>
                             </div>
-                            <div class="table-responsive">
-                                <table class="table table-sm table-borderless align-middle">
-                                    <thead>
-                                        <tr class="small text-muted text-uppercase fw-bold" style="letter-spacing: 0.5px;">
-                                            <th style="width: 50%;" class="ps-2">Nama Obat (Inventori)</th>
-                                            <th style="width: 15%;">Jumlah</th>
-                                            <th style="width: 35%;">Aturan Pakai / Signa</th>
+                            <div class="table-responsive bg-white">
+                                <table class="table table-sm table-borderless align-middle custom-table">
+                                    <thead class="bg-light">
+                                        <tr class="small text-muted text-uppercase fw-semibold" style="letter-spacing: 0.5px;">
+                                            <th style="width: 50%;" class="ps-3 py-2 rounded-start">Nama Obat (Inventori)</th>
+                                            <th style="width: 15%;" class="py-2">Jumlah</th>
+                                            <th style="width: 35%;" class="pe-3 py-2 rounded-end">Aturan Pakai / Signa</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
+                                    <tbody class="border-top border-light">
                                         @for($i = 0; $i < 5; $i++)
-                                            <tr>
-                                                <td class="pb-3 ps-2">
-                                                    <select name="medicine_id[]" class="form-select select2-init">
+                                            <tr class="border-bottom border-light">
+                                                <td class="pb-3 pt-3 ps-3">
+                                                    <select name="medicine_id[]" class="form-select select2-init bg-light border-light shadow-none focus-ring-0">
                                                         <option value="">Pilih Obat...</option>
                                                         @foreach($medicines as $medicine)
                                                             <option value="{{ $medicine->id }}">{{ $medicine->nama_obat }} (Stok: {{ $medicine->stok }} {{ $medicine->satuan }})</option>
                                                         @endforeach
                                                     </select>
                                                 </td>
-                                                <td class="pb-3">
-                                                    <input type="number" step="0.01" name="jumlah[]" class="form-control text-center fw-bold shadow-none bg-light border-light-subtle" value="10">
+                                                <td class="pb-3 pt-3">
+                                                    <input type="number" step="0.01" name="jumlah[]" class="form-control text-center fw-bold shadow-none focus-ring-0 bg-light border-light" value="10">
                                                 </td>
-                                                <td class="pb-3">
-                                                    <input name="aturan_pakai[]" class="form-control shadow-none bg-light border-light-subtle" placeholder="Contoh: 3 x 1 tab sesudah makan">
+                                                <td class="pb-3 pt-3 pe-3">
+                                                    <input name="aturan_pakai[]" class="form-control shadow-none focus-ring-0 bg-light border-light" placeholder="Contoh: 3 x 1 tab sesudah makan">
                                                 </td>
                                             </tr>
                                         @endfor
@@ -241,55 +241,55 @@
                         <div class="tab-pane fade" id="tab-support" role="tabpanel">
                             <div class="row g-4">
                                 <div class="col-lg-6">
-                                    <div class="p-4 rounded-4 border border-light-subtle bg-light h-100 transition-hover">
+                                    <div class="p-4 rounded-4 border border-light bg-light h-100 transition-hover">
                                         <div class="d-flex align-items-center gap-3 mb-4 text-primary">
-                                            <div class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center shadow-sm" style="width: 40px; height: 40px;">
-                                                <i class="fa-solid fa-flask-vial"></i>
+                                            <div class="bg-primary text-white rounded-3 d-flex align-items-center justify-content-center shadow-sm flex-shrink-0" style="width: 44px; height: 44px;">
+                                                <i class="fa-solid fa-flask-vial fs-5"></i>
                                             </div>
                                             <h6 class="fw-bold mb-0 text-dark">Order Laboratorium Klinik</h6>
                                         </div>
                                         <div class="row g-3 mb-4">
                                             @foreach(['Darah Lengkap','Glukosa Darah Sewaktu','Fungsi Ginjal','Elektrolit','Urinalisis','HBsAg'] as $item)
                                                 <div class="col-6">
-                                                    <div class="form-check custom-check bg-white p-2 rounded-3 border shadow-sm">
-                                                        <input class="form-check-input ms-1 mt-1 shadow-none" type="checkbox" name="lab_items[]" value="{{ $item }}" id="lab-{{ $loop->index }}">
-                                                        <label class="form-check-label small fw-semibold ms-2" for="lab-{{ $loop->index }}">{{ $item }}</label>
+                                                    <div class="form-check custom-check bg-white p-2 rounded-3 border border-light shadow-sm d-flex align-items-center">
+                                                        <input class="form-check-input ms-1 shadow-none focus-ring-0" type="checkbox" name="lab_items[]" value="{{ $item }}" id="lab-{{ $loop->index }}">
+                                                        <label class="form-check-label small fw-medium ms-2 w-100 cursor-pointer" for="lab-{{ $loop->index }}">{{ $item }}</label>
                                                     </div>
                                                 </div>
                                             @endforeach
                                         </div>
-                                        <div>
-                                            <label class="small fw-bold text-muted text-uppercase tracking-wider mb-2" style="font-size: 0.65rem;">Prioritas Lab</label>
-                                            <select name="lab_prioritas" class="form-select shadow-none border-light-subtle fw-semibold">
+                                        <div class="border-top border-light pt-3">
+                                            <label class="small fw-semibold text-muted text-uppercase mb-2" style="font-size: 0.65rem; letter-spacing: 0.5px;">Prioritas Lab</label>
+                                            <select name="lab_prioritas" class="form-select shadow-none focus-ring-0 border-light fw-medium bg-white">
                                                 <option value="rutin">RUTIN</option>
-                                                <option value="cito" class="text-danger">CITO (URGENT)</option>
+                                                <option value="cito" class="text-danger fw-bold">CITO (URGENT)</option>
                                             </select>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
-                                    <div class="p-4 rounded-4 border border-light-subtle bg-light h-100 transition-hover">
+                                    <div class="p-4 rounded-4 border border-light bg-light h-100 transition-hover">
                                         <div class="d-flex align-items-center gap-3 mb-4 text-primary">
-                                            <div class="bg-info text-white rounded-circle d-flex align-items-center justify-content-center shadow-sm" style="width: 40px; height: 40px;">
-                                                <i class="fa-solid fa-x-ray"></i>
+                                            <div class="bg-info text-white rounded-3 d-flex align-items-center justify-content-center shadow-sm flex-shrink-0" style="width: 44px; height: 44px;">
+                                                <i class="fa-solid fa-x-ray fs-5"></i>
                                             </div>
                                             <h6 class="fw-bold mb-0 text-dark">Order Radiologi / Imaging</h6>
                                         </div>
                                         <div class="row g-3 mb-4">
                                             @foreach(['Thorax PA','USG Abdomen','Foto Ekstremitas','CT Scan Kepala','MRI Otak'] as $item)
                                                 <div class="col-6">
-                                                    <div class="form-check custom-check bg-white p-2 rounded-3 border shadow-sm">
-                                                        <input class="form-check-input ms-1 mt-1 shadow-none" type="checkbox" name="radiology_items[]" value="{{ $item }}" id="rad-{{ $loop->index }}">
-                                                        <label class="form-check-label small fw-semibold ms-2" for="rad-{{ $loop->index }}">{{ $item }}</label>
+                                                    <div class="form-check custom-check bg-white p-2 rounded-3 border border-light shadow-sm d-flex align-items-center">
+                                                        <input class="form-check-input ms-1 shadow-none focus-ring-0" type="checkbox" name="radiology_items[]" value="{{ $item }}" id="rad-{{ $loop->index }}">
+                                                        <label class="form-check-label small fw-medium ms-2 w-100 cursor-pointer" for="rad-{{ $loop->index }}">{{ $item }}</label>
                                                     </div>
                                                 </div>
                                             @endforeach
                                         </div>
-                                        <div>
-                                            <label class="small fw-bold text-muted text-uppercase tracking-wider mb-2" style="font-size: 0.65rem;">Prioritas Radiologi</label>
-                                            <select name="radiology_prioritas" class="form-select shadow-none border-light-subtle fw-semibold">
+                                        <div class="border-top border-light pt-3">
+                                            <label class="small fw-semibold text-muted text-uppercase mb-2" style="font-size: 0.65rem; letter-spacing: 0.5px;">Prioritas Radiologi</label>
+                                            <select name="radiology_prioritas" class="form-select shadow-none focus-ring-0 border-light fw-medium bg-white">
                                                 <option value="rutin">RUTIN</option>
-                                                <option value="cito" class="text-danger">CITO (URGENT)</option>
+                                                <option value="cito" class="text-danger fw-bold">CITO (URGENT)</option>
                                             </select>
                                         </div>
                                     </div>
@@ -299,33 +299,31 @@
 
                         <!-- Tab Pemakaian BHP -->
                         <div class="tab-pane fade" id="tab-bhp" role="tabpanel">
-                            <div class="alert alert-warning bg-warning bg-opacity-10 border-warning border-opacity-25 d-flex align-items-center gap-3 p-3 mb-4 rounded-3">
-                                <i class="fa-solid fa-box-archive text-warning fs-4"></i>
-                                <div class="small text-dark fw-medium">Catat penggunaan Barang Habis Pakai (BHP) medis selama tindakan. Stok akan otomatis berkurang dari gudang dan tagihan akan terinput ke kasir.</div>
+                            <div class="alert alert-warning bg-warning bg-opacity-10 border-0 d-flex align-items-center gap-3 p-3 mb-4 rounded-4">
+                                <i class="fa-solid fa-box-archive text-warning fs-4 flex-shrink-0"></i>
+                                <div class="small text-dark fw-medium lh-sm">Catat penggunaan Barang Habis Pakai (BHP) medis selama tindakan. Stok akan otomatis berkurang dari gudang dan tagihan akan terinput ke kasir.</div>
                             </div>
-                            <div class="table-responsive">
-                                <table class="table table-sm table-borderless align-middle">
-                                    <thead>
-                                        <tr class="small text-muted text-uppercase fw-bold" style="letter-spacing: 0.5px;">
-                                            <th style="width: 70%;" class="ps-2">Nama Alat/BHP Medis</th>
-                                            <th style="width: 30%;">Jumlah (Qty)</th>
+                            <div class="table-responsive bg-white">
+                                <table class="table table-sm table-borderless align-middle custom-table">
+                                    <thead class="bg-light">
+                                        <tr class="small text-muted text-uppercase fw-semibold" style="letter-spacing: 0.5px;">
+                                            <th style="width: 70%;" class="ps-3 py-2 rounded-start">Nama Alat/BHP Medis</th>
+                                            <th style="width: 30%;" class="pe-3 py-2 rounded-end">Jumlah (Qty)</th>
                                         </tr>
                                     </thead>
-                                    <tbody id="bhpRows">
+                                    <tbody id="bhpRows" class="border-top border-light">
                                         @for($i = 0; $i < 3; $i++)
-                                            <tr>
-                                                <td class="pb-3 ps-2">
-                                                    <select name="bhp_id[]" class="form-select select2-init">
+                                            <tr class="border-bottom border-light">
+                                                <td class="pb-3 pt-3 ps-3">
+                                                    <select name="bhp_id[]" class="form-select select2-init bg-light border-light shadow-none focus-ring-0">
                                                         <option value="">Pilih BHP...</option>
                                                         @foreach($bhps as $bhp)
                                                             <option value="{{ $bhp->id }}">{{ $bhp->nama_bhp }} (Stok: {{ $bhp->stok }} {{ $bhp->satuan }}) - Rp {{ number_format($bhp->harga_jual) }}</option>
                                                         @endforeach
                                                     </select>
                                                 </td>
-                                                <td class="pb-3">
-                                                    <div class="input-group shadow-none">
-                                                        <input type="number" name="bhp_jumlah[]" class="form-control text-center fw-bold bg-light border-light-subtle shadow-none" value="1">
-                                                    </div>
+                                                <td class="pb-3 pt-3 pe-3">
+                                                    <input type="number" name="bhp_jumlah[]" class="form-control text-center fw-bold bg-light border-light shadow-none focus-ring-0" value="1">
                                                 </td>
                                             </tr>
                                         @endfor
@@ -336,10 +334,10 @@
 
                         <!-- Tab Data Khusus Poli -->
                         <div class="tab-pane fade" id="tab-poli" role="tabpanel">
-                            <div class="p-4 bg-light rounded-4 border border-light-subtle">
+                            <div class="p-4 bg-light rounded-4 border border-light">
                                 <div class="d-flex align-items-center gap-3 mb-4">
-                                    <div class="bg-secondary text-white rounded-circle d-flex align-items-center justify-content-center shadow-sm" style="width: 40px; height: 40px;">
-                                        <i class="fa-solid fa-folder-tree"></i>
+                                    <div class="bg-secondary text-white rounded-circle d-flex align-items-center justify-content-center shadow-sm flex-shrink-0" style="width: 44px; height: 44px;">
+                                        <i class="fa-solid fa-folder-tree fs-5"></i>
                                     </div>
                                     <h6 class="fw-bold mb-0 text-dark">Data Spesifik Unit: <span class="text-primary">{{ $encounter->department->nama_depart }}</span></h6>
                                 </div>
@@ -350,52 +348,52 @@
                                     @if(str_contains($dept, 'POL-UM'))
                                         <div class="col-md-6">
                                             <div class="form-floating">
-                                                <input name="data_spesifik_poli[pekerjaan]" class="form-control shadow-none border-light-subtle" id="poliPekerjaan" value="{{ $poliData['pekerjaan'] ?? '' }}" placeholder="Status Pekerjaan">
-                                                <label for="poliPekerjaan" class="text-muted fw-semibold">Status Pekerjaan Pasien</label>
+                                                <input name="data_spesifik_poli[pekerjaan]" class="form-control shadow-none focus-ring-0 border-light bg-white" id="poliPekerjaan" value="{{ $poliData['pekerjaan'] ?? '' }}" placeholder="Status Pekerjaan">
+                                                <label for="poliPekerjaan" class="text-muted fw-semibold" style="font-size: 0.85rem;">Status Pekerjaan Pasien</label>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-floating">
-                                                <input type="number" name="data_spesifik_poli[lama_keluhan]" class="form-control shadow-none border-light-subtle fw-bold" id="poliLama" value="{{ $poliData['lama_keluhan'] ?? '' }}" placeholder="Hari">
-                                                <label for="poliLama" class="text-muted fw-semibold">Lama Keluhan (Hari)</label>
+                                                <input type="number" name="data_spesifik_poli[lama_keluhan]" class="form-control shadow-none focus-ring-0 border-light bg-white fw-bold" id="poliLama" value="{{ $poliData['lama_keluhan'] ?? '' }}" placeholder="Hari">
+                                                <label for="poliLama" class="text-muted fw-semibold" style="font-size: 0.85rem;">Lama Keluhan (Hari)</label>
                                             </div>
                                         </div>
                                     @elseif(str_contains($dept, 'POL-OBG'))
                                         <div class="col-md-3">
                                             <div class="form-floating">
-                                                <input type="text" name="data_spesifik_poli[g]" class="form-control shadow-none border-light-subtle fw-bold" id="poliG" value="{{ $poliData['g'] ?? '' }}" placeholder="G">
-                                                <label for="poliG" class="text-muted fw-semibold">G (Gravida)</label>
+                                                <input type="text" name="data_spesifik_poli[g]" class="form-control shadow-none focus-ring-0 border-light bg-white fw-bold" id="poliG" value="{{ $poliData['g'] ?? '' }}" placeholder="G">
+                                                <label for="poliG" class="text-muted fw-semibold" style="font-size: 0.85rem;">G (Gravida)</label>
                                             </div>
                                         </div>
                                         <div class="col-md-3">
                                             <div class="form-floating">
-                                                <input type="text" name="data_spesifik_poli[p]" class="form-control shadow-none border-light-subtle fw-bold" id="poliP" value="{{ $poliData['p'] ?? '' }}" placeholder="P">
-                                                <label for="poliP" class="text-muted fw-semibold">P (Para)</label>
+                                                <input type="text" name="data_spesifik_poli[p]" class="form-control shadow-none focus-ring-0 border-light bg-white fw-bold" id="poliP" value="{{ $poliData['p'] ?? '' }}" placeholder="P">
+                                                <label for="poliP" class="text-muted fw-semibold" style="font-size: 0.85rem;">P (Para)</label>
                                             </div>
                                         </div>
                                         <div class="col-md-3">
                                             <div class="form-floating">
-                                                <input type="text" name="data_spesifik_poli[a]" class="form-control shadow-none border-light-subtle fw-bold" id="poliA" value="{{ $poliData['a'] ?? '' }}" placeholder="A">
-                                                <label for="poliA" class="text-muted fw-semibold">A (Abortus)</label>
+                                                <input type="text" name="data_spesifik_poli[a]" class="form-control shadow-none focus-ring-0 border-light bg-white fw-bold" id="poliA" value="{{ $poliData['a'] ?? '' }}" placeholder="A">
+                                                <label for="poliA" class="text-muted fw-semibold" style="font-size: 0.85rem;">A (Abortus)</label>
                                             </div>
                                         </div>
                                         <div class="col-md-3">
                                             <div class="form-floating">
-                                                <input type="date" name="data_spesifik_poli[hpht]" class="form-control shadow-none border-light-subtle" id="poliHPHT" value="{{ $poliData['hpht'] ?? '' }}">
-                                                <label for="poliHPHT" class="text-muted fw-semibold">Hari Pertama Haid Terakhir (HPHT)</label>
+                                                <input type="date" name="data_spesifik_poli[hpht]" class="form-control shadow-none focus-ring-0 border-light bg-white" id="poliHPHT" value="{{ $poliData['hpht'] ?? '' }}">
+                                                <label for="poliHPHT" class="text-muted fw-semibold" style="font-size: 0.85rem;">Hari Pertama Haid Terakhir</label>
                                             </div>
                                         </div>
                                     @elseif(str_contains($dept, 'POL-ANK'))
                                         <div class="col-md-6">
                                             <div class="form-floating">
-                                                <input name="data_spesifik_poli[lingkar_kepala]" class="form-control shadow-none border-light-subtle fw-bold" id="poliLK" value="{{ $poliData['lingkar_kepala'] ?? '' }}" placeholder="cm">
-                                                <label for="poliLK" class="text-muted fw-semibold">Lingkar Kepala (cm)</label>
+                                                <input name="data_spesifik_poli[lingkar_kepala]" class="form-control shadow-none focus-ring-0 border-light bg-white fw-bold" id="poliLK" value="{{ $poliData['lingkar_kepala'] ?? '' }}" placeholder="cm">
+                                                <label for="poliLK" class="text-muted fw-semibold" style="font-size: 0.85rem;">Lingkar Kepala (cm)</label>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-floating">
-                                                <input name="data_spesifik_poli[imunisasi]" class="form-control shadow-none border-light-subtle" id="poliImunisasi" value="{{ $poliData['imunisasi'] ?? '' }}" placeholder="Imunisasi">
-                                                <label for="poliImunisasi" class="text-muted fw-semibold">Imunisasi Terakhir</label>
+                                                <input name="data_spesifik_poli[imunisasi]" class="form-control shadow-none focus-ring-0 border-light bg-white" id="poliImunisasi" value="{{ $poliData['imunisasi'] ?? '' }}" placeholder="Imunisasi">
+                                                <label for="poliImunisasi" class="text-muted fw-semibold" style="font-size: 0.85rem;">Imunisasi Terakhir</label>
                                             </div>
                                         </div>
                                     @else
@@ -417,39 +415,39 @@
 
         <!-- Sidebar Aksi & Riwayat -->
         <div class="col-xl-3">
-            <div class="card border-0 shadow-sm rounded-4 position-sticky" style="top: 90px; z-index: 10;">
-                <div class="card-body p-4 bg-light border-bottom rounded-top-4">
+            <div class="card border-0 shadow-sm rounded-4 position-sticky bg-white" style="top: 90px; z-index: 10;">
+                <div class="card-body p-4 bg-light border-bottom border-light rounded-top-4">
                     <button type="submit" class="btn btn-primary btn-lg w-100 fw-bold shadow-sm rounded-pill mb-3 transition-hover" style="background: linear-gradient(135deg, var(--simrs-primary), var(--simrs-primary-light)); border: none;">
                         <i class="fa-solid fa-signature me-2"></i>SIMPAN & T.T.
                     </button>
-                    <button type="button" class="btn btn-light w-100 fw-semibold border border-light-subtle text-muted rounded-pill shadow-sm transition-hover">
+                    <button type="button" class="btn btn-light w-100 fw-semibold border border-light text-muted rounded-pill shadow-sm transition-hover hover-bg-gray">
                         <i class="fa-solid fa-floppy-disk me-2"></i>Simpan Draft
                     </button>
                 </div>
                 <div class="card-body p-0">
-                    <div class="p-4 bg-white border-bottom">
-                        <div class="small fw-bold text-muted text-uppercase tracking-wider mb-3" style="font-size: 0.7rem;">Histori Pemeriksaan</div>
-                        <button type="button" class="btn btn-sm btn-info bg-gradient text-white w-100 fw-semibold shadow-sm mb-4 rounded-pill transition-hover" data-bs-toggle="modal" data-bs-target="#modalTrendVitals">
+                    <div class="p-4 bg-white border-bottom border-light">
+                        <div class="small fw-bold text-muted text-uppercase mb-3" style="font-size: 0.7rem; letter-spacing: 0.5px;">Histori Pemeriksaan</div>
+                        <button type="button" class="btn btn-sm btn-info bg-opacity-10 text-info w-100 fw-semibold shadow-none border-info border-opacity-25 mb-4 rounded-pill transition-hover" data-bs-toggle="modal" data-bs-target="#modalTrendVitals">
                             <i class="fa-solid fa-chart-line me-2"></i>Lihat Tren Vitals
                         </button>
                         <div class="timeline-clinical small">
                             <div class="border-start border-2 border-primary ps-3 pb-3 position-relative ms-1">
-                                <i class="fa-solid fa-circle text-primary position-absolute inset-s-0 translate-middle-x bg-white" style="font-size: 0.7rem; top: 5px;"></i>
-                                <div class="fw-bold text-dark mb-1">Hari Ini, {{ now()->format('H:i') }}</div>
-                                <div class="text-muted fw-medium">Input CPPT Medis sedang berlangsung</div>
+                                <i class="fa-solid fa-circle text-primary position-absolute start-0 translate-middle-x bg-white" style="font-size: 0.7rem; top: 5px;"></i>
+                                <div class="fw-bold text-dark mb-1 lh-sm">Hari Ini, {{ now()->format('H:i') }}</div>
+                                <div class="text-muted fw-medium lh-sm">Input CPPT Medis sedang berlangsung</div>
                             </div>
                             @forelse($encounter->prescriptions as $rx)
                                 <div class="border-start border-2 border-success ps-3 pb-3 position-relative ms-1">
-                                    <i class="fa-solid fa-circle text-success position-absolute inset-s-0 translate-middle-x bg-white" style="font-size: 0.7rem; top: 5px;"></i>
-                                    <div class="fw-bold text-dark mb-1">Resep Terbit <span class="font-monospace text-primary">({{ $rx->no_resep }})</span></div>
-                                    <div class="text-muted fw-medium">{{ $rx->details->count() }} item obat diresepkan</div>
+                                    <i class="fa-solid fa-circle text-success position-absolute start-0 translate-middle-x bg-white" style="font-size: 0.7rem; top: 5px;"></i>
+                                    <div class="fw-bold text-dark mb-1 lh-sm">Resep Terbit <span class="font-monospace text-primary">({{ $rx->no_resep }})</span></div>
+                                    <div class="text-muted fw-medium lh-sm">{{ $rx->details->count() }} item obat diresepkan</div>
                                 </div>
                             @empty
                             @endforelse
                         </div>
                     </div>
-                    <div class="p-4 bg-light rounded-bottom-4">
-                        <button type="button" class="btn btn-sm btn-outline-secondary w-100 fw-bold rounded-pill" onclick="window.history.back()">
+                    <div class="p-4 bg-light rounded-bottom-4 text-center">
+                        <button type="button" class="btn btn-sm btn-light border-light text-muted w-100 fw-bold rounded-pill transition-hover hover-bg-gray" onclick="window.history.back()">
                             <i class="fa-solid fa-arrow-left me-2"></i>Kembali ke Antrean
                         </button>
                     </div>
@@ -460,34 +458,35 @@
 </form>
 
 <style>
-    .transition-hover { transition: all 0.2s ease-in-out; }
-    .transition-hover:hover { transform: translateY(-2px); box-shadow: 0 4px 10px rgba(0,0,0,0.1) !important; }
-    .tracking-wider { letter-spacing: 0.1em; }
-    .border-start-md { border-left: 1px solid var(--simrs-gray-200); }
+    .transition-hover { transition: transform 0.2s ease, box-shadow 0.2s ease; }
+    .transition-hover:hover { transform: translateY(-2px); box-shadow: 0 4px 10px rgba(0,0,0,0.08) !important; }
+    .hover-bg-gray:hover { background-color: #f8f9fa !important; }
+    .border-start-md { border-left: 1px solid #e2e8f0; }
+    .cursor-pointer { cursor: pointer; }
 
     .custom-clinical-tabs .nav-link {
-        color: var(--simrs-gray-500);
-        font-weight: 700;
+        color: #64748b;
+        font-weight: 600;
         font-size: 0.85rem;
         transition: all 0.2s ease;
         background-color: transparent;
     }
     .custom-clinical-tabs .nav-link:hover {
-        color: var(--simrs-primary);
-        background-color: rgba(11, 100, 119, 0.05);
+        color: #3b82f6;
+        background-color: rgba(59, 130, 246, 0.05);
     }
     .custom-clinical-tabs .nav-link.active {
         background-color: white !important;
-        color: var(--simrs-primary) !important;
-        box-shadow: 0 -3px 0 0 var(--simrs-primary) inset;
+        color: #3b82f6 !important;
+        box-shadow: 0 -3px 0 0 #3b82f6 inset;
         border-radius: 0;
     }
 
     .form-floating > label { font-size: 0.85rem; padding-left: 1.25rem; }
-    .form-control:focus, .form-select:focus { border-color: var(--simrs-primary); box-shadow: 0 0 0 0.25rem rgba(11, 100, 119, 0.1) !important; }
+    .focus-ring-0:focus { box-shadow: none; border-color: #3b82f6; }
 
     @media (max-width: 767.98px) {
-        .border-start-md { border-left: none; border-top: 1px solid var(--simrs-gray-200); padding-top: 10px; }
+        .border-start-md { border-left: none; border-top: 1px solid #e2e8f0; padding-top: 10px; }
     }
 </style>
 @endsection
@@ -497,13 +496,18 @@
     <div class="modal-dialog modal-lg modal-dialog-centered">
         <div class="modal-content border-0 shadow-lg rounded-4 overflow-hidden">
             <div class="modal-header bg-info bg-gradient text-white border-0 p-4">
-                <h5 class="modal-title fw-bold d-flex align-items-center gap-2"><i class="fa-solid fa-chart-line opacity-75"></i> Tren Tanda Vital Pasien</h5>
-                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                <div class="d-flex align-items-center gap-3">
+                    <div class="bg-white bg-opacity-25 rounded-circle d-flex align-items-center justify-content-center flex-shrink-0" style="width: 40px; height: 40px;">
+                        <i class="fa-solid fa-chart-line fs-5"></i>
+                    </div>
+                    <h5 class="modal-title fw-bold text-white mb-0">Tren Tanda Vital Pasien</h5>
+                </div>
+                <button type="button" class="btn-close btn-close-white shadow-none" data-bs-dismiss="modal"></button>
             </div>
             <div class="modal-body p-4 bg-light">
-                <div class="card border-0 shadow-sm rounded-3">
+                <div class="card border-0 shadow-sm rounded-4 bg-white">
                     <div class="card-body p-4">
-                        <div style="height: 350px;">
+                        <div style="height: 350px; width: 100%;">
                             <canvas id="chartVitals"></canvas>
                         </div>
                     </div>
@@ -528,7 +532,7 @@
                         {
                             label: 'Sistolik',
                             data: [120, 130, {{ $encounter->nursingAssessment?->tekanan_darah_sistolik ?? 0 }}],
-                            borderColor: '#EF4444',
+                            borderColor: '#ef4444',
                             backgroundColor: 'rgba(239, 68, 68, 0.1)',
                             borderWidth: 3,
                             tension: 0.4,
@@ -538,7 +542,7 @@
                         {
                             label: 'Diastolik',
                             data: [80, 85, {{ $encounter->nursingAssessment?->tekanan_darah_diastolik ?? 0 }}],
-                            borderColor: '#3B82F6',
+                            borderColor: '#3b82f6',
                             backgroundColor: 'rgba(59, 130, 246, 0.1)',
                             borderWidth: 3,
                             tension: 0.4,
@@ -548,7 +552,7 @@
                         {
                             label: 'Nadi',
                             data: [88, 92, {{ $encounter->nursingAssessment?->nadi ?? 0 }}],
-                            borderColor: '#10B981',
+                            borderColor: '#10b981',
                             borderWidth: 3,
                             borderDash: [5, 5],
                             tension: 0.4,
@@ -560,10 +564,10 @@
                     responsive: true,
                     maintainAspectRatio: false,
                     plugins: {
-                        legend: { position: 'bottom', labels: { usePointStyle: true, padding: 20, font: { family: 'Plus Jakarta Sans', weight: '700' } } }
+                        legend: { position: 'bottom', labels: { usePointStyle: true, padding: 20, font: { family: 'Plus Jakarta Sans', weight: '600' } } }
                     },
                     scales: {
-                        y: { beginAtZero: false, grid: { color: 'rgba(226, 232, 240, 0.6)' }, border: { dash: [4, 4] } },
+                        y: { beginAtZero: false, grid: { color: 'rgba(0, 0, 0, 0.04)' }, border: { dash: [4, 4] } },
                         x: { grid: { display: false } }
                     },
                     interaction: { mode: 'index', intersect: false }
