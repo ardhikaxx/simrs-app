@@ -5,7 +5,7 @@
 @section('content')
 <div class="auth-shell">
     <div class="auth-panel">
-        <div class="position-absolute top-0 start-0 p-5">
+        <div class="position-absolute top-0 inset-s-0 p-5">
             <div class="brand-logo-container border border-white border-opacity-10">
                 <i class="fa-solid fa-house-chimney-medical"></i>
             </div>
@@ -30,7 +30,7 @@
             </div>
         </div>
 
-        <div class="position-absolute bottom-0 start-0 p-5">
+        <div class="position-absolute bottom-0 inset-s-0 p-5">
             <div class="small text-white-50 fw-medium">
                 <i class="fa-solid fa-shield-halved me-2 text-primary-light"></i>
                 Authorized Access Protocol Active
