@@ -28,4 +28,9 @@ class Department extends Model
     {
         return $this->hasMany(Encounter::class);
     }
+
+    public function beds(): HasMany
+    {
+        return $this->hasMany(Bed::class);
+    }
 }
